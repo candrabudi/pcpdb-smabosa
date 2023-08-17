@@ -21,6 +21,19 @@ $(function () {
   }
 });
 
+function customIndonesianPhoneFormatter(value) {
+  // Remove all non-numeric characters from the input value
+  const numericValue = value.replace(/\D/g, '');
+
+  // Remove leading '0' or '62' if present
+  let formattedValue = numericValue.replace(/^0|^62/, '');
+
+  // Format as: 0812 3456 7890
+  formattedValue = formattedValue.replace(/(\d{4})(\d{4})(\d+)/, '$1 $2 $3');
+
+  return formattedValue;
+}
+
 // Multi Steps Validation
 // --------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function (e) {
@@ -32,14 +45,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
       // Form steps
       const stepsValidationFormStep1 = stepsValidationForm.querySelector('#accountDetailsValidation');
       const stepsValidationFormStep2 = stepsValidationForm.querySelector('#personalInfoValidation');
-      const stepsValidationFormStep3 = stepsValidationForm.querySelector('#billingLinksValidation');
+      const stepsValidationFormStep3 = stepsValidationForm.querySelector('#schoolInfoValidation');
       // Multi steps next prev button
       const stepsValidationNext = [].slice.call(stepsValidationForm.querySelectorAll('.btn-next'));
       const stepsValidationPrev = [].slice.call(stepsValidationForm.querySelectorAll('.btn-prev'));
 
       const multiStepsExDate = document.querySelector('.multi-steps-exp-date'),
         multiStepsCvv = document.querySelector('.multi-steps-cvv'),
-        multiStepsMobile = document.querySelector('.multi-steps-mobile'),
+        multiStepsNisn = document.querySelector('.multi-steps-nisn'),
+        multiStepsPhoneNumber = document.querySelector('.multi-steps-phone-number'),
+        multiStepsWhatsappPhone = document.querySelector('.multi-steps-whatsapp-phone'),
+        multiStepsSchoolPhone = document.querySelector('.multi-steps-school-phone'),
         multiStepsPincode = document.querySelector('.multi-steps-pincode'),
         multiStepsCard = document.querySelector('.multi-steps-card');
 
@@ -60,11 +76,35 @@ document.addEventListener('DOMContentLoaded', function (e) {
         });
       }
 
-      // Mobile
-      if (multiStepsMobile) {
-        new Cleave(multiStepsMobile, {
+      // Nisn
+      if (multiStepsNisn) {
+        new Cleave(multiStepsNisn, {
           phone: true,
-          phoneRegionCode: 'US'
+          numeralPositiveOnly: true
+        });
+      }
+      
+      if (multiStepsPhoneNumber) {
+        new Cleave(multiStepsPhoneNumber, {
+          phone: true,
+          phoneRegionCode: 'ID',
+          numeralPositiveOnly: true
+        });
+      }
+      
+      if (multiStepsWhatsappPhone) {
+        new Cleave(multiStepsWhatsappPhone, {
+          phone: true,
+          phoneRegionCode: 'ID',
+          numeralPositiveOnly: true
+        });
+      }
+      
+      if (multiStepsSchoolPhone) {
+        new Cleave(multiStepsSchoolPhone, {
+          phone: true,
+          phoneRegionCode: 'ID',
+          numeralPositiveOnly: true
         });
       }
 
@@ -114,33 +154,40 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
-          multiStepsEmail: {
+          full_name: {
             validators: {
               notEmpty: {
-                message: 'Please enter email address'
+                message: 'Tolong Masukan Nama Lengkap'
+              },
+            }
+          },
+          user_email: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Email'
               },
               emailAddress: {
-                message: 'The value is not a valid email address'
+                message: 'nilainya bukan alamat email yang valid'
               }
             }
           },
-          multiStepsPass: {
+          user_password: {
             validators: {
               notEmpty: {
-                message: 'Please enter password'
+                message: 'Tolong Masukan Password'
               }
             }
           },
-          multiStepsConfirmPass: {
+          user_confirm_password: {
             validators: {
               notEmpty: {
-                message: 'Confirm Password is required'
+                message: 'Tolong Konfirmasi Password'
               },
               identical: {
                 compare: function () {
-                  return stepsValidationFormStep1.querySelector('[name="multiStepsPass"]').value;
+                  return stepsValidationFormStep1.querySelector('[name="user_password"]').value;
                 },
-                message: 'The password and its confirm are not the same'
+                message: 'Password Yang Kamu Masukan Tidak Sama'
               }
             }
           }
@@ -171,17 +218,52 @@ document.addEventListener('DOMContentLoaded', function (e) {
       // Personal info
       const multiSteps2 = FormValidation.formValidation(stepsValidationFormStep2, {
         fields: {
-          multiStepsFirstName: {
+          user_gender: {
             validators: {
               notEmpty: {
-                message: 'Please enter first name'
+                message: 'Tolong Masukan Jenis Kelamin'
               }
             }
           },
-          multiStepsAddress: {
+          user_address: {
             validators: {
               notEmpty: {
-                message: 'Please enter your address'
+                message: 'Tolong Masukan Alamat'
+              }
+            }
+          },
+          user_birth_place: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Tempat Lahir'
+              }
+            }
+          },
+          user_birth_date: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Tanggal Lahir'
+              }
+            }
+          },
+          user_phone_number: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Nomor Handphone'
+              }
+            }
+          },
+          user_whatsapp_phone: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Nomor Whatsapp'
+              }
+            }
+          },
+          user_religion: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong Masukan Agama'
               }
             }
           }
@@ -253,11 +335,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
           });
         }
       }).on('core.form.valid', function () {
-        // You can submit the form
-        // stepsValidationForm.submit()
-        // or send the form data to server via an Ajax request
-        // To make the demo simple, I just placed an alert
-        alert('Submitted..!!');
+        // // You can submit the form
+        // // stepsValidationForm.submit()
+        // // or send the form data to server via an Ajax request
+        // // To make the demo simple, I just placed an alert
+        // alert('Submitted..!!');
       });
 
       stepsValidationNext.forEach(item => {
