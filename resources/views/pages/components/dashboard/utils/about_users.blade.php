@@ -15,7 +15,7 @@
                 <span>Siswa</span>
             </li>
         </ul>
-        <small class="card-text text-uppercase">Contacts</small>
+        <small class="card-text text-uppercase">KONTAK SISWA</small>
         <ul class="list-unstyled mb-4 mt-3">
             <li class="d-flex align-items-center mb-3">
                 <i class="ti ti-phone-call"></i><span class="fw-bold mx-2">Nomor Handphone:</span>
@@ -33,17 +33,21 @@
         <small class="card-text text-uppercase">Asal Sekolah</small>
         <ul class="list-unstyled mb-0 mt-3">
             <li class="d-flex align-items-center mb-3">
-                <i class="ti ti-brand-angular text-danger me-2"></i>
+                <i class="ti ti-school text-danger me-2"></i>
                 <div class="d-flex flex-wrap">
-                    <span class="fw-bold me-2">Backend Developer</span><span>(126
-                        Members)</span>
+                    <span class="fw-bold me-2">{{$student_school->school_name ?? ''}}</span>
+                </div>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+                <i class="ti ti-map-pin text-info me-2"></i>
+                <div class="d-flex flex-wrap">
+                    <span class="fw-bold me-2">{{$student_school->school_address ?? ''}}</span>
                 </div>
             </li>
             <li class="d-flex align-items-center">
-                <i class="ti ti-brand-react-native text-info me-2"></i>
+                <i class="ti ti-phone-call text-warning me-2"></i>
                 <div class="d-flex flex-wrap">
-                    <span class="fw-bold me-2">React Developer</span><span>(98
-                        Members)</span>
+                    <span class="fw-bold me-2">{{$student_school->school_phone ?? ''}}</span>
                 </div>
             </li>
         </ul>

@@ -7,6 +7,7 @@ use App\Models\StudentSchool;
 use Illuminate\Http\Request;
 use Auth;
 use Alert;
+use App\Models\StudentDocument;
 use App\Models\StudentParent;
 use App\Models\StudentPresence;
 use App\Models\StudentScore;
@@ -36,9 +37,21 @@ class HomeController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)
             ->first();
+        $student_school = StudentSchool::where('user_id', $user->id)
+            ->first();
+        $student_parents = StudentParent::where('user_id', $user->id)
+            ->get();
+        $student_scores = StudentScore::where('user_id', $user->id)
+            ->get();
+        $student_presences = StudentPresence::where('user_id', $user->id)
+            ->get();
         return view('pages.dashboard', compact(
             'user',
-            'student'
+            'student', 
+            'student_parents',
+            'student_scores',
+            'student_school',
+            'student_presences'
         ));
     }
 
@@ -518,32 +531,70 @@ class HomeController extends Controller
 
     public function createUpdateDocument(Request $request)
     {
-        $rules = [
-            'sd_certificate' => 'required',
-            'smp_certificate' => 'required',
-            'birth_certificate' => 'required',
-            'family_card' => 'required',
-            'pas_photo' => 'required',
-            'signature' => 'required',
-        ];
-    
-        $validator = Validator::make($request->all(), $rules);
-    
-        if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator->errors());
-        }
         try{
-        
+            
+            $path_sd_certificate = "";
+            $path_smp_certificate = "";
+            $path_birth_certificate = "";
+            $path_family_card = "";
+            $path_pas_photo = "";
+            $path_signature = "";
             if ($request->hasFile('sd_certificate')) {
                 $uploadedFile = $request->file('sd_certificate');
                 $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
-                $path = $uploadedFile->storeAs('sd_certificate', $customFileName, 'public');
-            }else{
-                return "kodok";
+                $path_sd_certificate = $uploadedFile->storeAs('sd_certificate', $customFileName, 'public');
             }
+            if ($request->hasFile('smp_certificate')) {
+                $uploadedFile = $request->file('smp_certificate');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path_smp_certificate = $uploadedFile->storeAs('smp_certificate', $customFileName, 'public');
+            }
+            if ($request->hasFile('birth_certificate')) {
+                $uploadedFile = $request->file('birth_certificate');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path_birth_certificate = $uploadedFile->storeAs('birth_certificate', $customFileName, 'public');
+            }
+            if ($request->hasFile('family_card')) {
+                $uploadedFile = $request->file('family_card');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path_family_card = $uploadedFile->storeAs('family_card', $customFileName, 'public');
+            }
+            if ($request->hasFile('pas_photo')) {
+                $uploadedFile = $request->file('pas_photo');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path_pas_photo = $uploadedFile->storeAs('pas_photo', $customFileName, 'public');
+            }
+            if ($request->hasFile('signature')) {
+                $uploadedFile = $request->file('signature');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path_signature = $uploadedFile->storeAs('signature', $customFileName, 'public');
+            }
+
+            $check = StudentDocument::where('user_id', Auth::user()->id)
+                ->first();
+            if($check){
+                $check->sd_certificate = $path_sd_certificate ?? $check->sd_certificate;
+                $check->smp_certificate = $path_smp_certificate ?? $check->smp_certificate;
+                $check->birth_certificate = $path_birth_certificate ?? $check->birth_certificate;
+                $check->family_card = $path_family_card ?? $check->family_card;
+                $check->pas_photo = $path_pas_photo ?? $check->pas_photo;
+                $check->signature = $path_signature ?? $check->signature;
+                $check->save();
+            }else{
+                $document = new StudentDocument();
+                $document->user_id = Auth::user()->id;
+                $document->sd_certificate = $path_sd_certificate;
+                $document->smp_certificate = $path_smp_certificate;
+                $document->birth_certificate = $path_birth_certificate;
+                $document->family_card = $path_family_card;
+                $document->pas_photo = $path_pas_photo;
+                $document->signature = $path_signature;
+                $document->save();
+            }
+            DB::commit();
+            Alert::success('Yay!', 'Berhasil Merubah data Dokumen.');
+
+            return redirect()->back();
         }catch(\Exception $e){
             return $e->getMessage();
         }

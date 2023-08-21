@@ -2,7 +2,7 @@
     <div class="container-xxl d-flex h-100">
         <ul class="menu-inner">
             <li class="menu-item">
-                <a href="/" class="menu-link">
+                <a href="/home" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-smart-home"></i>
                     <div data-i18n="Dashboards">Dashboards</div>
                 </a>

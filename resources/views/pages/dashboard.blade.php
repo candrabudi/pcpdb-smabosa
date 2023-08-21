@@ -11,21 +11,18 @@
         Mohon lengkapi data diri anda untuk mempercepat proses PCPDB
     </div>
     @include('pages.components.dashboard.header')
-    <!-- @include('pages.components.dashboard.navbar_pills') -->
     <div class="row">
         <div class="col-xl-4 col-lg-5 col-md-5">
             @include('pages.components.dashboard.utils.about_users')
+            @if($student_scores)
             @include('pages.components.dashboard.utils.profile_overview')
+            @endif
         </div>
-        <div class="col-xl-8 col-lg-7 col-md-7">
-            <div class="card card-action mb-4">
-                <div class="card-header align-items-center">
-                    <h5 class="card-action-title mb-0">Activity Timeline</h5>
-                    <div class="card-action-element">
-
-                    </div>
-                </div>
-            </div>
+        <div class="col-xl-4 col-lg-5 col-md-5">
+        @include('pages.components.dashboard.utils.about_parent')
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5">
+        @include('pages.components.dashboard.utils.student_presence')
         </div>
     </div>
 </div>

@@ -14,11 +14,11 @@
                             <h4>{{$user->full_name}}</h4>
                             <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                 <li class="list-inline-item"><i class="ti ti-calendar"></i>
-                                    Joined April 2021</li>
+                                    Bergabung pada {{ \Carbon\Carbon::parse($user->created_at)->formatLocalized('%d %B %Y') }}</li>
                             </ul>
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-primary">
-                            <i class="ti ti-user-check me-1"></i>Connected
+                        <a href="{{route('account_setting')}}" class="btn btn-primary">
+                            <i class="ti ti-gear me-1"></i>Pengaturan Akun
                         </a>
                     </div>
                 </div>

@@ -134,7 +134,7 @@ class AuthController extends Controller
         }catch(\Exception $e){
             return redirect()->back()
             ->withInput()
-            ->withErrors(['error' => 'Maaf ada gangguan internal']);
+            ->withErrors(['error' => 'Maaf ada gangguan internal'.$e->getMessage()]);
         }
     }
 }

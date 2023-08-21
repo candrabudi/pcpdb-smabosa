@@ -22,7 +22,7 @@ Route::post('/student/register', [AuthController::class, 'studentRegister'])->na
 Route::post('/student/login', [AuthController::class, 'studentLogin'])->name('student.login');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::get('/pengaturan-akun', [App\Http\Controllers\HomeController::class, 'accountSetting'])->name('account_setting');
 Route::get('/pengaturan-orang-tua', [App\Http\Controllers\HomeController::class, 'pageParent'])->name('page_parent');
 Route::get('/pengaturan-absensi', [App\Http\Controllers\HomeController::class, 'pagePresence'])->name('page_presence');
