@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.register');
 });
 
 Route::post('/student/register', [AuthController::class, 'studentRegister'])->name('student.register');
@@ -28,6 +28,7 @@ Route::get('/pengaturan-orang-tua', [App\Http\Controllers\HomeController::class,
 Route::get('/pengaturan-absensi', [App\Http\Controllers\HomeController::class, 'pagePresence'])->name('page_presence');
 Route::get('/pengaturan-nilai', [App\Http\Controllers\HomeController::class, 'pageScore'])->name('page_score');
 Route::get('/pengaturan-dokumen', [App\Http\Controllers\HomeController::class, 'pageDocument'])->name('page_document');
+Route::post('/pengaturan-dokumen/create-update', [App\Http\Controllers\HomeController::class, 'createUpdateDocument'])->name('create_update_document');
 Route::post('/pengaturan-absensi/store-score', [App\Http\Controllers\HomeController::class, 'createOrUpdateScore'])->name('create_update_score');
 Route::post('/pengaturan-absensi/store-seven', [App\Http\Controllers\HomeController::class, 'storePresenceSeven'])->name('store_presence_seven');
 Route::post('/pengaturan-absensi/store-eight', [App\Http\Controllers\HomeController::class, 'storePresenceEight'])->name('store_presence_eight');

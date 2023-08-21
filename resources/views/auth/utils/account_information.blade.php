@@ -43,5 +43,6 @@
                 <i class="ti ti-arrow-right ti-xs"></i>
             </a>
         </div>
+        <a href="{{route('login')}}" class="text-primary">Sudah punya akun ?</a>
     </div>
 </div>

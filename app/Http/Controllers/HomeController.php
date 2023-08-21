@@ -519,9 +519,12 @@ class HomeController extends Controller
     public function createUpdateDocument(Request $request)
     {
         $rules = [
-            'first_semester' => 'required',
-            'second_semester' => 'required',
-            'type_class' => 'required',
+            'sd_certificate' => 'required',
+            'smp_certificate' => 'required',
+            'birth_certificate' => 'required',
+            'family_card' => 'required',
+            'pas_photo' => 'required',
+            'signature' => 'required',
         ];
     
         $validator = Validator::make($request->all(), $rules);
@@ -533,17 +536,16 @@ class HomeController extends Controller
                 ->withErrors($validator->errors());
         }
         try{
-            $request->validate([
-                'sd_certificate' => 'required|file|mimes:jpeg,png,pdf|max:2048', // Adjust the file types and size as needed
-            ]);
         
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('uploads', $fileName, 'public');
+            if ($request->hasFile('sd_certificate')) {
+                $uploadedFile = $request->file('sd_certificate');
+                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $path = $uploadedFile->storeAs('sd_certificate', $customFileName, 'public');
+            }else{
+                return "kodok";
             }
         }catch(\Exception $e){
-
+            return $e->getMessage();
         }
     }
 }
