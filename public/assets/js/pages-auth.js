@@ -25,10 +25,21 @@ document.addEventListener('DOMContentLoaded', function (e) {
           email: {
             validators: {
               notEmpty: {
-                message: 'Please enter your email'
+                message: 'Tolong Masukan Email'
               },
               emailAddress: {
-                message: 'Please enter valid email address'
+                message: 'Email yang kamu masukan tidak benar'
+              }
+            }
+          },
+          nisn: {
+            validators: {
+              notEmpty: {
+                message: 'Tolong masukan NISN'
+              },
+              stringLength: {
+                min: 10,
+                message: 'Nisn yang kamu masukan tidak sesuai standar'
               }
             }
           },
@@ -46,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
           password: {
             validators: {
               notEmpty: {
-                message: 'Please enter your password'
+                message: 'Tolong masukan kata sandi'
               },
               stringLength: {
                 min: 6,
-                message: 'Password must be more than 6 characters'
+                message: 'Kata sandi minimal 6 karakter atau lebih'
               }
             }
           },

@@ -67,11 +67,6 @@
                         @include('auth.utils.steper_header')
                         
                         <div class="bs-stepper-content">
-                        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
                             <form id="multiStepsForm" action="{{route('student.register')}}" method="POST">
                                 @csrf
                                 @include('auth.utils.account_information')

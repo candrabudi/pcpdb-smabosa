@@ -8,6 +8,7 @@
   // Flat Picker
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
+    flatpickrDate2 = document.querySelector('#flatpickr-date2'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -19,6 +20,11 @@
   // Date
   if (flatpickrDate) {
     flatpickrDate.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }  
+  if (flatpickrDate2) {
+    flatpickrDate2.flatpickr({
       monthSelectorType: 'static'
     });
   }

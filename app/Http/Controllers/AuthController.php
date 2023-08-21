@@ -10,6 +10,7 @@ use App\Models\User;
 use Validator;
 use DB;
 use Alert;
+use Auth;
 class AuthController extends Controller
 {
     public function studentRegister(Request $request)
@@ -76,5 +77,64 @@ class AuthController extends Controller
                 ->withInput();
         }
 
+    }
+
+    public function studentLogin(Request $request)
+    {
+        try{
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email', 
+                'password' => 'required', 
+                'nisn' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors($validator->errors());
+            }
+
+            $check_user = User::where('email', $request->email)
+                ->join('students', 'students.user_id', '=', 'users.id')
+                ->where('role_name', 'Student')
+                ->first();
+            if(!$check_user){
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors([
+                        'error' => 'Maaf akun yang kamu masukan tidak ada di data.'
+                    ]);
+            }
+
+            if($check_user->nisn != $request->nisn){
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors([
+                        'error' => 'Maaf NISN yang kamu masukan salah.'
+                    ]);
+            }
+
+            $credentials = [
+                'email' => $request->email,
+                'password' => $request->password
+            ];
+    
+            if(Auth::attempt($credentials))
+            {
+                $request->session()->regenerate();
+                return redirect()->route('dashboard')
+                    ->withSuccess('You have successfully logged in!');
+            }
+    
+            return back()->withErrors([
+                'password' => 'Maaf password yang kamu masukan salah.',
+            ]);
+
+        }catch(\Exception $e){
+            return redirect()->back()
+            ->withInput()
+            ->withErrors(['error' => 'Maaf ada gangguan internal']);
+        }
     }
 }
