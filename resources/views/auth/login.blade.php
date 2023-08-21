@@ -87,6 +87,7 @@
                             </div>
                         </div>
                         <button class="btn btn-primary d-grid w-100">Masuk</button>
+                        <a href="{{route('register')}}" class="text-primary mt-3">Belum punya akun ?</a>
                     </form>
 
                 </div>
