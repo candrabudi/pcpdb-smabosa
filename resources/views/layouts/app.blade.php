@@ -19,20 +19,14 @@
 
 <body>
 @include('sweetalert::alert')
-    <!-- Layout wrapper -->
     <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
         <div class="layout-container">
             @include('layouts.components.navbar')
-
             <div class="layout-page">
                 <div class="content-wrapper">
-                    <!-- Menu -->
                     @include('layouts.components.layout_menu')
 
                     @yield('content');
-                    <!--/ Content -->
-
-                    <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl">
                             <div
@@ -48,18 +42,11 @@
                             </div>
                         </div>
                     </footer>
-                    <!-- / Footer -->
-
                     <div class="content-backdrop fade"></div>
                 </div>
-                <!--/ Content wrapper -->
             </div>
-
-            <!--/ Layout container -->
         </div>
     </div>
-
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
     <div class="drag-target"></div>
