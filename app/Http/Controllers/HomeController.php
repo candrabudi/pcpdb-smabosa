@@ -47,13 +47,16 @@ class HomeController extends Controller
             ->get();
         $student_presences = StudentPresence::where('user_id', $user->id)
             ->get();
+        $student_document = StudentDocument::where('user_id', $user->id)
+            ->first();
         return view('pages.dashboard', compact(
             'user',
-            'student', 
+            'student',
             'student_parents',
             'student_scores',
             'student_school',
-            'student_presences'
+            'student_presences',
+            'student_document'
         ));
     }
 
@@ -65,7 +68,7 @@ class HomeController extends Controller
             ->first();
         $student_school = StudentSchool::where('user_id', $user->id)
             ->first();
-        return view('pages.account_setting',compact(
+        return view('pages.account_setting', compact(
             'user',
             'student',
             'student_school',
@@ -76,7 +79,7 @@ class HomeController extends Controller
     public function updateProfile(Request $request)
     {
         DB::beginTransaction();
-        try{
+        try {
             $user = Auth::user();
             $student = Student::where('user_id', $user->id)
                 ->first();
@@ -98,7 +101,7 @@ class HomeController extends Controller
             DB::commit();
             Alert::success('Berhasil', 'Merubah Data Diri');
             return redirect()->back();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             Alert::error('failed', 'Ada Kesalahan Internal.');
             return redirect()->back();
@@ -108,7 +111,7 @@ class HomeController extends Controller
     public function updateSchoolOrigin(Request $request)
     {
         DB::beginTransaction();
-        try{
+        try {
             $user = Auth::user();
             $student = StudentSchool::where('user_id', $user->id)
                 ->first();
@@ -121,7 +124,7 @@ class HomeController extends Controller
             DB::commit();
             Alert::success('Berhasil', 'Merubah Data Asal Sekolah');
             return redirect()->back();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             Alert::error('failed', 'Ada Kesalahan Internal.');
             return redirect()->back();
@@ -134,12 +137,14 @@ class HomeController extends Controller
         $student_father = StudentParent::where('user_id', Auth::user()->id)
             ->where('type_parent', 'Ayah')
             ->first();
-            
+
         $student_mother = StudentParent::where('user_id', Auth::user()->id)
             ->where('type_parent', 'Ibu')
             ->first();
         return view('pages.parent_setting', compact(
-            'student_father', 'student_mother', 'page'
+            'student_father',
+            'student_mother',
+            'page'
         ));
     }
 
@@ -151,24 +156,24 @@ class HomeController extends Controller
             'f_birth_date' => 'required',
             'f_education' => 'required',
             'f_religion' => 'required',
-            'f_profession' => 'required', 
+            'f_profession' => 'required',
             'f_income' => 'required',
             'f_whatsapp_phone' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
             Alert::error('Yah', 'Mohon check kembali inputan kamu.');
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $fatherData = [
                 'parent_name' => $request->f_parent_name,
                 'birth_place' => $request->f_birth_place,
@@ -179,11 +184,11 @@ class HomeController extends Controller
                 'income' => $request->f_income,
                 'whatsapp_phone' => $request->f_whatsapp_phone,
             ];
-    
+
             $check = StudentParent::where('user_id', $user_id)
                 ->where('type_parent', 'Ayah')
                 ->first();
-    
+
             if ($check) {
                 $check->update($fatherData);
             } else {
@@ -191,10 +196,10 @@ class HomeController extends Controller
                     'user_id' => $user_id,
                     'type_parent' => 'Ayah',
                 ]);
-    
+
                 StudentParent::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data ayah.');
         } catch (\Exception $e) {
@@ -213,24 +218,24 @@ class HomeController extends Controller
             'm_birth_date' => 'required',
             'm_education' => 'required',
             'm_religion' => 'required',
-            'm_profession' => 'required', 
+            'm_profession' => 'required',
             'm_income' => 'required',
             'm_whatsapp_phone' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
+            Alert::error('Yah', 'Mohon check kembali inputan kamu.' . $validator->errors());
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $fatherData = [
                 'parent_name' => $request->m_parent_name,
                 'birth_place' => $request->m_birth_place,
@@ -241,11 +246,11 @@ class HomeController extends Controller
                 'income' => $request->m_income,
                 'whatsapp_phone' => $request->m_whatsapp_phone,
             ];
-    
+
             $check = StudentParent::where('user_id', $user_id)
                 ->where('type_parent', 'Ibu')
                 ->first();
-    
+
             if ($check) {
                 $check->update($fatherData);
             } else {
@@ -255,12 +260,12 @@ class HomeController extends Controller
                 ]);
                 StudentParent::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data ibu.');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.'. $e->getMessage());
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }
 
         return redirect()->back();
@@ -279,7 +284,10 @@ class HomeController extends Controller
             ->where('type_class', 'nine')
             ->first();
         return view('pages.presence_setting', compact(
-            'page', 'student_seven', 'student_eight', 'student_nine'
+            'page',
+            'student_seven',
+            'student_eight',
+            'student_nine'
         ));
     }
 
@@ -293,20 +301,20 @@ class HomeController extends Controller
             's_permission_two' => 'required',
             's_alpa_two' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
+            Alert::error('Yah', 'Mohon check kembali inputan kamu.' . $validator->errors());
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $fatherData = [
                 'sick_one' => $request->s_sick_one,
                 'permission_one' => $request->s_permission_one,
@@ -315,11 +323,11 @@ class HomeController extends Controller
                 'permission_two' => $request->s_permission_two,
                 'alpa_two' => $request->s_alpa_two,
             ];
-    
+
             $check = StudentPresence::where('user_id', $user_id)
                 ->where('type_class', 'seven')
                 ->first();
-    
+
             if ($check) {
                 $check->update($fatherData);
             } else {
@@ -329,12 +337,12 @@ class HomeController extends Controller
                 ]);
                 StudentPresence::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data absensi kelas 7.');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.'. $e->getMessage());
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }
 
         return redirect()->back();
@@ -350,20 +358,20 @@ class HomeController extends Controller
             'e_permission_two' => 'required',
             'e_alpa_two' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
+            Alert::error('Yah', 'Mohon check kembali inputan kamu.' . $validator->errors());
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $fatherData = [
                 'sick_one' => $request->e_sick_one,
                 'permission_one' => $request->e_permission_one,
@@ -372,11 +380,11 @@ class HomeController extends Controller
                 'permission_two' => $request->e_permission_two,
                 'alpa_two' => $request->e_alpa_two,
             ];
-    
+
             $check = StudentPresence::where('user_id', $user_id)
                 ->where('type_class', 'eight')
                 ->first();
-    
+
             if ($check) {
                 $check->update($fatherData);
             } else {
@@ -386,12 +394,12 @@ class HomeController extends Controller
                 ]);
                 StudentPresence::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data absensi kelas 8.');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.'. $e->getMessage());
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }
 
         return redirect()->back();
@@ -407,20 +415,20 @@ class HomeController extends Controller
             'n_permission_two' => 'required',
             'n_alpa_two' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
+            Alert::error('Yah', 'Mohon check kembali inputan kamu.' . $validator->errors());
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $fatherData = [
                 'sick_one' => $request->n_sick_one,
                 'permission_one' => $request->n_permission_one,
@@ -429,11 +437,11 @@ class HomeController extends Controller
                 'permission_two' => $request->n_permission_two,
                 'alpa_two' => $request->n_alpa_two,
             ];
-    
+
             $check = StudentPresence::where('user_id', $user_id)
                 ->where('type_class', 'nine')
                 ->first();
-    
+
             if ($check) {
                 $check->update($fatherData);
             } else {
@@ -443,12 +451,12 @@ class HomeController extends Controller
                 ]);
                 StudentPresence::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data absensi kelas 9.');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.'. $e->getMessage());
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }
 
         return redirect()->back();
@@ -468,40 +476,44 @@ class HomeController extends Controller
             ->first();
 
         return view('pages.score_setting', compact(
-            'page', 'student_seven', 'student_eight', 'student_nine'
+            'page',
+            'student_seven',
+            'student_eight',
+            'student_nine'
         ));
     }
 
-    public function createOrUpdateScore(Request $request){
+    public function createOrUpdateScore(Request $request)
+    {
         $rules = [
             'first_semester' => 'required',
             'second_semester' => 'required',
             'type_class' => 'required',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.'. $validator->errors());
+            Alert::error('Yah', 'Mohon check kembali inputan kamu.' . $validator->errors());
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator->errors());
         }
-    
+
         DB::beginTransaction();
         try {
             $user_id = Auth::user()->id;
-    
+
             $data_score = [
                 'first_semester' => $request->first_semester,
                 'second_semester' => $request->second_semester,
                 'type_class' => $request->type_class,
             ];
-    
+
             $check = StudentScore::where('user_id', $user_id)
                 ->where('type_class', $request->type_class)
                 ->first();
-    
+
             if ($check) {
                 $check->update($data_score);
             } else {
@@ -511,12 +523,12 @@ class HomeController extends Controller
                 ]);
                 StudentScore::create($storeData);
             }
-    
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data nilai.');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.'. $e->getMessage());
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }
 
         return redirect()->back();
@@ -533,72 +545,49 @@ class HomeController extends Controller
 
     public function createUpdateDocument(Request $request)
     {
-        try{
-            $lowercase = strtolower(Auth::user()->full_name);
-            $user_name = str_replace(' ','_', $lowercase);
-            $path_sd_certificate = "";
-            $path_smp_certificate = "";
-            $path_birth_certificate = "";
-            $path_family_card = "";
-            $path_pas_photo = "";
-            $path_signature = "";
-            if ($request->hasFile('sd_certificate')) {
-                $uploadedFile = $request->file('sd_certificate');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_sd_certificate = $uploadedFile->storeAs('sd_certificate', $customFileName, 'public');
-            }
-            if ($request->hasFile('smp_certificate')) {
-                $uploadedFile = $request->file('smp_certificate');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_smp_certificate = $uploadedFile->storeAs('smp_certificate', $customFileName, 'public');
-            }
-            if ($request->hasFile('birth_certificate')) {
-                $uploadedFile = $request->file('birth_certificate');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_birth_certificate = $uploadedFile->storeAs('birth_certificate', $customFileName, 'public');
-            }
-            if ($request->hasFile('family_card')) {
-                $uploadedFile = $request->file('family_card');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_family_card = $uploadedFile->storeAs('family_card', $customFileName, 'public');
-            }
-            if ($request->hasFile('pas_photo')) {
-                $uploadedFile = $request->file('pas_photo');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_pas_photo = $uploadedFile->storeAs('pas_photo', $customFileName, 'public');
-            }
-            if ($request->hasFile('signature')) {
-                $uploadedFile = $request->file('signature');
-                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
-                $path_signature = $uploadedFile->storeAs('signature', $customFileName, 'public');
+        try {
+            $user = Auth::user();
+            $user_name = str_replace(' ', '_', strtolower($user->full_name));
+
+            $documentFields = ['sd_certificate', 'smp_certificate', 'birth_certificate', 'family_card', 'pas_photo', 'signature'];
+            $documentPaths = [];
+
+            foreach ($documentFields as $field) {
+                if ($request->hasFile($field)) {
+                    $uploadedFile = $request->file($field);
+                    $customFileName = $user_name.'_'. $field . '.' . $uploadedFile->getClientOriginalExtension();
+                    $documentPaths[$field] = $uploadedFile->storeAs($field, $customFileName, 'public');
+                }
             }
 
-            $check = StudentDocument::where('user_id', Auth::user()->id)
-                ->first();
-            if($check){
-                $check->sd_certificate = $path_sd_certificate ?? $check->sd_certificate;
-                $check->smp_certificate = $path_smp_certificate ?? $check->smp_certificate;
-                $check->birth_certificate = $path_birth_certificate ?? $check->birth_certificate;
-                $check->family_card = $path_family_card ?? $check->family_card;
-                $check->pas_photo = $path_pas_photo ?? $check->pas_photo;
-                $check->signature = $path_signature ?? $check->signature;
+            $check = StudentDocument::where('user_id', $user->id)->first();
+
+            if ($check) {
+                // return $documentPaths['pas_photo'];
+                foreach ($documentFields as $field) {
+                    if (isset($documentPaths[$field])) {
+                        $check->{$field} = $documentPaths[$field] ?? $check->{$field};
+                    }
+                }
                 $check->save();
-            }else{
-                $document = new StudentDocument();
-                $document->user_id = Auth::user()->id;
-                $document->sd_certificate = $path_sd_certificate;
-                $document->smp_certificate = $path_smp_certificate;
-                $document->birth_certificate = $path_birth_certificate;
-                $document->family_card = $path_family_card;
-                $document->pas_photo = $path_pas_photo;
-                $document->signature = $path_signature;
+            } else {
+                $document = new StudentDocument([
+                    'user_id' => $user->id,
+                    'sd_certificate' => $documentPaths['sd_certificate'] ?? '',
+                    'smp_certificate' => $documentPaths['smp_certificate'] ?? '',
+                    'birth_certificate' => $documentPaths['birth_certificate'] ?? '',
+                    'family_card' => $documentPaths['family_card'] ?? '',
+                    'pas_photo' => $documentPaths['pas_photo'] ?? '',
+                    'signature' => $documentPaths['signature'] ?? '',
+                ]);
                 $document->save();
             }
+
             DB::commit();
             Alert::success('Yay!', 'Berhasil Merubah data Dokumen.');
 
             return redirect()->back();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
@@ -612,14 +601,14 @@ class HomeController extends Controller
             'email_siswa' => $user->email,
             'siswa' => Student::where('user_id', $user->id)->first(),
             'sekolah' => StudentSchool::where('user_id', $user->id)->first(),
-            'nilai_kelas_tujuh' => StudentScore::where('user_id', $user->id)->where('type_class','seven')->first(),
-            'nilai_kelas_delapan' => StudentScore::where('user_id', $user->id)->where('type_class','eight')->first(),
-            'nilai_kelas_sembilan' => StudentScore::where('user_id', $user->id)->where('type_class','nine')->first(),
-            'absen_tujuh' => StudentPresence::where('user_id', $user->id)->where('type_class','seven')->first(),
-            'absen_delapan' => StudentPresence::where('user_id', $user->id)->where('type_class','eight')->first(),
-            'absen_sembilan' => StudentPresence::where('user_id', $user->id)->where('type_class','nine')->first(),
-            'ayah' => StudentParent::where('user_id', $user->id)->where('type_parent','Ayah')->first(),
-            'ibu' => StudentParent::where('user_id', $user->id)->where('type_parent','Ibu')->first(),
+            'nilai_kelas_tujuh' => StudentScore::where('user_id', $user->id)->where('type_class', 'seven')->first(),
+            'nilai_kelas_delapan' => StudentScore::where('user_id', $user->id)->where('type_class', 'eight')->first(),
+            'nilai_kelas_sembilan' => StudentScore::where('user_id', $user->id)->where('type_class', 'nine')->first(),
+            'absen_tujuh' => StudentPresence::where('user_id', $user->id)->where('type_class', 'seven')->first(),
+            'absen_delapan' => StudentPresence::where('user_id', $user->id)->where('type_class', 'eight')->first(),
+            'absen_sembilan' => StudentPresence::where('user_id', $user->id)->where('type_class', 'nine')->first(),
+            'ayah' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ayah')->first(),
+            'ibu' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ibu')->first(),
         );
         $pdf = PDF::loadView('pdf.formulir', $data);
         return $pdf->stream('preview.pdf');
