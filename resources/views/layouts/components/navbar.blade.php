@@ -50,10 +50,13 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{route('logout')}}" target="_blank">
-                                <i class="ti ti-logout me-2 ti-sm"></i>
-                                <span class="align-middle">Log Out</span>
-                            </a>
+                            <form action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item" href="">
+                                    <i class="ti ti-logout me-2 ti-sm"></i>
+                                    <span class="align-middle">Log Out</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>

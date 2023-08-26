@@ -13,7 +13,9 @@ use App\Models\StudentPresence;
 use App\Models\StudentScore;
 use App\Models\User;
 use DB;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Validator;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -532,7 +534,8 @@ class HomeController extends Controller
     public function createUpdateDocument(Request $request)
     {
         try{
-            
+            $lowercase = strtolower(Auth::user()->full_name);
+            $user_name = str_replace(' ','_', $lowercase);
             $path_sd_certificate = "";
             $path_smp_certificate = "";
             $path_birth_certificate = "";
@@ -541,32 +544,32 @@ class HomeController extends Controller
             $path_signature = "";
             if ($request->hasFile('sd_certificate')) {
                 $uploadedFile = $request->file('sd_certificate');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_sd_certificate = $uploadedFile->storeAs('sd_certificate', $customFileName, 'public');
             }
             if ($request->hasFile('smp_certificate')) {
                 $uploadedFile = $request->file('smp_certificate');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_smp_certificate = $uploadedFile->storeAs('smp_certificate', $customFileName, 'public');
             }
             if ($request->hasFile('birth_certificate')) {
                 $uploadedFile = $request->file('birth_certificate');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_birth_certificate = $uploadedFile->storeAs('birth_certificate', $customFileName, 'public');
             }
             if ($request->hasFile('family_card')) {
                 $uploadedFile = $request->file('family_card');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_family_card = $uploadedFile->storeAs('family_card', $customFileName, 'public');
             }
             if ($request->hasFile('pas_photo')) {
                 $uploadedFile = $request->file('pas_photo');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_pas_photo = $uploadedFile->storeAs('pas_photo', $customFileName, 'public');
             }
             if ($request->hasFile('signature')) {
                 $uploadedFile = $request->file('signature');
-                $customFileName = 'testing'.'.'.$uploadedFile->getClientOriginalExtension();
+                $customFileName = $user_name.'.'.$uploadedFile->getClientOriginalExtension();
                 $path_signature = $uploadedFile->storeAs('signature', $customFileName, 'public');
             }
 
@@ -598,5 +601,29 @@ class HomeController extends Controller
         }catch(\Exception $e){
             return $e->getMessage();
         }
+    }
+
+    public function studentPrintPdf()
+    {
+        $user = Auth::user();
+
+        $data = array(
+            'nama_siswa' => $user->full_name,
+            'email_siswa' => $user->email,
+            'siswa' => Student::where('user_id', $user->id)->first(),
+            'sekolah' => StudentSchool::where('user_id', $user->id)->first(),
+            'nilai_kelas_tujuh' => StudentScore::where('user_id', $user->id)->where('type_class','seven')->first(),
+            'nilai_kelas_delapan' => StudentScore::where('user_id', $user->id)->where('type_class','eight')->first(),
+            'nilai_kelas_sembilan' => StudentScore::where('user_id', $user->id)->where('type_class','nine')->first(),
+            'absen_tujuh' => StudentPresence::where('user_id', $user->id)->where('type_class','seven')->first(),
+            'absen_delapan' => StudentPresence::where('user_id', $user->id)->where('type_class','eight')->first(),
+            'absen_sembilan' => StudentPresence::where('user_id', $user->id)->where('type_class','nine')->first(),
+            'ayah' => StudentParent::where('user_id', $user->id)->where('type_parent','Ayah')->first(),
+            'ibu' => StudentParent::where('user_id', $user->id)->where('type_parent','Ibu')->first(),
+        );
+        $pdf = PDF::loadView('pdf.formulir', $data);
+        return $pdf->stream('preview.pdf');
+        return $pdf->download('itsolutionstuff.pdf');
+        return view('pdf.formulir');
     }
 }

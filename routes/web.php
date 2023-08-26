@@ -37,3 +37,4 @@ Route::post('/pengaturan-orang-tua/create-update-ayah', [App\Http\Controllers\Ho
 Route::post('/pengaturan-orang-tua/create-update-ibu', [App\Http\Controllers\HomeController::class, 'storeStudentMother'])->name('create_update_mother');
 Route::post('/pengaturan-akun/update-data-diri', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('update_profile');
 Route::post('/pengaturan-akun/update-asal-sekolah', [App\Http\Controllers\HomeController::class, 'updateSchoolOrigin'])->name('update_school_origin');
+Route::get('/siswa/formulir', [App\Http\Controllers\HomeController::class, 'studentPrintPdf'])->name('student.formulir');
