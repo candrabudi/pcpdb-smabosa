@@ -18,11 +18,18 @@
                             </ul>
                         </div>
                         @if(auth()->user()->role_name != 'Admin')
-                        <a href="{{route('account_setting')}}" class="btn btn-primary">
-                            <i class="ti ti-gear me-1"></i>Pengaturan Akun
-                        </a>
+                        <div class="row">
+                            <a href="{{route('account_setting')}}" class="btn btn-primary">
+                                <i class="ti ti-gear me-1"></i>Pengaturan Akun
+                            </a>
+                            <a href="{{route('student.formulir')}}" class="btn mt-3 btn-primary">
+                                <i class="ti ti-file me-1"></i>Download Formulir
+                            </a>
+                        </div>
                         @endif
                     </div>
+                    @if(auth()->user()->role_name != 'Admin')
+                    @endif
                 </div>
             </div>
         </div>

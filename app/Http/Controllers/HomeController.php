@@ -51,6 +51,7 @@ class HomeController extends Controller
             ->get();
         $student_document = StudentDocument::where('user_id', $user->id)
             ->first();
+        $data_validation = $this->checkDataStudent();
         return view('pages.dashboard', compact(
             'user',
             'student',
@@ -58,8 +59,48 @@ class HomeController extends Controller
             'student_scores',
             'student_school',
             'student_presences',
-            'student_document'
+            'student_document',
+            'data_validation'
         ));
+    }
+
+    private function checkDataStudent()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)
+            ->first();
+        $student_school = StudentSchool::where('user_id', $user->id)
+            ->first();
+        $student_parents = StudentParent::where('user_id', $user->id)
+            ->get();
+        $student_father = StudentParent::where('user_id', $user->id)
+            ->where('type_parent', 'Ayah')
+            ->first();
+        $student_mother = StudentParent::where('user_id', $user->id)
+            ->where('type_parent', 'Ibu')
+            ->first();
+        $student_scores = StudentScore::where('user_id', $user->id)
+            ->get();
+        $student_presences = StudentPresence::where('user_id', $user->id)
+            ->get();
+        $student_document = StudentDocument::where('user_id', $user->id)
+            ->first();
+        $student_detail = StudentDetail::where('user_id', $user->id)
+            ->first();
+
+        $data_validation = array(
+            'student' => $student ? true : false,
+            'student_school' => $student_school ? true : false,
+            'student_father' => $student_father ? true : false,
+            'student_mother' => $student_mother ? true : false,
+            'student_parents' => count($student_parents) == 2 ? true : false,
+            'student_scores' => count($student_scores) == 3 ? true : false, 
+            'student_presences' => count($student_presences) ==  3 ? true : false,
+            'student_document' => $student_document ?  true : false,
+            'student_detail' => $student_detail ?  true : false,
+        );
+
+        return $data_validation;
     }
 
     public function accountSetting()
@@ -612,6 +653,16 @@ class HomeController extends Controller
 
     public function studentPrintPdf()
     {
+        $data_validation = $this->checkDataStudent();
+
+        if(!$data_validation['student'] || !$data_validation['student_school']
+        || !$data_validation['student_parents'] || !$data_validation['student_father']
+        || !$data_validation['student_mother'] || !$data_validation['student_presences']
+        || !$data_validation['student_scores'] || !$data_validation['student_document']
+        || !$data_validation['student_detail']){
+            Alert::error('Yah!', 'Maaf gagal download, silahkan lengkapi data diri kamu.');
+            return redirect()->route('dashboard');
+        }
         $user = Auth::user();
 
         $data = array(
@@ -631,8 +682,7 @@ class HomeController extends Controller
             'siswa_dokumen' => StudentDocument::where('user_id', $user->id)->first(),
         );
         $pdf = PDF::loadView('pdf.formulir', $data);
-        return $pdf->stream('preview.pdf');
-        return $pdf->download('itsolutionstuff.pdf');
-        return view('pdf.formulir');
+        // return $pdf->stream('preview.pdf');
+        return $pdf->download(str_replace(' ', '_', strtolower($user->full_name)).'.pdf');
     }
 }

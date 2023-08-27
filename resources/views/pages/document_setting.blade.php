@@ -26,7 +26,7 @@ Data Dokumen
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="second_semester" class="form-label">Upload Akta Kelahiran, Format: Image/Pdf*</label>
-                                <input class="form-control" type="file" id="birth_certificate" name="birth_certificate" />
+                                <input class="form-control" type="file" ccept="image/*,.pdf" id="birth_certificate" name="birth_certificate" />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="second_semester" class="form-label">Upload Kartu Keluarga, Format: Image/Pdf*</label>

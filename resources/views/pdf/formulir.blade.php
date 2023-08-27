@@ -453,7 +453,7 @@
                             @endforeach
                             <tr>
                                 <td colspan="2">Rata rata</td>
-                                <td>{{$rata_rata/6}}</td>
+                                <td>{{round($rata_rata/6, 2)}}</td>
                             </tr>
                         </tbody>
                     </table>
