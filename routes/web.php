@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Route::get('/bosa/login', [AdminAuthController::class, 'viewLogin'])->name('admin.login');
+Route::post('/bosa/login', [AdminAuthController::class, 'processLogin'])->name('admin.process.login');
 Route::post('/student/register', [AuthController::class, 'studentRegister'])->name('student.register');
 Route::post('/student/login', [AuthController::class, 'studentLogin'])->name('student.login');
 Auth::routes();
@@ -38,3 +41,9 @@ Route::post('/pengaturan-orang-tua/create-update-ibu', [App\Http\Controllers\Hom
 Route::post('/pengaturan-akun/update-data-diri', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('update_profile');
 Route::post('/pengaturan-akun/update-asal-sekolah', [App\Http\Controllers\HomeController::class, 'updateSchoolOrigin'])->name('update_school_origin');
 Route::get('/siswa/formulir', [App\Http\Controllers\HomeController::class, 'studentPrintPdf'])->name('student.formulir');
+
+Route::group(['prefix' => 'bosa/admin'], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/siswa/datatable', [DashboardController::class, 'datatable'])->name('admin.student.datatable');
+    Route::get('/siswa/detail/{id}', [DashboardController::class, 'detailStudent'])->name('admin.student.detail');
+});

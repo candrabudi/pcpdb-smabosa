@@ -23,3 +23,4 @@
 <script src="{{ asset('assets/js/forms-pickers.js') }}"></script>
 
 <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
+@yield('scripts');
