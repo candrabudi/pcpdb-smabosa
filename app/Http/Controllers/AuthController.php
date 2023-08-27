@@ -10,6 +10,7 @@ use App\Models\User;
 use Validator;
 use DB;
 use Alert;
+use App\Models\SchoolYear;
 use Auth;
 class AuthController extends Controller
 {
@@ -41,6 +42,8 @@ class AuthController extends Controller
                     ->withInput()
                     ->withErrors($validator->errors());
             }
+
+            $number_register = $this->createAutoCode();
     
             $user = new User();
             $user->full_name = $request->full_name;
@@ -52,6 +55,8 @@ class AuthController extends Controller
     
             $store = new Student();
             $store->user_id = $user->id;
+            $store->school_year_id = $number_register['school_year_id'];
+            $store->registration_number = $number_register['nomor_student'];
             $store->nisn = $request->user_nisn;
             $store->gender = $request->user_gender;
             $store->religion = $request->user_religion;
@@ -74,6 +79,7 @@ class AuthController extends Controller
         }catch(\Exception $e){ 
             DB::rollback();
             return redirect()->back()
+                ->withErrors(['error' => $e->getMessage()])
                 ->withInput();
         }
 
@@ -136,5 +142,30 @@ class AuthController extends Controller
             ->withInput()
             ->withErrors(['error' => 'Maaf ada gangguan internal'.$e->getMessage()]);
         }
+    }
+
+    private function createAutoCode()
+    {
+        $ticket_default_now = "F001";
+        $check_number = "F";
+        $check_school_year = SchoolYear::where('status', 'active')
+            ->first();
+        $check_nomor_student = Student::where('school_year_id', $check_school_year->id)
+                                    ->where('registration_number', 'LIKE', '%'.$check_number.'%')
+                                    ->orderBy('registration_number', 'DESC')
+                                    ->first();
+        if(!empty($check_nomor_student)){
+            $three_last_character = substr($check_nomor_student->registration_number, -3);
+            $plus_nomor_student = $three_last_character + 1;
+            $add_zero_number = str_pad($plus_nomor_student,3,"0", STR_PAD_LEFT);
+            $nomor_student = "F".$add_zero_number;
+        }else{
+            $nomor_student = $ticket_default_now;
+        }
+
+        return array(
+            'school_year_id' => $check_school_year->id,
+            'nomor_student' => $nomor_student,
+        );
     }
 }

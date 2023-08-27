@@ -7,6 +7,8 @@ use App\Models\StudentSchool;
 use Illuminate\Http\Request;
 use Auth;
 use Alert;
+use App\Models\SchoolYear;
+use App\Models\StudentDetail;
 use App\Models\StudentDocument;
 use App\Models\StudentParent;
 use App\Models\StudentPresence;
@@ -66,13 +68,16 @@ class HomeController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)
             ->first();
+        $student_detail = StudentDetail::where('user_id', $user->id)
+            ->first();
         $student_school = StudentSchool::where('user_id', $user->id)
             ->first();
         return view('pages.account_setting', compact(
             'user',
             'student',
             'student_school',
-            'page'
+            'page',
+            'student_detail'
         ));
     }
 
@@ -98,12 +103,26 @@ class HomeController extends Controller
             $student->address = $request->user_address ?? $student->address;
             $student->save();
 
+            $student_detail = StudentDetail::where('user_id', $user->id)
+                ->first();
+            if($student_detail){
+                $student_detail->phone_house = $request->user_phone_house ?? $student_detail->phone_house;
+                $student_detail->parent_address = $request->user_parent_address ?? $student_detail->parent_address;
+                $student_detail->save();
+            }else{
+                $student_detail = new StudentDetail();
+                $student_detail->user_id = $user->id;
+                $student_detail->phone_house = $request->user_phone_house;
+                $student_detail->parent_address = $request->user_parent_address;
+                $student_detail->save();
+            }
+
             DB::commit();
             Alert::success('Berhasil', 'Merubah Data Diri');
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('failed', 'Ada Kesalahan Internal.');
+            Alert::error('failed', 'Ada Kesalahan Internal. '.$e->getMessage());
             return redirect()->back();
         }
     }
@@ -563,7 +582,6 @@ class HomeController extends Controller
             $check = StudentDocument::where('user_id', $user->id)->first();
 
             if ($check) {
-                // return $documentPaths['pas_photo'];
                 foreach ($documentFields as $field) {
                     if (isset($documentPaths[$field])) {
                         $check->{$field} = $documentPaths[$field] ?? $check->{$field};
@@ -609,6 +627,8 @@ class HomeController extends Controller
             'absen_sembilan' => StudentPresence::where('user_id', $user->id)->where('type_class', 'nine')->first(),
             'ayah' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ayah')->first(),
             'ibu' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ibu')->first(),
+            'siswa_detail' => StudentDetail::where('user_id', $user->id)->first(),
+            'siswa_dokumen' => StudentDocument::where('user_id', $user->id)->first(),
         );
         $pdf = PDF::loadView('pdf.formulir', $data);
         return $pdf->stream('preview.pdf');

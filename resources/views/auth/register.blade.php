@@ -63,6 +63,9 @@
             </div>
             <div class="d-flex col-lg-8 align-items-center justify-content-center p-sm-5 p-3">
                 <div class="w-px-700">
+                    @error('error')
+                        <div class="alert alert-danger" role="alert">{{$message}}</div>
+                    @enderror
                     <div id="multiStepsValidation" class="bs-stepper shadow-none">
                         @include('auth.utils.steper_header')
                         

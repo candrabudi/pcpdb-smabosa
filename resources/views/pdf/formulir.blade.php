@@ -307,7 +307,7 @@
             <p>Mohon ditulis dengan lengkap dan benar menggunakan huruf cetak, Berilah tanda lingkaran pada pilihan jawaban sesuai keadaan.</p>
         </div>
         <div class="box-2">
-            <h1><img src="https://cdn-icons-png.flaticon.com/512/1785/1785888.png"></h1>
+            <h1><img src="{{public_path('storage/'.$siswa_dokumen->pas_photo)}}" style="width: 100px;"></h1>
         </div>
     </section>
     <div class="clear"></div>
@@ -651,7 +651,7 @@
                 <h2 style="font-size: 12px;">g. Alamat lengkap orang tua</h2>
             </div>
             <div class="right">
-                <h2 style="font-size: 12px;">: </h2>
+                <h2 style="font-size: 12px;">: {{$siswa_detail->parent_address}}</h2>
             </div>
         </div>
     </section>
@@ -663,7 +663,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">1. No. Telp. Rumah</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">:</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa_detail->phone_house}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -671,7 +671,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">2. No. HP Calon Peserta Didik</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: </h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->phone_number}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -679,7 +679,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">3. No. WA Calon Peserta Didik</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: </h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->whatsapp_phone}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -687,7 +687,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">4. No.Telp/HP Ayah</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: </h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ayah->whatsapp_phone}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -695,7 +695,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">5. No.Telp/HP Ibu</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">:</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ibu->whatsapp_phone}}</h2>
             </div>
         </div>
     </section>

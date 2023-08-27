@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('school_year_id');
+            $table->string('registration_number', 15);
             $table->string('nisn', 191);
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->enum('religion', ['Islam', 'Kristen', 'Katholik', 'Protestan', 'Hindu', 'Budha', 'Konghucu']);
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->string('phone_number', 15);
             $table->string('whatsapp_phone', 15);
             $table->text('address');
+            
             $table->timestamps();
         });
     }

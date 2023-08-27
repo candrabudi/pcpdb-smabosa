@@ -38,19 +38,30 @@
                                 <label class="form-label" for="user_phone_number">Nomor Handphone</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="text" id="user_phone_number" name="user_phone_number" class="form-control" value="{{$student->phone_number}}" />
+                                    <input type="number" id="user_phone_number" name="user_phone_number" class="form-control" value="{{$student->phone_number}}" />
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="user_whatsapp_phone">Nomor Whatsapp</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-brand-whatsapp"></i></span>
-                                    <input type="text" id="user_whatsapp_phone" name="user_whatsapp_phone" class="form-control" value="{{$student->whatsapp_phone}}" />
+                                    <input type="number" id="user_whatsapp_phone" name="user_whatsapp_phone" class="form-control" value="{{$student->whatsapp_phone}}" />
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_address" class="form-label">Alamat</label>
                                 <input type="text" class="form-control" id="user_address" name="user_address" value="{{$student->address}}" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="user_phone_house">Nomor Telp Rumah</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? ''}}" />
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="user_parent_address" class="form-label">Alamat Orang Tua</label>
+                                <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? ''}}" />
                             </div>
                         </div>
                         <div class="mt-2">
