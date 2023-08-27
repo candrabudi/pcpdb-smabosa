@@ -12,6 +12,7 @@ use App\Models\StudentScore;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
+use Auth;
 
 class DashboardController extends Controller
 {
