@@ -17,6 +17,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if(!Auth::user()){
+            return redirect()->route('admin.login');
+        }
         return view('pages.admin.index');
     }
 
@@ -48,6 +51,9 @@ class DashboardController extends Controller
 
     public function detailStudent($id)
     {
+        if(!Auth::user()){
+            return redirect()->route('admin.login');
+        }
         $auth = auth()->user();
         $user = User::where('id', $id)->first();
         $student = Student::where('user_id', $user->id)
