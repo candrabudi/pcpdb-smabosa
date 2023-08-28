@@ -1,17 +1,17 @@
 @extends('layouts.app')
-
+@section('title', 'Detail Data Diri')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Data Diri Siswa</h4>
 
     <div class="row">
         <div class="col-md-12">
             @include('pages.components.account_setting.account_pills')
             <div class="card mb-4">
-                <h5 class="card-header">Detail Diri</h5>
+                <h5 class="card-header">Detail Data Diri</h5>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" action="{{route('update_profile')}}">
+                    <form id="formAccountSettings" method="POST" action="{{route('setting_personal_data')}}">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-12">
@@ -56,12 +56,12 @@
                                 <label class="form-label" for="user_phone_house">Nomor Telp Rumah</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? ''}}" />
+                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? ''}}" required/>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_parent_address" class="form-label">Alamat Orang Tua</label>
-                                <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? ''}}" />
+                                <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? ''}}" required/>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -76,23 +76,23 @@
                 <h5 class="card-header">Asal Sekolah</h5>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" action="{{route('update_school_origin')}}">
+                    <form id="formAccountSettings" method="POST" action="{{route('setting_school_origin')}}">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="user_school_name" class="form-label">Nama Sekolah</label>
-                                <input class="form-control" type="text" id="user_school_name" name="user_school_name" value="{{$student_school->school_name}}" autofocus />
+                                <input class="form-control" type="text" id="user_school_name" name="user_school_name" value="{{$student_school->school_name}}" autofocus required/>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="user_school_phone">Nomor Sekolah</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="text" id="user_school_phone" name="user_school_phone" class="form-control" value="{{$student_school->school_phone}}" />
+                                    <input type="text" id="user_school_phone" name="user_school_phone" class="form-control" value="{{$student_school->school_phone}}" required/>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_school_address" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" id="user_school_address" name="user_school_address" value="{{$student_school->school_address}}" />
+                                <input type="text" class="form-control" id="user_school_address" name="user_school_address" value="{{$student_school->school_address}}" required/>
                             </div>
                         </div>
                         <div class="mt-2">

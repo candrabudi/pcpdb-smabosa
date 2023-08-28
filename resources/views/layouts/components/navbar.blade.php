@@ -21,12 +21,12 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                            <img src="{{ $student_document ? asset('storage/'.$student_document->pas_photo) : '../../assets/img/avatars/1.png' }}" alt class="h-auto rounded-circle" />
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="pages-account-settings-account.html">
+                            <a class="dropdown-item" href="javascript:void(0);">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                        <span class="fw-semibold d-block">{{ Auth::user()->full_name }}</span>
                                         <small class="text-muted">Siswa</small>
                                     </div>
                                 </div>
@@ -42,12 +42,6 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="pages-profile-user.html">
-                                <i class="ti ti-user-check me-2 ti-sm"></i>
-                                <span class="align-middle">My Profile</span>
-                            </a>
                         </li>
                         <li>
                             <form action="{{route('logout')}}" method="POST">

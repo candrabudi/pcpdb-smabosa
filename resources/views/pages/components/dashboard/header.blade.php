@@ -19,10 +19,10 @@
                         </div>
                         @if(auth()->user()->role_name != 'Admin')
                         <div class="row">
-                            <a href="{{route('account_setting')}}" class="btn btn-primary">
+                            <a href="{{route('page_personal_data')}}" class="btn btn-primary">
                                 <i class="ti ti-gear me-1"></i>Pengaturan Akun
                             </a>
-                            <a href="{{route('student.formulir')}}" class="btn mt-3 btn-primary">
+                            <a href="{{route('student_formulir')}}" class="btn mt-3 btn-primary">
                                 <i class="ti ti-file me-1"></i>Download Formulir
                             </a>
                         </div>

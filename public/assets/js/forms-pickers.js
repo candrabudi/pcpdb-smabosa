@@ -9,6 +9,8 @@
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
     flatpickrDate2 = document.querySelector('#flatpickr-date2'),
+    flatpickrDateFather = document.querySelector('#flatpickr-date-father'),
+    flatpickrDateMother = document.querySelector('#flatpickr-date-mother'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -25,6 +27,16 @@
   }  
   if (flatpickrDate2) {
     flatpickrDate2.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDateFather) {
+    flatpickrDateFather.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDateMother) {
+    flatpickrDateMother.flatpickr({
       monthSelectorType: 'static'
     });
   }

@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          user_nisn: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter first name'
+              }
+            }
+          },
           lastName: {
             validators: {
               notEmpty: {

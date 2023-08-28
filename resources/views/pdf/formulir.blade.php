@@ -276,7 +276,7 @@
             </div>
             <hr>
             <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN 2023-2024</h1>
+                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
             </div>
         </div>
         <div class="number-head border">
@@ -303,7 +303,7 @@
 
     <section class="header-register">
         <div class="box-1">
-            <h1>NO PENDAFTARAN : F</h1>
+            <h1>NO PENDAFTARAN : {{$siswa->registration_number}}</h1>
             <p>Mohon ditulis dengan lengkap dan benar menggunakan huruf cetak, Berilah tanda lingkaran pada pilihan jawaban sesuai keadaan.</p>
         </div>
         <div class="box-2">
@@ -517,7 +517,7 @@
             </div>
             <hr>
             <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN 2023-2024</h1>
+                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
             </div>
         </div>
         <div class="number-head border">
@@ -711,7 +711,7 @@
             </div>
             <hr>
             <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN 2023-2024</h1>
+                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
             </div>
         </div>
         <div class="number-head border">
