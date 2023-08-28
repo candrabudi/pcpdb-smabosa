@@ -291,7 +291,7 @@
                 </tr>
                 <tr>
                     <th>TGL. TERBIT</th>
-                    <td>:</td>
+                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
                 </tr>
                 <tr>
                     <th>HALAMAN</th>
@@ -341,14 +341,8 @@
             <div class="left">
                 <h2>4. Tempat, Tgl Lahir</h2>
             </div>
-            @php
-            $dateString = "Thursday, 17 August 2023";
-            $date = \Carbon\Carbon::createFromFormat('l, d F Y', $dateString);
-            $date->setLocale('id');
-            $formattedDate = $date->formatLocalized('%A, %d %B %Y');
-            @endphp
             <div class="right">
-                <h2>: {{$siswa->birth_place}}, {{$formattedDate}}</h2>
+                <h2>: {{$siswa->birth_place}}, {{tanggal_indonesia($siswa->birth_date)}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -532,7 +526,7 @@
                 </tr>
                 <tr>
                     <th>TGL. TERBIT</th>
-                    <td>:</td>
+                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
                 </tr>
                 <tr>
                     <th>HALAMAN</th>
@@ -559,7 +553,7 @@
                 <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
             </div>
             <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->birth_place}}, {{$ayah->birth_date}}</h2>
+                <h2 style="font-size: 12px;">: {{$ayah->birth_place}}, {{tanggal_indonesia($ayah->birth_date)}}</h2>
             </div>
         </div>
         <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -611,7 +605,7 @@
                 <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
             </div>
             <div class="right">
-                <h2 style="font-size: 12px;">{{$ibu->birth_place}}, {{$ibu->birth_date}}</h2>
+                <h2 style="font-size: 12px;">{{$ibu->birth_place}}, {{tanggal_indonesia($ibu->birth_date)}}</h2>
             </div>
         </div>
         <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -726,7 +720,7 @@
                 </tr>
                 <tr>
                     <th>TGL. TERBIT</th>
-                    <td>:</td>
+                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
                 </tr>
                 <tr>
                     <th>HALAMAN</th>

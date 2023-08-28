@@ -14,7 +14,7 @@
                             <h4>{{$user->full_name}}</h4>
                             <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                 <li class="list-inline-item"><i class="ti ti-calendar"></i>
-                                    Bergabung pada {{ \Carbon\Carbon::parse($user->created_at)->formatLocalized('%d %B %Y') }}</li>
+                                    Bergabung pada {{tanggal_indonesia($user->created_at)}}</li>
                             </ul>
                         </div>
                         @if(auth()->user()->role_name != 'Admin')
