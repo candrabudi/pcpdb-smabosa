@@ -25,7 +25,6 @@
             <div class="layout-page">
                 <div class="content-wrapper">
                     @include('layouts.components.layout_menu')
-
                     @yield('content');
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl">

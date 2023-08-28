@@ -21,7 +21,14 @@ class DashboardController extends Controller
         if(!Auth::user()){
             return redirect()->route('admin.login');
         }
-        return view('pages.admin.index');
+        $student_man = Student::where('gender', 'Laki-laki')
+            ->select('id')->count();
+        $student_woman = Student::where('gender', 'Perempuan')
+            ->select('id')->count();
+        return view('pages.admin.index', compact(
+            'student_woman',
+            'student_man',
+        ));
     }
 
     public function datatable()
