@@ -42,9 +42,7 @@
         <div class="authentication-inner row">
             <div class="d-none d-lg-flex col-lg-7 p-0">
                 <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
-                    <img src="../../assets/img/illustrations/page-misc-under-maintenance.png" alt="auth-login-cover" class="img-fluid my-5 auth-illustration" data-app-light-img="illustrations/page-misc-under-maintenance.png" data-app-dark-img="illustrations/auth-login-illustration-dark.png" />
-
-                    <img src="../../assets/img/illustrations/bg-shape-image-light.png" alt="auth-login-cover" class="platform-bg" data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png" />
+                    <img src="../../assets/img/banner/banner_pcpdb.png" alt="auth-login-cover" class="img-fluid" data-app-light-img="banner/banner_pcpdb.png" width="80%" data-app-dark-img="banner/banner_pcpdb.png" />
                 </div>
             </div>
 
