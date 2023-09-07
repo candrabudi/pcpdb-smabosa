@@ -11,6 +11,7 @@ use Alert;
 use App\Models\Student;
 use App\Models\StudentSchool;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PersonalDataController extends Controller
 {
@@ -20,13 +21,20 @@ class PersonalDataController extends Controller
         try {
             $user = Auth::user();
             $student = Student::where('user_id', $user->id)->first();
-
+            $check_nisn = Student::where('nisn', $request->nisn)
+                ->select('id', 'user_id')
+                ->first();
+            if($check_nisn){
+                if($check_nisn->user_id != Auth::user()->id){
+                    Alert::error('Gagal', 'Nisn Sudah di gunakan oleh orang lain!');
+                    return redirect()->back();
+                }
+            }
             $userData = [
                 'full_name' => $request->user_full_name ?? $user->full_name,
                 'email' => $request->user_email ?? $user->email,
             ];
             User::where('id', $user->id)->update($userData);
-
             $studentData = [
                 'nisn', 'gender', 'religion', 'birth_place',
                 'birth_date', 'phone_number', 'whatsapp_phone', 'address'

@@ -4,13 +4,6 @@
         <p>Masukan Data Diri Kamu.</p>
     </div>
     <div class="row g-3">
-        <div class="col-sm-12 col-lg-12">
-            <label class="form-label" for="user_nisn">nisn</label>
-            <div class="input-group">
-                <span class="input-group-text"><i class="ti ti-id"></i></span>
-                <input type="text" id="user_nisn" name="user_nisn" value="{{ old('user_nisn') }}" class="form-control multi-steps-nisn" placeholder="" maxlength="15"/>
-            </div>
-        </div>
         <div class="col-sm-6">
             <label class="form-label" for="full_name">Nama Lengkap</label>
             <input type="text" name="full_name" id="full_name" value="{{ old('full_name') }}" class="form-control" placeholder="Takane Sachio" />

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('school_year_id');
             $table->string('registration_number', 15);
-            $table->string('nisn', 191);
+            $table->string('nisn', 191)->nullable();
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->enum('religion', ['Islam', 'Kristen', 'Katholik', 'Protestan', 'Hindu', 'Budha', 'Konghucu']);
             $table->string('birth_place');

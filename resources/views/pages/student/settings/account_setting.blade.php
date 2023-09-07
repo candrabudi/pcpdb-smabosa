@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="user_nisn" class="form-label">NISN</label>
-                                <input class="form-control" type="text" id="user_nisn" name="user_nisn" value="{{$student->nisn}}" autofocus />
+                                <input class="form-control" type="text" id="user_nisn" name="user_nisn" value="{{$student->nisn}}" autofocus required/>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_full_name" class="form-label">Nama Lengkap</label>

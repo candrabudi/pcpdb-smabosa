@@ -19,7 +19,6 @@ class AuthController extends Controller
         DB::beginTransaction();
         try{
             $rules = [
-                'user_nisn' => 'required|numeric|unique:students,nisn',
                 'full_name' => 'required|string|max:191',
                 'user_email' => 'required|email|unique:users,email',
                 'user_password' => 'required',
@@ -57,7 +56,7 @@ class AuthController extends Controller
             $store->user_id = $user->id;
             $store->school_year_id = $number_register['school_year_id'];
             $store->registration_number = $number_register['nomor_student'];
-            $store->nisn = $request->user_nisn;
+            // $store->nisn = $request->user_nisn;
             $store->gender = $request->user_gender;
             $store->religion = $request->user_religion;
             $store->birth_date = $request->user_birth_date;
@@ -92,7 +91,7 @@ class AuthController extends Controller
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email', 
                 'password' => 'required', 
-                'nisn' => 'required'
+                // 'nisn' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -113,13 +112,13 @@ class AuthController extends Controller
                     ]);
             }
 
-            if($check_user->nisn != $request->nisn){
-                return redirect()->back()
-                    ->withInput()
-                    ->withErrors([
-                        'error' => 'Maaf NISN yang kamu masukan salah.'
-                    ]);
-            }
+            // if($check_user->nisn != $request->nisn){
+            //     return redirect()->back()
+            //         ->withInput()
+            //         ->withErrors([
+            //             'error' => 'Maaf NISN yang kamu masukan salah.'
+            //         ]);
+            // }
 
             $credentials = [
                 'email' => $request->email,
