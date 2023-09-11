@@ -54,6 +54,7 @@ Route::group(['prefix' => 'siswa'], function($router) {
         $router->post('/absen-kelas-tujuh', [PresenceController::class, 'settingPresenceSeven'])->name('setting_presence_seven');
         $router->post('/absen-kelas-delapan', [PresenceController::class, 'settingPresenceEight'])->name('setting_presence_eight');
         $router->post('/absen-kelas-sembilan', [PresenceController::class, 'settingPresenceNine'])->name('setting_presence_nine');
+        $router->post('/absen', [PresenceController::class, 'storePresence'])->name('setting_presence');
         $router->post('/data-ayah', [ParentController::class, 'storeStudentFather'])->name('setting_student_father');
         $router->post('/data-ibu', [ParentController::class, 'storeStudentMother'])->name('setting_student_mother');
         $router->post('/data-nilai', [ScoreController::class, 'createOrUpdateScore'])->name('setting_score');

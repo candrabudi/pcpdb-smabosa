@@ -24,14 +24,23 @@ class ParentController extends Controller
     public function storeStudentParent(Request $request, $parentType)
     {
         $rules = [
-            $parentType . '_parent_name' => 'required|string|max:191',
-            $parentType . '_birth_place' => 'required|string|max:191',
-            $parentType . '_birth_date' => 'required',
-            $parentType . '_education' => 'required',
-            $parentType . '_religion' => 'required',
-            $parentType . '_profession' => 'required',
-            $parentType . '_income' => 'required',
-            $parentType . '_whatsapp_phone' => 'required',
+            'mother_parent_name' => 'required|string|max:191',
+            'mother_birth_place' => 'required|string|max:191',
+            'mother_birth_date' => 'required',
+            'mother_education' => 'required',
+            'mother_religion' => 'required',
+            'mother_profession' => 'required',
+            'mother_income' => 'required',
+            'mother_whatsapp_phone' => 'required',
+
+            'father_parent_name' => 'required|string|max:191',
+            'father_birth_place' => 'required|string|max:191',
+            'father_birth_date' => 'required',
+            'father_education' => 'required',
+            'father_religion' => 'required',
+            'father_profession' => 'required',
+            'father_income' => 'required',
+            'father_whatsapp_phone' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -46,24 +55,41 @@ class ParentController extends Controller
         try {
             $user_id = Auth::user()->id;
 
-            $parentData = [
-                'parent_name' => $request->{$parentType . '_parent_name'},
-                'birth_place' => $request->{$parentType . '_birth_place'},
-                'birth_date' => $request->{$parentType . '_birth_date'},
-                'education' => $request->{$parentType . '_education'},
-                'religion' => $request->{$parentType . '_religion'},
-                'profession' => $request->{$parentType . '_profession'},
-                'income' => $request->{$parentType . '_income'},
-                'whatsapp_phone' => $request->{$parentType . '_whatsapp_phone'},
-                'type_parent' => ($parentType == 'father') ? 'Ayah' : 'Ibu'
+            $parentDataMother = [
+                'parent_name' => $request->{'mother_parent_name'},
+                'birth_place' => $request->{'mother_birth_place'},
+                'birth_date' => $request->{'mother_birth_date'},
+                'education' => $request->{'mother_education'},
+                'religion' => $request->{'mother_religion'},
+                'profession' => $request->{'mother_profession'},
+                'income' => $request->{'mother_income'},
+                'whatsapp_phone' => $request->{'mother_whatsapp_phone'},
+                'type_parent' => 'Ibu'
             ];
 
             StudentParent::updateOrCreate(
-                ['user_id' => $user_id, 'type_parent' => $parentType],
-                $parentData
+                ['user_id' => $user_id, 'type_parent' => 'Ibu'],
+                $parentDataMother
             );
 
-            Alert::success('Yay!', 'Berhasil Merubah data ' . ($parentType == 'father' ? 'ayah' : 'ibu') . '.');
+            $parentDataFather = [
+                'parent_name' => $request->{'father_parent_name'},
+                'birth_place' => $request->{'father_birth_place'},
+                'birth_date' => $request->{'father_birth_date'},
+                'education' => $request->{'father_education'},
+                'religion' => $request->{'father_religion'},
+                'profession' => $request->{'father_profession'},
+                'income' => $request->{'father_income'},
+                'whatsapp_phone' => $request->{'father_whatsapp_phone'},
+                'type_parent' => 'Ayah'
+            ];
+
+            StudentParent::updateOrCreate(
+                ['user_id' => $user_id, 'type_parent' => 'Ayah'],
+                $parentDataFather
+            );
+
+            Alert::success('Yay!', 'Berhasil Merubah data Orang Tua');
         } catch (\Exception $e) {
             Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
         }

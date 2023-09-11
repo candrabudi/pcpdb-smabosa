@@ -14,39 +14,42 @@ class ScoreController extends Controller
 {
     public function createOrUpdateScore(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'first_semester' => 'required',
-            'second_semester' => 'required',
-            'type_class' => 'required|in:7,8,9',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $classMappings = [
-            '7' => 'seven',
-            '8' => 'eight',
-            '9' => 'nine',
-        ];
-
-        $type_class = $classMappings[$request->type_class] ?? 'seven';
 
         try {
             DB::beginTransaction();
 
             $user_id = Auth::user()->id;
-            $data_score = [
-                'first_semester' => $request->first_semester,
-                'second_semester' => $request->second_semester,
-                'type_class' => $type_class,
+            $data_score_seven = [
+                'first_semester' => $request->first_semester_7,
+                'second_semester' => $request->second_semester_7,
+                'type_class' => 'seven',
             ];
 
             StudentScore::updateOrCreate(
-                ['user_id' => $user_id, 'type_class' => $type_class],
-                $data_score
+                ['user_id' => $user_id, 'type_class' => 'sevent'],
+                $data_score_seven
+            );
+
+            $data_score_eight = [
+                'first_semester' => $request->first_semester_8,
+                'second_semester' => $request->second_semester_8,
+                'type_class' => 'eight',
+            ];
+
+            StudentScore::updateOrCreate(
+                ['user_id' => $user_id, 'type_class' => 'eightt'],
+                $data_score_eight
+            );
+
+            $data_score_nine = [
+                'first_semester' => $request->first_semester_9,
+                'second_semester' => $request->second_semester_9,
+                'type_class' => 'nine',
+            ];
+
+            StudentScore::updateOrCreate(
+                ['user_id' => $user_id, 'type_class' => 'ninet'],
+                $data_score_nine
             );
 
             DB::commit();

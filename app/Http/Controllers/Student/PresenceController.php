@@ -28,17 +28,31 @@ class PresenceController extends Controller
         return $this->storePresence($request, 'nine');
     }
 
-    public function storePresence($request, $classType)
+    public function storePresence(Request $request)
     {
         $rules = [
-            "{$classType}_sick_one" => 'required',
-            "{$classType}_permission_one" => 'required',
-            "{$classType}_alpa_one" => 'required',
-            "{$classType}_sick_two" => 'required',
-            "{$classType}_permission_two" => 'required',
-            "{$classType}_alpa_two" => 'required',
-        ];
+            "seven_sick_one" => 'required',
+            "seven_permission_one" => 'required',
+            "seven_alpa_one" => 'required',
+            "seven_sick_two" => 'required',
+            "seven_permission_two" => 'required',
+            "seven_alpa_two" => 'required',
 
+            "eight_sick_one" => 'required',
+            "eight_permission_one" => 'required',
+            "eight_alpa_one" => 'required',
+            "eight_sick_two" => 'required',
+            "eight_permission_two" => 'required',
+            "eight_alpa_two" => 'required',
+
+            "nine_sick_one" => 'required',
+            "nine_permission_one" => 'required',
+            "nine_alpa_one" => 'required',
+            "nine_sick_two" => 'required',
+            "nine_permission_two" => 'required',
+            "nine_alpa_two" => 'required',
+        ];
+// return $request;
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -52,31 +66,77 @@ class PresenceController extends Controller
         try {
             $user_id = Auth::user()->id;
 
-            $presenceData = [
-                'sick_one' => $request->input("{$classType}_sick_one"),
-                'permission_one' => $request->input("{$classType}_permission_one"),
-                'alpa_one' => $request->input("{$classType}_alpa_one"),
-                'sick_two' => $request->input("{$classType}_sick_two"),
-                'permission_two' => $request->input("{$classType}_permission_two"),
-                'alpa_two' => $request->input("{$classType}_alpa_two"),
+            $presenceDataSeven = [
+                'sick_one' => $request->input("seven_sick_one"),
+                'permission_one' => $request->input("seven_permission_one"),
+                'alpa_one' => $request->input("seven_alpa_one"),
+                'sick_two' => $request->input("seven_sick_two"),
+                'permission_two' => $request->input("seven_permission_two"),
+                'alpa_two' => $request->input("seven_alpa_two"),
             ];
 
-            $check = StudentPresence::where('user_id', $user_id)
-                ->where('type_class', $classType)
+            $checkSeven = StudentPresence::where('user_id', $user_id)
+                ->where('type_class', 'seven')
                 ->first();
 
-            if ($check) {
-                $check->update($presenceData);
+            if ($checkSeven) {
+                $checkSeven->update($presenceDataSeven);
             } else {
-                $storeData = array_merge($presenceData, [
+                $storeData = array_merge($presenceDataSeven, [
                     'user_id' => $user_id,
-                    'type_class' => $classType,
+                    'type_class' => 'seven',
+                ]);
+                StudentPresence::create($storeData);
+            }
+
+            $presenceDataEight = [
+                'sick_one' => $request->input("eight_sick_one"),
+                'permission_one' => $request->input("eight_permission_one"),
+                'alpa_one' => $request->input("eight_alpa_one"),
+                'sick_two' => $request->input("eight_sick_two"),
+                'permission_two' => $request->input("eight_permission_two"),
+                'alpa_two' => $request->input("eight_alpa_two"),
+            ];
+
+            $checkEight = StudentPresence::where('user_id', $user_id)
+                ->where('type_class', 'eight')
+                ->first();
+            if ($checkEight) {
+                // return $presenceDataEight;
+                $checkEight->update($presenceDataEight);
+            } else {
+                $storeData = array_merge($presenceDataEight, [
+                    'user_id' => $user_id,
+                    'type_class' => 'eight',
+                ]);
+                StudentPresence::create($storeData);
+            }
+
+            $presenceDataNine = [
+                'sick_one' => $request->input("nine_sick_one"),
+                'permission_one' => $request->input("nine_permission_one"),
+                'alpa_one' => $request->input("nine_alpa_one"),
+                'sick_two' => $request->input("nine_sick_two"),
+                'permission_two' => $request->input("nine_permission_two"),
+                'alpa_two' => $request->input("nine_alpa_two"),
+            ];
+
+            $checkNine = StudentPresence::where('user_id', $user_id)
+                ->where('type_class', 'nine')
+                ->first();
+
+            if ($checkNine) {
+                $checkNine->update($presenceDataNine);
+            } else {
+                $storeData = array_merge($presenceDataNine, [
+                    'user_id' => $user_id,
+                    'type_class' => 'nine',
                 ]);
                 StudentPresence::create($storeData);
             }
 
             DB::commit();
-            Alert::success('Yay!', "Berhasil Merubah data absensi kelas {$classType}.");
+            Alert::success('Yay!', "Berhasil Merubah data absensi kelas.");
         } catch (\Exception $e) {
             DB::rollback();
             Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());

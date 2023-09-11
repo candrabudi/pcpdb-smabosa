@@ -61,6 +61,15 @@ class PersonalDataController extends Controller
                 $student_detail->save();
             }
 
+            $user = Auth::user();
+            $student = StudentSchool::where('user_id', $user->id)->firstOrFail();
+    
+            $fieldsToUpdate = ['school_name', 'school_phone', 'school_address'];
+            foreach ($fieldsToUpdate as $field) {
+                $student->$field = $request->input("user_$field", $student->$field);
+            }
+            $student->save();
+
             DB::commit();
             Alert::success('Berhasil', 'Merubah Data Diri');
             return redirect()->back();

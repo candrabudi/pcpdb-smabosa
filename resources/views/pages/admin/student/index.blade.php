@@ -10,12 +10,14 @@ Detail Siswa
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->pas_photo) }}" download><i class="ti-xs ti ti-file me-1"></i> Foto Siswa</a>
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->sd_certificate) }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SD</a>
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->smp_certificate) }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SMP</a>
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->birth_certificate) }}" download><i class="ti-xs ti ti-file me-1"></i> Akta Kelahiran</a>
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->family_card) }}" download><i class="ti-xs ti ti-file me-1"></i> Kartu Keluarga</a>
-                    <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ asset('storage/'.$student_document->signature) }}" download><i class="ti-xs ti ti-file me-1"></i> Tanda Tangan</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->pas_photo ? asset('storage/' . $student_document->pas_photo) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Foto Siswa</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->sd_certificate ? asset('storage/' . $student_document->sd_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SD</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->smp_certificate ? asset('storage/' . $student_document->smp_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SMP</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->birth_certificate ? asset('storage/' . $student_document->birth_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Akta Kelahiran</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->family_card ? asset('storage/' . $student_document->family_card) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Kartu Keluarga</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->signature ? asset('storage/' . $student_document->signature) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Tanda Tangan</a>
+            </ul>
+            oad><i class="ti-xs ti ti-file me-1"></i> Tanda Tangan</a>
             </ul>
         </div>
     </div>
