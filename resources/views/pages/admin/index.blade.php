@@ -57,6 +57,7 @@
                                 <th>Email</th>
                                 <th>Nama Lengkap</th>
                                 <th>Nomor Whatsapp</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -95,16 +96,23 @@
                     data: 'whatsapp_phone'
                 },
                 {
+                    data: 'status'
+                },
+                {
                     data: 'id',
                     render: function(id) {
-                        return '<button class="my-1 btn btn-warning btn-xs detail-student"  style="display: inline-block;" data-id="' + id + '"><i class="ti ti-edit me-1"></i> Detail</button>';
+                        return '<button class="my-1 btn btn-info btn-xs detail-student"  style="display: inline-block;" data-id="' + id + '"><i class="ti ti-edit me-1"></i> Detail</button>&nbsp;<button class="my-1 btn btn-warning btn-xs edit-status-student"  style="display: inline-block;" data-id="' + id + '"><i class="ti ti-edit me-1"></i> Edit Status</button>';
                     },
-                },
+                }
             ],
         });
         $('#get-student').on('click', '.detail-student', function() {
             var id = $(this).data('id');
             window.location = '/bosa/admin/siswa/detail/' + encodeURIComponent(id)
+        }); 
+        $('#get-student').on('click', '.edit-status-student', function() {
+            var id = $(this).data('id');
+            window.location = '/bosa/admin/siswa/edit/' + encodeURIComponent(id)
         });
     });
 </script>

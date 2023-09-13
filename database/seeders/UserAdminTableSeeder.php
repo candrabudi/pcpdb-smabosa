@@ -17,7 +17,7 @@ class UserAdminTableSeeder extends Seeder
         User::create([
             'full_name' => 'Admin Tech Bosa', 
             'email' => 'admintechsmabosa@gmail.com',
-            'password' => bcrypt('^yAb7S843M5*t6s'),
+            'password' => bcrypt('successpcpdb'),
             'role_name' => 'Admin'
         ]);
     }

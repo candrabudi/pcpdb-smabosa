@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('phone_number', 15);
             $table->string('whatsapp_phone', 15);
             $table->text('address');
-            
+            $table->enum('status', ['daftar', 'diterima', 'ditolak'])->default('daftar');
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }

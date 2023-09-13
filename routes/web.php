@@ -68,6 +68,8 @@ Route::group(['prefix' => 'bosa/admin'], function($router) {
     $router->group(['prefix' => 'siswa'], function($router){
         $router->get('/datatable', [DashboardController::class, 'datatable'])->name('admin.student.datatable');
         $router->get('/detail/{id}', [DashboardController::class, 'detailStudent'])->name('admin.student.detail');
+        $router->get('/edit/{id}', [DashboardController::class, 'editStudent'])->name('admin.student.edit');
+        $router->post('/update/{id}', [DashboardController::class, 'updateStudent'])->name('admin.student.update');
     });
     
 });

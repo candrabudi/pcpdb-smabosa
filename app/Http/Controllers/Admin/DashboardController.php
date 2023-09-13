@@ -50,6 +50,7 @@ class DashboardController extends Controller
                 'nisn' => $new['nisn'],
                 'registration_number' => $new['registration_number'],
                 'whatsapp_phone' => $new['whatsapp_phone'],
+                'status' => $new['status'],
             ]; 
         }, $students);
         
@@ -85,6 +86,51 @@ class DashboardController extends Controller
             'student_school',
             'student_presences',
             'student_document'
+        ));
+    }
+
+    public function editStudent($id)
+    {
+        if(!Auth::user()){
+            return redirect()->route('admin.login');
+        }
+        $auth = auth()->user();
+        $user = User::where('id', $id)->first();
+        $student = Student::where('user_id', $user->id)
+            ->first();
+        return view('pages.admin.student.edit', compact(
+            'student'
+        ));
+    }
+
+    public function updateStudent(Request $request, $id)
+    {
+        if(!Auth::user()){
+            return redirect()->route('admin.login');
+        }
+        $auth = auth()->user();
+        $student = Student::where('id', $id)
+            ->first();
+        if(!$student){
+            return redirect()->back();
+        }
+        $user_student = User::where('id', $student->user_id)
+            ->first();
+        if ($request->hasFile('file')) {
+            $uploadedFile = $request->file('file');
+            $customFileName = $user_student->full_name.'_status_'.$request->status.'.' .$uploadedFile->getClientOriginalExtension();
+            $documentPaths = $uploadedFile->storeAs('file_status', $customFileName, 'public');
+
+            Student::where('id', $id)
+                ->update([
+                    'file_path' => $documentPaths,
+                    'status' => $request->status
+                ]);
+        }else{
+            return redirect()->back();
+        }
+        return view('pages.admin.student.edit', compact(
+            'student'
         ));
     }
 }

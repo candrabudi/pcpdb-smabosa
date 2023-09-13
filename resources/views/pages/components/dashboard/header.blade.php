@@ -16,6 +16,22 @@
                                 <li class="list-inline-item"><i class="ti ti-calendar"></i>
                                     Bergabung pada {{tanggal_indonesia($user->created_at)}}</li>
                             </ul>
+                            <div class="row mt-3 col-sm-8">
+                                <div class="col-4">
+                                    @if($student->status == "diterima")
+                                        <span class="badge bg-label-success">Diterima</span>
+                                    @elseif($student->status == "ditolak")
+                                        <span class="badge bg-label-danger">Diterima</span>
+                                    @else
+                                        <span class="badge bg-label-warning">Diterima</span>
+                                    @endif
+                                </div>
+                                <div class="col-8 text-end">
+                                    @if($student->status != "daftar")
+                                        <a href="{{asset('storage/'.$student->file_path)}}" class="btn btn-xs p-2 btn-primary">Download File</a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         @if(auth()->user()->role_name != 'Admin')
                         <div class="row">
@@ -28,8 +44,8 @@
                         </div>
                         @endif
                     </div>
-                    @if(auth()->user()->role_name != 'Admin')
-                    @endif
+
+
                 </div>
             </div>
         </div>
