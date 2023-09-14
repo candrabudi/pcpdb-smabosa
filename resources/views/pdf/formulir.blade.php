@@ -550,7 +550,7 @@
                     <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->parent_name}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->parent_name}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -558,7 +558,7 @@
                     <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->birth_place}}, {{tanggal_indonesia(wali->birth_date)}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->birth_place}}, {{tanggal_indonesia($wali->birth_date)}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -566,7 +566,7 @@
                     <h2 style="font-size: 12px;">c. Agama</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->religion}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->religion}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -574,7 +574,7 @@
                     <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->education}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->education}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -582,7 +582,7 @@
                     <h2 style="font-size: 12px;">e. Pekerjaan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->profession}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->profession}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -590,7 +590,7 @@
                     <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{wali->income}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali->income}}</h2>
                 </div>
             </div>
         @else
