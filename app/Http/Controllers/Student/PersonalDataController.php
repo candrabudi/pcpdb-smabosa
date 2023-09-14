@@ -21,7 +21,7 @@ class PersonalDataController extends Controller
         try {
             $user = Auth::user();
             $student = Student::where('user_id', $user->id)->first();
-            $check_nisn = Student::where('nisn', $request->nisn)
+            $check_nisn = Student::whereNotNull('nisn', $request->nisn)
                 ->select('id', 'user_id')
                 ->first();
             if($check_nisn){
@@ -75,8 +75,10 @@ class PersonalDataController extends Controller
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('Gagal', 'Ada Kesalahan Internal. ' . $e->getMessage());
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($e->getMessage());
         }
     }
 

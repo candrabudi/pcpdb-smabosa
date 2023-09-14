@@ -18,3 +18,9 @@
         <a class="nav-link {{$page == 'document' ? 'active' : ''}}" href="{{route('page_document_data')}}"><i class="ti-xs ti ti-link me-1"></i> Dokumen Siswa</a>
     </li>
 </ul>
+@if(count($errors) > 0)
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <h5 class="alert-heading mb-2">Maaf Ada Kesalahan Silahkan Check Kembali!</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif

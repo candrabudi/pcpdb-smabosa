@@ -2,12 +2,6 @@
     <h5 class="card-header">{{ $title }}</h5>
     <hr class="my-0" />
     <div class="card-body">
-        @if(count($errors) > 0)
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <h5 class="alert-heading mb-2">Maaf Ada Kesalahan Silahkan Check Kembali!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
         @csrf
         <div class="row">
             <div class="mb-3 col-md-6">

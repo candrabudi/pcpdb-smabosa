@@ -8,7 +8,7 @@
         <div class="col-md-12">
             @include('pages.components.account_setting.account_pills')
             <div class="card mb-4">
-                <form id="formAccountSettings" method="POST" action="{{ route('setting_document') }}" enctype="multipart/form-data">
+                <form id="formValidationExamples" method="POST" action="{{ route('setting_document') }}" enctype="multipart/form-data">
                     @csrf
                     <h5 class="card-header">Data Dokumen Siswa</h5>
                     <hr class="my-0" />
@@ -21,12 +21,16 @@
                             </div>
                             @endforeach
                         </div>
+                    </div>
+                </form>
+                <div class="card">
+                    <div class="card-body">
                         <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
+                            <button type="submit" id="submit-button" class="btn btn-primary me-2">Simpan Perubahan</button>
                             <button type="reset" class="btn btn-label-secondary">Cancel</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -55,3 +59,39 @@ function documentAccept($document)
     return 'image/*,.pdf';
 }
 @endphp
+
+@section('scripts')
+<script>
+    const form = document.getElementById("formValidationExamples");
+    const submitButton = document.getElementById("submit-button");
+    $(document).ready(function() {
+        $('#submit-button').click(function() {
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Anda yakin akan menyimpan data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+                customClass: {
+                    confirmButton: 'btn btn-primary me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.preventDefault();
+                    form.submit();
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Batal menyimpan data!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endsection

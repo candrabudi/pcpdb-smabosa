@@ -8,7 +8,7 @@
         <div class="col-md-12">
             @include('pages.components.account_setting.account_pills')
 
-            <form id="formAccountSettings" method="POST" action="{{ route('setting_score') }}">
+            <form id="formValidationExamples" method="POST" action="{{ route('setting_score') }}">
                 @csrf
                 <div class="card mb-4">
                 @for ($class = 7; $class <= 9; $class++)
@@ -29,17 +29,53 @@
                     </div>
                 @endfor
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                        </div>
+            </form>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mt-2">
+                        <button type="submit" id="submit-button" class="btn btn-primary me-2">Simpan Perubahan</button>
+                        <button type="reset" class="btn btn-label-secondary">Cancel</button>
                     </div>
                 </div>
-            </form>
+            </div>
 
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    const form = document.getElementById("formValidationExamples");
+    const submitButton = document.getElementById("submit-button");
+    $(document).ready(function() {
+        $('#submit-button').click(function() {
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Anda yakin akan menyimpan data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+                customClass: {
+                    confirmButton: 'btn btn-primary me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.preventDefault();
+                    form.submit();
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Batal menyimpan data!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+        });
+    });
+</script>
 @endsection
