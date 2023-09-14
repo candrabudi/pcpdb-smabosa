@@ -37,12 +37,12 @@
 function documentLabel($document)
 {
     $labels = [
-        'sd_certificate' => 'Upload Ijazah SD (halaman depan dan belakang), Format: Image/Pdf*',
-        'smp_certificate' => 'Softcopy Raport SMP (dari halaman depan), Format: Image/Pdf*',
-        'birth_certificate' => 'Upload Akta Kelahiran, Format: Image/Pdf*',
-        'family_card' => 'Upload Kartu Keluarga, Format: Image/Pdf*',
-        'pas_photo' => 'Pas Foto, Format: Image*',
-        'signature' => 'Tanda Tangan, Format: Image/Pdf*',
+        'sd_certificate' => 'Upload Ijazah SD (halaman depan dan belakang), Format: Image/Pdf* (max 2mb)',
+        'smp_certificate' => 'Softcopy Raport SMP (dari halaman depan), Format: Image/Pdf* (max 2mb)',
+        'birth_certificate' => 'Upload Akta Kelahiran, Format: Image/Pdf* (max 2mb)',
+        'family_card' => 'Upload Kartu Keluarga, Format: Image/Pdf* (max 2mb)',
+        'pas_photo' => 'Pas Foto, Format: Image* (max 2mb)',
+        'signature' => 'Tanda Tangan, Format: Image/Pdf* (max 2mb)',
     ];
     return $labels[$document] ?? '';
 }

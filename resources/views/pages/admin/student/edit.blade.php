@@ -16,7 +16,7 @@ Detail Siswa
                     <form method="POST" action="{{ route('admin.student.update', $student->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Upload File</label>
+                            <label class="form-label" for="basic-default-fullname">Upload File (max 2mb)</label>
                             <input type="file" class="form-control" id="basic-default-fullname" name="file" required />
                         </div>
                         <div class="mb-3">
