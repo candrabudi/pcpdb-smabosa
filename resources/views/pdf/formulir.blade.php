@@ -451,7 +451,13 @@
                             @endforeach
                             <tr>
                                 <td colspan="2">Rata rata</td>
-                                <td>{{round($rata_rata/6, 2)}}</td>
+                                <td>
+                                    @if($nilai_kelas_tujuh && $nilai_kelas_delapan && $nilai_kelas_sembilan)
+                                        {{round($rata_rata/6, 2)}}
+                                    @else
+                                        {{round($rata_rata/4, 2)}}
+                                    @endif
+                                </td>
                             </tr>
                         </tbody>
                     </table>
