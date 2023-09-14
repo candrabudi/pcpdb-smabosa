@@ -115,14 +115,14 @@ class HomeController extends Controller
     {
         $data_validation = $this->checkDataStudent();
 
-        if(!$data_validation['student'] || !$data_validation['student_school']
-        || !$data_validation['student_parents'] || !$data_validation['student_father']
-        || !$data_validation['student_mother'] || !$data_validation['student_presences']
-        || !$data_validation['student_scores'] || !$data_validation['student_document']
-        || !$data_validation['student_detail']){
-            Alert::error('Yah!', 'Maaf gagal download, silahkan lengkapi data diri kamu.');
-            return redirect()->route('dashboard');
-        }
+        // if(!$data_validation['student'] || !$data_validation['student_school']
+        // || !$data_validation['student_parents'] || !$data_validation['student_father']
+        // || !$data_validation['student_mother'] || !$data_validation['student_presences']
+        // || !$data_validation['student_scores'] || !$data_validation['student_document']
+        // || !$data_validation['student_detail']){
+        //     Alert::error('Yah!', 'Maaf gagal download, silahkan lengkapi data diri kamu.');
+        //     return redirect()->route('dashboard');
+        // }
         $user = Auth::user();
         $siswa = Student::where('user_id', $user->id)->first();
         $data = array(
@@ -138,6 +138,7 @@ class HomeController extends Controller
             'absen_sembilan' => StudentPresence::where('user_id', $user->id)->where('type_class', 'nine')->first(),
             'ayah' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ayah')->first(),
             'ibu' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Ibu')->first(),
+            'wali' => StudentParent::where('user_id', $user->id)->where('type_parent', 'Wali')->first(),
             'siswa_detail' => StudentDetail::where('user_id', $user->id)->first(),
             'siswa_dokumen' => StudentDocument::where('user_id', $user->id)->first(),
             'tahun_sekolah' => SchoolYear::where('id', $siswa->school_year_id)->first(),

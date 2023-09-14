@@ -307,7 +307,11 @@
             <p>Mohon ditulis dengan lengkap dan benar menggunakan huruf cetak, Berilah tanda lingkaran pada pilihan jawaban sesuai keadaan.</p>
         </div>
         <div class="box-2">
+            @if($siswa_dokumen->pas_photo)
             <h1><img src="{{public_path('storage/'.$siswa_dokumen->pas_photo)}}" style="width: 100px;"></h1>
+            @else
+            <h1><img src="" style="width: 100px;"></h1>
+            @endif
         </div>
     </section>
     <div class="clear"></div>
@@ -318,7 +322,7 @@
                 <h2>1. Nama Lengkap</h2>
             </div>
             <div class="right">
-                <h2>: {{$nama_siswa}}</h2>
+                <h2>: {{$nama_siswa ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -326,7 +330,7 @@
                 <h2>2. NISN (sesuai ijasah SD)</h2>
             </div>
             <div class="right">
-                <h2>: {{$siswa->nisn}}</h2>
+                <h2>: {{$siswa->nisn ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -334,7 +338,7 @@
                 <h2>3. Jenis Kelamin *)</h2>
             </div>
             <div class="right">
-                <h2>: {{$siswa->gender}}</h2>
+                <h2>: {{$siswa->gender ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -342,7 +346,7 @@
                 <h2>4. Tempat, Tgl Lahir</h2>
             </div>
             <div class="right">
-                <h2>: {{$siswa->birth_place}}, {{tanggal_indonesia($siswa->birth_date)}}</h2>
+                <h2>: {{$siswa->birth_place ?? ''}}, {{tanggal_indonesia($siswa->birth_date)}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -463,34 +467,34 @@
                             <td width="50">A</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_tujuh->sick_one}}</td>
-                            <td>{{$absen_tujuh->permission_one}}</td>
-                            <td>{{$absen_tujuh->alpa_one}}</td>
+                            <td>{{$absen_tujuh->sick_one ?? 0}}</td>
+                            <td>{{$absen_tujuh->permission_one ?? 0}}</td>
+                            <td>{{$absen_tujuh->alpa_one ?? 0}}</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_tujuh->sick_two}}</td>
-                            <td>{{$absen_tujuh->permission_two}}</td>
-                            <td>{{$absen_tujuh->alpa_two}}</td>
+                            <td>{{$absen_tujuh->sick_two ?? 0}}</td>
+                            <td>{{$absen_tujuh->permission_two ?? 0}}</td>
+                            <td>{{$absen_tujuh->alpa_two ?? 0}}</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_delapan->sick_one}}</td>
-                            <td>{{$absen_delapan->permission_one}}</td>
-                            <td>{{$absen_delapan->alpa_one}}</td>
+                            <td>{{$absen_delapan->sick_one ?? 0}}</td>
+                            <td>{{$absen_delapan->permission_one ?? 0}}</td>
+                            <td>{{$absen_delapan->alpa_one ?? 0}}</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_delapan->sick_two}}</td>
-                            <td>{{$absen_delapan->permission_two}}</td>
-                            <td>{{$absen_delapan->alpa_two}}</td>
+                            <td>{{$absen_delapan->sick_two ?? 0}}</td>
+                            <td>{{$absen_delapan->permission_two ?? 0}}</td>
+                            <td>{{$absen_delapan->alpa_two ?? 0}}</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_sembilan->sick_one}}</td>
-                            <td>{{$absen_sembilan->permission_one}}</td>
-                            <td>{{$absen_sembilan->alpa_one}}</td>
+                            <td>{{$absen_sembilan->sick_one ?? 0}}</td>
+                            <td>{{$absen_sembilan->permission_one ?? 0}}</td>
+                            <td>{{$absen_sembilan->alpa_one ?? 0}}</td>
                         </tr>
                         <tr>
-                            <td>{{$absen_sembilan->sick_two}}</td>
-                            <td>{{$absen_sembilan->permission_two}}</td>
-                            <td>{{$absen_sembilan->alpa_two}}</td>
+                            <td>{{$absen_sembilan->sick_two ?? 0}}</td>
+                            <td>{{$absen_sembilan->permission_two ?? 0}}</td>
+                            <td>{{$absen_sembilan->alpa_two ?? 0}}</td>
                         </tr>
                     </table>
                 </div>
@@ -539,115 +543,165 @@
     <section class="biodata">
         <h1>C. DATA ORANG TUA / WALI CALON PESERTA DIDIK</h1>
         <div style="margin-top: 30px"></div>
-        <h3 style="margin-left: 15px;marign-top: 40px;display:block;">1. Ayah</h3>
-        <div class="box-biodata" style="margin-top: 10px; margin-left: 20px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
+        @if($wali)
+            <h3 style="margin-left: 15px;marign-top: 40px;display:block;">1. Wali</h3>
+            <div class="box-biodata" style="margin-top: 10px; margin-left: 20px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->parent_name}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->parent_name}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->birth_place}}, {{tanggal_indonesia(wali->birth_date)}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">c. Agama</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->religion}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->birth_place}}, {{tanggal_indonesia($ayah->birth_date)}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->education}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">c. Agama</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">e. Pekerjaan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->profession}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->religion}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{wali->income}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
+        @else
+            <h3 style="margin-left: 15px;marign-top: 40px;display:block;">1. Ayah</h3>
+            <div class="box-biodata" style="margin-top: 10px; margin-left: 20px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->parent_name}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->education}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->birth_place}}, {{tanggal_indonesia($ayah->birth_date)}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">e. Pekerjaan</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">c. Agama</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->religion}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->profession}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->education}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">e. Pekerjaan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->profession}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ayah->income}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ayah->income}}</h2>
+                </div>
             </div>
-        </div>
 
-
-
-        <h3 style="margin-left: 15px;">2. Ibu</h3>
-        <div class="box-biodata" style="margin-top: 10px; margin-left: 20px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
+            <h3 style="margin-left: 15px;">2. Ibu</h3>
+            <div class="box-biodata" style="margin-top: 10px; margin-left: 20px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ibu->parent_name}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ibu->parent_name}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">{{$ibu->birth_place}}, {{tanggal_indonesia($ibu->birth_date)}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">c. Agama</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ibu->religion}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">{{$ibu->birth_place}}, {{tanggal_indonesia($ibu->birth_date)}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ibu->education}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">c. Agama</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">e. Pekerjaan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ibu->profession}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ibu->religion}}</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$ibu->income}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
+            <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
+                <div class="left">
+                    <h2 style="font-size: 12px;">g. Alamat lengkap orang tua</h2>
+                </div>
+                <div class="right">
+                    <h2 style="font-size: 12px;">: {{$siswa_detail->parent_address ?? ''}}</h2>
+                </div>
             </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ibu->education}}</h2>
-            </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">e. Pekerjaan</h2>
-            </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ibu->profession}}</h2>
-            </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
-            </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$ibu->income}}</h2>
-            </div>
-        </div>
-        <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
-            <div class="left">
-                <h2 style="font-size: 12px;">g. Alamat lengkap orang tua</h2>
-            </div>
-            <div class="right">
-                <h2 style="font-size: 12px;">: {{$siswa_detail->parent_address}}</h2>
-            </div>
-        </div>
+        @endif
     </section>
 
     <section class="biodata">
@@ -657,7 +711,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">1. No. Telp. Rumah</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa_detail->phone_house}}</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa_detail->phone_house ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -665,7 +719,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">2. No. HP Calon Peserta Didik</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->phone_number}}</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->phone_number ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -673,7 +727,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">3. No. WA Calon Peserta Didik</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->whatsapp_phone}}</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$siswa->whatsapp_phone ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -681,7 +735,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">4. No.Telp/HP Ayah</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ayah->whatsapp_phone}}</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ayah->whatsapp_phone ?? ''}}</h2>
             </div>
         </div>
         <div class="box-biodata">
@@ -689,7 +743,7 @@
                 <h2 style="font-size: 12px;margin-margin-bottom: -20px;">5. No.Telp/HP Ibu</h2>
             </div>
             <div class="right" style="font-size: 14px;">
-                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ibu->whatsapp_phone}}</h2>
+                <h2 style="font-size: 12px;margin-margin-bottom: -20px;">: {{$ibu->whatsapp_phone ?? ''}}</h2>
             </div>
         </div>
     </section>
