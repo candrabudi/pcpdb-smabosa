@@ -4,13 +4,17 @@
         <p>Masukan Data Diri Kamu.</p>
     </div>
     <div class="row g-3">
+        <div class="col-sm-12">
+            <label class="form-label" for="register_number_offline">Nomor Pendaftaran (Jika Sudah Daftar Offline)</label>
+            <input type="text" name="register_number_offline" id="register_number_offline" value="{{ old('register_number_offline') }}" class="form-control" placeholder="Masukan Nomor Pendaftaran Jika Sudah Punya" />
+        </div>
         <div class="col-sm-6">
             <label class="form-label" for="full_name">Nama Lengkap</label>
-            <input type="text" name="full_name" id="full_name" value="{{ old('full_name') }}" class="form-control" placeholder="Takane Sachio" />
+            <input type="text" name="full_name" id="full_name" value="{{ old('full_name') }}" class="form-control" placeholder="Masukan Nama" />
         </div>
         <div class="col-sm-6">
             <label class="form-label" for="user_email">Email</label>
-            <input type="email" name="user_email" id="user_email" value="{{ old('user_email') }}" class="form-control" placeholder="takane@example.com" />
+            <input type="email" name="user_email" id="user_email" value="{{ old('user_email') }}" class="form-control" placeholder="Masukan Email" />
         </div>
         <div class="col-sm-6 form-password-toggle">
             <label class="form-label" for="user_password">Password</label>

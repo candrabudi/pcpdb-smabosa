@@ -43,7 +43,12 @@ class AuthController extends Controller
             }
 
             $number_register = $this->createAutoCode();
-    
+            
+            if($request->registration_number_offline){
+                $register_number = $request->registration_number_offline;
+            }else{
+                $register_number = $number_register['nomor_student'];
+            }
             $user = new User();
             $user->full_name = $request->full_name;
             $user->email = $request->user_email;
@@ -55,8 +60,11 @@ class AuthController extends Controller
             $store = new Student();
             $store->user_id = $user->id;
             $store->school_year_id = $number_register['school_year_id'];
-            $store->registration_number = $number_register['nomor_student'];
-            // $store->nisn = $request->user_nisn;
+            if($request->registration_number_offline){
+                $store->registration_number_offline = $register_number;
+            }else{
+                $store->registration_number = $number_register['nomor_student'];
+            }
             $store->gender = $request->user_gender;
             $store->religion = $request->user_religion;
             $store->birth_date = $request->user_birth_date;

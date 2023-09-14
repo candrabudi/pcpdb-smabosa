@@ -21,9 +21,9 @@
                                     @if($student->status == "diterima")
                                         <span class="badge bg-label-success">Diterima</span>
                                     @elseif($student->status == "ditolak")
-                                        <span class="badge bg-label-danger">Diterima</span>
+                                        <span class="badge bg-label-danger">Ditolak</span>
                                     @else
-                                        <span class="badge bg-label-warning">Diterima</span>
+                                        <span class="badge bg-label-warning">Daftar</span>
                                     @endif
                                 </div>
                                 <div class="col-8 text-end">

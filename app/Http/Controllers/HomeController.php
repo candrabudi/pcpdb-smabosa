@@ -39,7 +39,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if($user->role_name != "student"){
+        if($user->role_name != "Student"){
             return redirect()->route('admin.dashboard');
         }
         $student = Student::where('user_id', $user->id)
