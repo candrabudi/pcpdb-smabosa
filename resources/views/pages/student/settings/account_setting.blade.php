@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="user_nisn" class="form-label">NISN</label>
-                                <input class="form-control" type="text" id="user_nisn" name="user_nisn" value="{{$student->nisn}}" autofocus required />
+                                <input class="form-control" type="text" id="user_nisn" name="user_nisn" value="{{$student->nisn ?? old('user_nisn')}}" autofocus required />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_full_name" class="form-label">Nama Lengkap</label>
@@ -56,12 +56,12 @@
                                 <label class="form-label" for="user_phone_house">Nomor Telp Rumah</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? ''}}" required />
+                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? old('user_phone_house')}}" required />
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_parent_address" class="form-label">Alamat Orang Tua</label>
-                                <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? ''}}" required />
+                                <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? old('user_parent_address')}}" required />
                             </div>
                         </div>
                     </div>

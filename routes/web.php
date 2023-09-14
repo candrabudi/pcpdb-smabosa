@@ -44,6 +44,7 @@ Route::group(['prefix' => 'siswa'], function($router) {
     $router->group(['prefix' => 'pengaturan'], function($router){
         $router->get('/data-diri', [AccountController::class, 'pagePersonalData'])->name('page_personal_data');
         $router->get('/orangtua', [AccountController::class, 'pageParent'])->name('page_parent_data');
+        $router->get('/wali', [AccountController::class, 'pageWali'])->name('page_wali_data');
         $router->get('/absensi', [AccountController::class, 'pagePresenceData'])->name('page_presence_data');
         $router->get('/nilai', [AccountController::class, 'pageScore'])->name('page_score_data');
         $router->get('/dokumen', [AccountController::class, 'pageDocument'])->name('page_document_data');
@@ -57,6 +58,7 @@ Route::group(['prefix' => 'siswa'], function($router) {
         $router->post('/absen', [PresenceController::class, 'storePresence'])->name('setting_presence');
         $router->post('/data-ayah', [ParentController::class, 'storeStudentFather'])->name('setting_student_father');
         $router->post('/data-ibu', [ParentController::class, 'storeStudentMother'])->name('setting_student_mother');
+        $router->post('/data-wali', [ParentController::class, 'storeStudentWali'])->name('setting_student_wali');
         $router->post('/data-nilai', [ScoreController::class, 'createOrUpdateScore'])->name('setting_score');
         $router->post('/data-dokumen', [DocumentController::class, 'createUpdateDocument'])->name('setting_document');
     });

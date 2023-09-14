@@ -2,15 +2,13 @@
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Orangtua Siswa</h4>
-
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Wali Siswa</h4>
     <div class="row">
         <div class="col-md-12">
             @include('pages.components.account_setting.account_pills')
-            <form action="{{route('setting_student_mother')}}" id="formValidationExamples" method="post">
+            <form action="{{route('setting_student_wali')}}" id="formValidationExamples" method="post">
                 @csrf
-                @include('components.partials.parent_form', ['parent' => $student_father, 'parentType' => 'father','route' => 'setting_student_father', 'title' => 'Data Ayah Siswa'])
-                @include('components.partials.parent_form', ['parent' => $student_mother, 'parentType' => 'mother','route' => 'setting_student_mother', 'title' => 'Data Ibu Siswa'])
+                @include('components.partials.parent_form', ['parent' => $student_wali, 'parentType' => 'wali','route' => 'setting_student_wali', 'title' => 'Data Wali Siswa'])
             </form>
             <div class="card mb-4">
                 <div class="card-body">
@@ -32,7 +30,7 @@
         $('#submit-button').click(function() {
             Swal.fire({
                 title: 'Yakin?',
-                text: "Anda yakin akan menyimpan data ini?",
+                text: "Kamu akan menambahkan Event",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya',
@@ -49,7 +47,7 @@
                 } else {
                     Swal.fire({
                         icon: 'info',
-                        title: 'Batal menyimpan data!',
+                        title: 'Penambahan Dibatalkan',
                         showConfirmButton: false,
                         timer: 1500
                     });

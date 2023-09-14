@@ -28,3 +28,4 @@
 <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
 <script src="{{ asset('assets/js/config.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />

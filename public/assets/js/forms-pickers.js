@@ -10,6 +10,7 @@
   const flatpickrDate = document.querySelector('#flatpickr-date'),
     flatpickrDate2 = document.querySelector('#flatpickr-date2'),
     flatpickrDateFather = document.querySelector('#flatpickr-date-father'),
+    flatpickrDateWali = document.querySelector('#flatpickr-date-wali'),
     flatpickrDateMother = document.querySelector('#flatpickr-date-mother'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
@@ -37,6 +38,11 @@
   }
   if (flatpickrDateMother) {
     flatpickrDateMother.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDateWali) {
+    flatpickrDateWali.flatpickr({
       monthSelectorType: 'static'
     });
   }

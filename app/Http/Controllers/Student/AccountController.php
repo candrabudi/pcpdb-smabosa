@@ -63,7 +63,20 @@ class AccountController extends Controller
     {
         $page = "parent";
         $user_id = Auth::user()->id;
-
+        $student_wali = StudentParent::select('id')
+            ->where('type_parent', 'Wali')
+            ->where('user_id', $user_id)
+            ->first();
+        if($student_wali){
+            $page = "wali";
+            $student_wali = StudentParent::where('type_parent', 'Wali')
+                ->where('user_id', $user_id)
+                ->first();
+            return view('pages.student.settings.wali_setting', compact(
+                'student_wali',
+                'page'
+            ));
+        }
         $student_father = StudentParent::firstOrNew([
             'user_id' => $user_id,
             'type_parent' => 'Ayah'
@@ -79,6 +92,45 @@ class AccountController extends Controller
             'student_father',
             'student_mother',
             'student_document',
+            'page'
+        ));
+    }
+
+    public function pageWali()
+    {
+        $page = "wali";
+        $user_id = Auth::user()->id;
+        $student_father = StudentParent::select('id')
+            ->where('type_parent', 'Ayah')
+            ->where('user_id', $user_id)
+            ->first();
+
+        $student_mother = StudentParent::select('id')
+            ->where('type_parent', 'Ibu')
+            ->where('user_id', $user_id)
+            ->first();
+        if($student_father && $student_mother){
+            $page = "parent";
+            $student_father = StudentParent::where('type_parent', 'Ayah')
+                ->where('user_id', $user_id)
+                ->first();
+
+            $student_mother = StudentParent::where('type_parent', 'Ibu')
+                ->where('user_id', $user_id)
+                ->first();
+            return view('pages.student.settings.parent_setting', compact(
+                'student_mother',
+                'student_father',
+                'page'
+            ));
+        }
+        $student_wali = StudentParent::firstOrNew([
+            'user_id' => $user_id,
+            'type_parent' => 'Wali'
+        ]);
+
+        return view('pages.student.settings.wali_setting', compact(
+            'student_wali',
             'page'
         ));
     }

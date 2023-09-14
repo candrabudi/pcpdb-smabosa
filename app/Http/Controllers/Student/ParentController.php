@@ -23,6 +23,13 @@ class ParentController extends Controller
 
     public function storeStudentParent(Request $request, $parentType)
     {
+        $check_parent = StudentParent::whereIn('type_parent', ['Wali'])
+            ->select('id')
+            ->first();
+        if($check_parent){
+            Alert::error('Yah!', 'Maaf anda sudah menambahkan wali.');
+            return redirect()->back();
+        }
         $rules = [
             'mother_parent_name' => 'required|string|max:191',
             'mother_birth_place' => 'required|string|max:191',
@@ -92,6 +99,64 @@ class ParentController extends Controller
             Alert::success('Yay!', 'Berhasil Merubah data Orang Tua');
         } catch (\Exception $e) {
             Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
+        }
+
+        return redirect()->back();
+    }
+
+    public function storeStudentWali(Request $request)
+    {
+        $check_parent = StudentParent::whereIn('type_parent', ['Ibu', 'Ayah'])
+            ->select('id')
+            ->first();
+        if($check_parent){
+            Alert::error('Yah!', 'Maaf anda sudah menambahkan data orangtua.');
+            return redirect()->back();
+        }
+        $rules = [
+            'wali_parent_name' => 'required|string|max:191',
+            'wali_birth_place' => 'required|string|max:191',
+            'wali_birth_date' => 'required',
+            'wali_education' => 'required',
+            'wali_religion' => 'required',
+            'wali_profession' => 'required',
+            'wali_income' => 'required',
+            'wali_whatsapp_phone' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($validator->errors());
+        }
+
+        try {
+            $user_id = Auth::user()->id;
+
+            $parentDataMother = [
+                'parent_name' => $request->{'wali_parent_name'},
+                'birth_place' => $request->{'wali_birth_place'},
+                'birth_date' => $request->{'wali_birth_date'},
+                'education' => $request->{'wali_education'},
+                'religion' => $request->{'wali_religion'},
+                'profession' => $request->{'wali_profession'},
+                'income' => $request->{'wali_income'},
+                'whatsapp_phone' => $request->{'wali_whatsapp_phone'},
+                'type_parent' => 'Wali'
+            ];
+
+            StudentParent::updateOrCreate(
+                ['user_id' => $user_id, 'type_parent' => 'Wali'],
+                $parentDataMother
+            );
+
+            Alert::success('Yay!', 'Berhasil Melakukan Perubahan Wali');
+        } catch (\Exception $e) {
+            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
+            return redirect()->back()
+                ->withInput();
         }
 
         return redirect()->back();

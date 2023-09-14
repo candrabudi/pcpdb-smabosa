@@ -6,6 +6,9 @@
         <a class="nav-link {{$page == 'parent' ? 'active' : ''}}" href="{{route('page_parent_data')}}"><i class="ti-xs ti ti-id me-1"></i>Orang Tua</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link {{$page == 'wali' ? 'active' : ''}}" href="{{route('page_wali_data')}}"><i class="ti-xs ti ti-id me-1"></i>Wali</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link {{$page == 'presence' ? 'active' : ''}}" href="{{route('page_presence_data')}}"><i class="ti-xs ti ti-file-description me-1"></i> Absensi Siswa</a>
     </li>
     <li class="nav-item">
