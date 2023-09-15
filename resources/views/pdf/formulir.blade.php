@@ -303,7 +303,7 @@
 
     <section class="header-register">
         <div class="box-1">
-            <h1>NO PENDAFTARAN : {{$siswa->registration_number}}</h1>
+            <h1>NO PENDAFTARAN : {{ $siswa->registration_number != null ? $siswa->registration_number : $siswa->registration_number_offline }}</h1>
             <p>Mohon ditulis dengan lengkap dan benar menggunakan huruf cetak, Berilah tanda lingkaran pada pilihan jawaban sesuai keadaan.</p>
         </div>
         <div class="box-2">
