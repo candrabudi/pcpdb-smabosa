@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('title')
-Detail Siswa
+Detail Peserta Didik
 @endsection
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Siswa /</span> Profile
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Peserta Didik /</span> Profile
     </h4>
     @include('pages.components.dashboard.header')
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->pas_photo ? asset('storage/' . $student_document->pas_photo) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Foto Siswa</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->pas_photo ? asset('storage/' . $student_document->pas_photo) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Foto Peserta Didik</a>
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->sd_certificate ? asset('storage/' . $student_document->sd_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SD</a>
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->smp_certificate ? asset('storage/' . $student_document->smp_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Ijazah SMP</a>
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->birth_certificate ? asset('storage/' . $student_document->birth_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Akta Kelahiran</a>

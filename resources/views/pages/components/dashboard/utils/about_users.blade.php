@@ -12,10 +12,10 @@
             </li>
             <li class="d-flex align-items-center mb-3">
                 <i class="ti ti-crown"></i><span class="fw-bold mx-2">Akun:</span>
-                <span>Siswa</span>
+                <span>Peserta Didik</span>
             </li>
         </ul>
-        <small class="card-text text-uppercase">KONTAK SISWA</small>
+        <small class="card-text text-uppercase">KONTAK Peserta Didik</small>
         <ul class="list-unstyled mb-4 mt-3">
             <li class="d-flex align-items-center mb-3">
                 <i class="ti ti-phone-call"></i><span class="fw-bold mx-2">Nomor Handphone:</span>

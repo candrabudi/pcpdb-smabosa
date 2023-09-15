@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-body">
-        <p class="card-text text-uppercase">Absensi Siswa</p>
+        <p class="card-text text-uppercase">Absensi Peserta Didik</p>
         @foreach($student_presences as $sp)
         <small class="text-light fw-semibold">
             {{

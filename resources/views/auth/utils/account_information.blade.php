@@ -1,6 +1,6 @@
 <div id="accountDetailsValidation" class="content">
     <div class="content-header mb-4">
-        <h3 class="mb-1">Registrasi Siswa</h3>
+        <h3 class="mb-1">Registrasi Peserta Didik</h3>
         <p>Masukan Data Diri Kamu.</p>
     </div>
     <div class="row g-3">

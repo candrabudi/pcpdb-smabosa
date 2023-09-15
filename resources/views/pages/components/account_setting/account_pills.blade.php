@@ -9,13 +9,13 @@
         <a class="nav-link {{$page == 'wali' ? 'active' : ''}}" href="{{route('page_wali_data')}}"><i class="ti-xs ti ti-id me-1"></i>Wali</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{$page == 'presence' ? 'active' : ''}}" href="{{route('page_presence_data')}}"><i class="ti-xs ti ti-file-description me-1"></i> Absensi Siswa</a>
+        <a class="nav-link {{$page == 'presence' ? 'active' : ''}}" href="{{route('page_presence_data')}}"><i class="ti-xs ti ti-file-description me-1"></i> Absensi Peserta Didik</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{$page == 'score' ? 'active' : ''}}" href="{{route('page_score_data')}}"><i class="ti-xs ti ti-bookmarks me-1"></i> Nilai Siswa</a>
+        <a class="nav-link {{$page == 'score' ? 'active' : ''}}" href="{{route('page_score_data')}}"><i class="ti-xs ti ti-bookmarks me-1"></i> Nilai Peserta Didik</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{$page == 'document' ? 'active' : ''}}" href="{{route('page_document_data')}}"><i class="ti-xs ti ti-link me-1"></i> Dokumen Siswa</a>
+        <a class="nav-link {{$page == 'document' ? 'active' : ''}}" href="{{route('page_document_data')}}"><i class="ti-xs ti ti-link me-1"></i> Dokumen Peserta Didik</a>
     </li>
 </ul>
 @if(count($errors) > 0)

@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Profile Siswa</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Profile Peserta Didik</h4>
     
     @foreach([
         'student' => 'Mohon lengkapi data diri anda untuk mempercepat proses PCPDB',

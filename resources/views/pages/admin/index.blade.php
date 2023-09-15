@@ -2,13 +2,13 @@
 @section('title', 'Dashboard')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Siswa</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Peserta Didik</h4>
 
     <div class="col-lg-6 mb-4">
         <div class="card h-100">
             <div class="card-header pb-0 d-flex justify-content-between mb-lg-n4">
                 <div class="card-title mb-0">
-                    <h5 class="mb-0">Jumlah Calon Siswa</h5>
+                    <h5 class="mb-0">Jumlah Calon Peserta Didik</h5>
                 </div>
             </div>
             <div class="card-body mt-5">

@@ -2,7 +2,9 @@
     <div class="container-xxl">
         <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
             <a href="/" class="app-brand-link gap-2">
-                <span class="app-brand-text demo menu-text fw-bold">SMABOSA</span>
+                <span class="app-brand-text demo menu-text fw-bold">
+                    <img src="https://smabosa-yogya.sch.id/asset_fe/images/logo/logo.webp" width="150" alt="">
+                </span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">

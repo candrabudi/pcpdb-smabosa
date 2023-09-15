@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-body">
-        <p class="card-text text-uppercase">Nilai Siswa</p>
+        <p class="card-text text-uppercase">Nilai Peserta Didik</p>
         <ul class="list-unstyled mb-0">
             @foreach($student_scores as $ss)
             <li class="d-flex align-items-center mb-3">
