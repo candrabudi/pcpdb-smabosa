@@ -30,7 +30,7 @@
         $('#submit-button').click(function() {
             Swal.fire({
                 title: 'Yakin?',
-                text: "Kamu akan menambahkan Event",
+                text: "Kamu akan Merubah Data Wali",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya',

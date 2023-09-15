@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="user_nisn" class="form-label">NISN</label>
-                                <input class="form-control" type="text" id="user_nisn" name="user_nisn" value="{{$student->nisn ?? old('user_nisn')}}" autofocus required />
+                                <input class="form-control" type="number" id="user_nisn" name="user_nisn" value="{{$student->nisn ?? old('user_nisn')}}" autofocus required />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_full_name" class="form-label">Nama Lengkap</label>
@@ -80,7 +80,7 @@
                                 <label class="form-label" for="user_school_phone">Nomor Sekolah</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="text" id="user_school_phone" name="user_school_phone" class="form-control" value="{{$student_school->school_phone}}" required />
+                                    <input type="number" id="user_school_phone" name="user_school_phone" class="form-control" value="{{$student_school->school_phone}}" required />
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
