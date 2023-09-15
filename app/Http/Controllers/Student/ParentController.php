@@ -24,6 +24,7 @@ class ParentController extends Controller
     public function storeStudentParent(Request $request, $parentType)
     {
         $check_parent = StudentParent::whereIn('type_parent', ['Wali'])
+            ->where('user_id', Auth::user()->id)
             ->select('id')
             ->first();
         if($check_parent){
@@ -107,6 +108,7 @@ class ParentController extends Controller
     public function storeStudentWali(Request $request)
     {
         $check_parent = StudentParent::whereIn('type_parent', ['Ibu', 'Ayah'])
+            ->where('user_id', Auth::user()->id)
             ->select('id')
             ->first();
         if($check_parent){

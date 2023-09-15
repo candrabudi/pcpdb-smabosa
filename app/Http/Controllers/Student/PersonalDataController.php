@@ -21,6 +21,12 @@ class PersonalDataController extends Controller
         try {
             $user = Auth::user();
             $student = Student::where('user_id', $user->id)->first();
+            if(!$request->nisn){
+                Alert::error('Gagal', 'Mohon Masukan NISN!');
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
             $check_nisn = Student::whereNotNull('nisn', $request->nisn)
                 ->select('id', 'user_id')
                 ->first();
