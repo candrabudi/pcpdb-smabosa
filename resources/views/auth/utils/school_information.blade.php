@@ -12,7 +12,7 @@
             <label class="form-label" for="user_school_phone">Nomor Sekolah</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                <input type="text" id="user_school_phone" name="user_school_phone" value="{{ old('user_school_phone') }}" class="form-control multi-steps-phone" placeholder="" required maxlength="15"/>
+                <input type="number" id="user_school_phone" name="user_school_phone" value="{{ old('user_school_phone') }}" class="form-control multi-steps-phone" placeholder="" required maxlength="15"/>
             </div>
         </div>
         <div class="col-md-12">
