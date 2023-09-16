@@ -12,6 +12,7 @@ use App\Models\Student;
 use App\Models\StudentSchool;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Validator;
 
 class PersonalDataController extends Controller
 {
@@ -26,19 +27,14 @@ class PersonalDataController extends Controller
                 'email' => $request->input('user_email', $user->email),
             ];
             User::where('id', $user->id)->update($userData);
-
             $nisn = $request->input('user_nisn');
-            if (!$nisn) {
-                DB::rollback();
-                Alert::error('Gagal', 'Mohon Masukan NISN!');
-                return redirect()->back()->withInput();
-            }
-
             $check_nisn = Student::where('nisn', $nisn)->select('id', 'user_id')->first();
             if ($check_nisn && $check_nisn->user_id != $user->id) {
                 DB::rollback();
-                Alert::error('Gagal', 'NISN Sudah digunakan oleh orang lain!');
-                return redirect()->back();
+                return redirect()->back()
+                    ->withErrors(
+                        ['duplicate_nisn' => 'duplicate nisn']
+                    );
             }
 
             $studentData = [
@@ -69,8 +65,10 @@ class PersonalDataController extends Controller
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollback();
-            return $e->getMessage();
-            return redirect()->back()->withInput()->withErrors($e->getMessage());
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($e->getMessage());
         }
     }
 

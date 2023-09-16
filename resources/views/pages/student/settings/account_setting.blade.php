@@ -17,6 +17,9 @@
                             <div class="mb-3 col-md-12">
                                 <label for="user_nisn" class="form-label">NISN</label>
                                 <input class="form-control" type="number" id="user_nisn" name="user_nisn" value="{{$student->nisn ?? old('user_nisn')}}" autofocus required />
+                                @error('user_nisn')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="user_full_name" class="form-label">Nama Lengkap</label>
@@ -62,6 +65,9 @@
                             <div class="mb-3 col-md-6">
                                 <label for="user_parent_address" class="form-label">Alamat Orang Tua</label>
                                 <input type="text" class="form-control" id="user_parent_address" name="user_parent_address" value="{{$student_detail->parent_address ?? old('user_parent_address')}}" required />
+                                @error('parent_address')
+                                    <p class="text-danger mt-2">Tolong Masukan Alamat Orang Tua</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
