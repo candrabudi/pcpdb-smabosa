@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Detail Data Diri')
+@section('title', 'Informasi Data Peserta Didik')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Data Diri Peserta Didik</h4>

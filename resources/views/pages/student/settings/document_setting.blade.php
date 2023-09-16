@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Data Dokumen')
+@section('title', 'Infor Dokumen Peserta Didik')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Dokumen Peserta Didik</h4>
@@ -42,7 +42,7 @@
                     <div class="px-5">
                         <ul>
                             <li>Pasfoto terbaru ukuran <b>4 cm x 6 cm</b> dengan resolusi minimal <b>200px x 300px (± 250 dpi)</b> dan rasio aspek 2:3.</li>
-                            <li>Pasfoto harus <b>berwarna</b> dengan latar belakang polos berwarna apa saja.</li>
+                            <li>Pasfoto harus <b>berwarna</b> merah untuk tahun lahir ganjil lalu biru untuk tahun lahir genap</li>
                             <li>File pasfoto bertipe <b>JPG/JPEG/PNG</b></li>
                             <li>Ukuran minimal file pasfoto adalah <b>80 KB.</b></li>
                             <li>Ukuran maksimal file pasfoto adalah <b>2048 KB.</b></li>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Informasi Nilai Peserta Didik')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Data Nilai Peserta Didik</h4>
@@ -19,11 +19,11 @@
                             <div class="mb-3 col-md-6">
                                 <label for="first_semester" class="form-label">Semester 1</label>
                                 <input class="form-control" type="hidden" id="type_class" name="type_class_{{$class}}" value="{{ $class }}" autofocus />
-                                <input class="form-control" type="number" id="first_semester_{{ $class }}" name="first_semester_{{ $class }}" value="{{ $student_scores[$class]['first_semester'] ?? '0' }}" autofocus />
+                                <input class="form-control" type="number" id="first_semester_{{ $class }}" name="first_semester_{{ $class }}" value="{{ $student_scores[$class]['first_semester'] ?? '' }}" autofocus />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="second_semester" class="form-label">Semester 2</label>
-                                <input class="form-control" type="number" id="second_semester_{{ $class }}" name="second_semester_{{ $class }}" value="{{ $student_scores[$class]['second_semester'] ?? '0' }}" autofocus />
+                                <input class="form-control" type="number" id="second_semester_{{ $class }}" name="second_semester_{{ $class }}" value="{{ $student_scores[$class]['second_semester'] ?? '' }}" autofocus />
                             </div>
                         </div>
                     </div>

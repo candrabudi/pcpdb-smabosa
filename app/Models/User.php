@@ -48,4 +48,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
+
+    public function father()
+    {
+        return $this->hasOne(Student::class)
+            ->where('type_parent', 'Ayah');
+    }
+
+    public function mother()
+    {
+        return $this->hasOne(Student::class)
+            ->where('type_parent', 'Ibu');
+    }
+    public function wali()
+    {
+        return $this->hasOne(Student::class)
+            ->where('type_parent', 'Wali');
+    }
 }
