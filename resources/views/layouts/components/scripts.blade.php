@@ -25,7 +25,5 @@
 <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
 
 <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 @yield('scripts');
