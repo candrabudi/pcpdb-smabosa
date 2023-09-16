@@ -20,15 +20,6 @@
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <ul class="navbar-nav flex-row align-items-center ms-auto">
-                @if(Auth::user()->role_name == "Student")
-                    @if(Auth::user()->student->status == "diterima")
-                        <span class="badge bg-label-success p-2">Di Terima</span>
-                    @elseif(Auth::user()->student == "ditolak")
-                        <span class="badge bg-label-danger p-2">Di Tolak</span>
-                    @else
-                        <span class="badge bg-label-warning p-2">Tahap Pendaftaran</span>
-                    @endif
-                @endif
                 <a class="btn btn-danger" href="{{ route('logout') }}" style="margin-left: 10px;" onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}

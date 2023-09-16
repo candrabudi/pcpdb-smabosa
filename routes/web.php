@@ -67,6 +67,13 @@ Route::group(['prefix' => 'siswa'], function($router) {
 
 Route::group(['prefix' => 'bosa/admin'], function($router) {
     $router->get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    $router->get('/broadcast', [DashboardController::class, 'listBroadcast'])->name('admin.broadcast');
+    $router->get('/broadcast/datatable', [DashboardController::class, 'datatableBroadcast'])->name('admin.broadcast.datatable');
+    $router->get('/broadcast/tambah', [DashboardController::class, 'createBroadcast'])->name('admin.broadcast.create');
+    $router->post('/broadcast/store', [DashboardController::class, 'storeBroadcast'])->name('admin.broadcast.store');
+    $router->get('/broadcast/edit/{id}', [DashboardController::class, 'editBroadcast'])->name('admin.broadcast.edit');
+    $router->post('/broadcast/update/{id}', [DashboardController::class, 'updateBroadcast'])->name('admin.broadcast.update');
+    $router->post('/broadcast/delete/{id}', [DashboardController::class, 'deleteBroadcast'])->name('admin.broadcast.delete');
     $router->group(['prefix' => 'siswa'], function($router){
         $router->get('/datatable', [DashboardController::class, 'datatable'])->name('admin.student.datatable');
         $router->get('/detail/{id}', [DashboardController::class, 'detailStudent'])->name('admin.student.detail');

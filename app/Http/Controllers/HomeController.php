@@ -7,6 +7,7 @@ use App\Models\StudentSchool;
 use Illuminate\Http\Request;
 use Auth;
 use Alert;
+use App\Models\Broadcast;
 use App\Models\SchoolYear;
 use App\Models\StudentDetail;
 use App\Models\StudentDocument;
@@ -42,28 +43,23 @@ class HomeController extends Controller
         if($user->role_name != "Student"){
             return redirect()->route('admin.dashboard');
         }
-        $student = Student::where('user_id', $user->id)
-            ->first();
-        $student_school = StudentSchool::where('user_id', $user->id)
-            ->first();
-        $student_parents = StudentParent::where('user_id', $user->id)
-            ->get();
-        $student_scores = StudentScore::where('user_id', $user->id)
-            ->get();
-        $student_presences = StudentPresence::where('user_id', $user->id)
-            ->get();
-        $student_document = StudentDocument::where('user_id', $user->id)
-            ->first();
-        $data_validation = $this->checkDataStudent();
+        $broadcast = Broadcast::all()
+            ->toArray();
+        $i = 0;
+        $data_broadcast = array_map(function($new) use (&$i) { 
+            $i++;
+            return [
+                'no' => $i.'.',
+                'id' => $new['id'],
+                'title' => $new['title'],
+                'notes' => $new['notes'],
+                'file' => asset('storage/broadcast/'.$new['file_path']),
+                'is_file' => !empty($new['file_path']) ? true : false
+            ]; 
+        }, $broadcast);
         return view('pages.student.dashboard', compact(
             'user',
-            'student',
-            'student_parents',
-            'student_scores',
-            'student_school',
-            'student_presences',
-            'student_document',
-            'data_validation'
+            'data_broadcast'
         ));
     }
 

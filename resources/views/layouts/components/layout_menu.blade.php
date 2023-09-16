@@ -15,6 +15,12 @@
                     <div data-i18n="Dashboards">Dashboards</div>
                 </a>
             </li>
+            <li class="menu-item">
+                <a href="/bosa/admin/broadcast" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-file"></i>
+                    <div data-i18n="Broadcast">Broadcast</div>
+                </a>
+            </li>
             @endif
         </ul>
     </div>

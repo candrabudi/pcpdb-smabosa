@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Broadcast;
 use App\Models\Student;
 use App\Models\StudentDocument;
 use App\Models\StudentParent;
@@ -13,7 +14,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
 use Auth;
-
+use Validator;
+use Storage;
+use DB;
 class DashboardController extends Controller
 {
     public function index()
@@ -132,5 +135,170 @@ class DashboardController extends Controller
         return view('pages.admin.student.edit', compact(
             'student'
         ));
+    }
+
+    public function listBroadcast(){
+        return view('pages.admin.broadcast.index');
+    }
+    public function createBroadcast(){
+        return view('pages.admin.broadcast.create');
+    }
+    
+    public function editBroadcast($id){
+        $broadcast = Broadcast::where('id', $id)
+            ->first();
+        return view('pages.admin.broadcast.edit', compact(
+            'broadcast'
+        ));
+    }
+
+    public function datatableBroadcast()
+    {
+        $broadcast = Broadcast::all()
+            ->toArray();
+        $i = 0;
+        $reform = array_map(function($new) use (&$i) { 
+            $i++;
+            return [
+                'no' => $i.'.',
+                'id' => $new['id'],
+                'title' => $new['title'],
+                'notes' => $new['notes'],
+                'file' => asset('storage/broadcast/'.$new['file_path']),
+                'is_file' => !empty($new['file_path']) ? true : false
+            ]; 
+        }, $broadcast);
+        
+        return DataTables::of($reform)->make(true);
+    }
+
+    public function storeBroadcast(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            $rules = [
+                'title' => 'required|string|max:191',
+                'notes' => 'required|string|max:191',
+                'file' => 'max:2048',
+            ];
+    
+            $customMessages = [
+                'title.required' => 'Tolong Masukan Judul Broadcast.',
+                'notes.required' => 'Tolong Masukan Judul Broadcast.',
+                'file.max' => 'Maaf file terlalu besar.',
+            ];
+            
+    
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+    
+            if ($validator->fails()) {
+                return redirect()
+                    ->route('admin.broadcast')
+                    ->withInput()
+                    ->withErrors($validator->errors());
+            }
+            $title = str_replace(' ', '_', strtolower($request->title));
+            if ($request->hasFile('file')) {
+                $uploadedFile = $request->file('file');
+                $customFileName = $title.'.'. $uploadedFile->getClientOriginalExtension();
+                $uploadedFile->storeAs('broadcast', $customFileName, 'public');
+            }else{
+                $customFileName = null;
+            }
+    
+            $broadcast = new Broadcast();
+            $broadcast->title = $request->title;
+            $broadcast->notes = $request->notes;
+            $broadcast->file_path = $customFileName;
+            $broadcast->save();
+            
+            DB::commit();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('success', 'Berhasil Mengirim Broadcast');
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('error', 'Maaf ada kesalahan internal.');
+        }
+    }
+
+    public function updateBroadcast(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try{
+            $rules = [
+                'title' => 'required|string|max:191',
+                'notes' => 'required|string|max:191',
+                'file' => 'max:2048',
+            ];
+    
+            $customMessages = [
+                'title.required' => 'Tolong Masukan Judul Broadcast.',
+                'notes.required' => 'Tolong Masukan Judul Broadcast.',
+                'file.max' => 'Maaf file terlalu besar.',
+            ];
+            
+    
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+    
+            if ($validator->fails()) {
+                return redirect()
+                    ->route('admin.broadcast')
+                    ->withInput()
+                    ->withErrors($validator->errors());
+            }
+            $title = str_replace(' ', '_', strtolower($request->title));
+            $broadcast = Broadcast::where('id', $id)->first();
+            if ($request->hasFile('file')) {
+                $uploadedFile = $request->file('file');
+                $customFileName = $title.'.'. $uploadedFile->getClientOriginalExtension();
+                $uploadedFile->storeAs('broadcast', $customFileName, 'public');
+            }else{
+                $customFileName = $broadcast->file_path;
+            }
+    
+            
+            $broadcast->title = $request->title;
+            $broadcast->notes = $request->notes;
+            $broadcast->file_path = $customFileName;
+            $broadcast->save();
+            
+            DB::commit();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('success', 'Berhasil Mengupdate Broadcast');
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('error', 'Maaf ada kesalahan internal.');
+        }
+    }
+
+    public function deleteBroadcast($id)
+    {
+        DB::beginTransaction();
+        try{
+          
+            Broadcast::where('id', $id)->delete();
+            
+            DB::commit();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('success', 'Berhasil Menghapus Broadcast');
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()
+                ->route('admin.broadcast')
+                ->withInput()
+                ->with('error', 'Maaf ada kesalahan internal.');
+        }
     }
 }
