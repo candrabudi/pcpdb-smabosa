@@ -11,34 +11,32 @@
             <form id="formValidationExamples" method="POST" action="{{ route('setting_score') }}">
                 @csrf
                 <div class="card mb-4">
-                @for ($class = 7; $class <= 9; $class++)
-                    <h5 class="card-header">Data Nilai Kelas {{ $class }}</h5>
+                    <h5 class="card-header">Data Nilai Peserta Didik</h5>
                     <hr class="my-0" />
                     <div class="card-body">
-                        <div class="row">
+                        @for ($class = 7; $class <= 9; $class++) <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="first_semester" class="form-label">Semester 1</label>
+                                <label for="first_semester" class="form-label">Kelas {{ $class }} Semester 1</label>
                                 <input class="form-control" type="hidden" id="type_class" name="type_class_{{$class}}" value="{{ $class }}" autofocus />
                                 <input class="form-control" type="number" id="first_semester_{{ $class }}" name="first_semester_{{ $class }}" value="{{ $student_scores[$class]['first_semester'] ?? '' }}" autofocus />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="second_semester" class="form-label">Semester 2</label>
+                                <label for="second_semester" class="form-label">Kelas {{ $class }} Semester 2</label>
                                 <input class="form-control" type="number" id="second_semester_{{ $class }}" name="second_semester_{{ $class }}" value="{{ $student_scores[$class]['second_semester'] ?? '' }}" autofocus />
                             </div>
                         </div>
+                        @endfor
                     </div>
-                @endfor
-                </div>
-            </form>
-            <div class="card">
-                <div class="card-body">
-                    <div class="mt-2">
-                        <button type="submit" id="submit-button" class="btn btn-primary me-2">Simpan Perubahan</button>
-                        <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="mt-2">
+                    <button type="submit" id="submit-button" class="btn btn-primary me-2">Simpan Perubahan</button>
+                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

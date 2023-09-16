@@ -31,10 +31,9 @@ class PersonalDataController extends Controller
             $check_nisn = Student::where('nisn', $nisn)->select('id', 'user_id')->first();
             if ($check_nisn && $check_nisn->user_id != $user->id) {
                 DB::rollback();
-                return redirect()->back()
-                    ->withErrors(
-                        ['duplicate_nisn' => 'duplicate nisn']
-                    );
+                return redirect()
+                    ->back()
+                    ->with('error', 'Maaf nisn sudah di gunakan');
             }
 
             $studentData = [
@@ -48,6 +47,14 @@ class PersonalDataController extends Controller
 
             $student_detail = StudentDetail::firstOrNew(['user_id' => $user->id]);
             $detailFields = ['phone_house', 'parent_address'];
+            if($student_detail->parent_address === false){
+                if($request->parent_address == null){
+                    DB::rollback();
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Maaf tolong masukan alamat orang tua');
+                }
+            }
             foreach ($detailFields as $field) {
                 $student_detail->$field = $request->input("user_$field", $student_detail->$field);
             }
@@ -61,35 +68,14 @@ class PersonalDataController extends Controller
             $student->save();
 
             DB::commit();
-            Alert::success('Berhasil', 'Merubah Data Diri');
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('success', 'Berhasil merubah informasi peserta didik');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()
                 ->back()
-                ->withInput()
-                ->withErrors($e->getMessage());
+                ->with('error', 'Maaf ada masalah internal');
         }
     }
-
-
-    public function settingSchoolOrigin(Request $request)
-    {
-        try {
-            $user = Auth::user();
-            $student = StudentSchool::where('user_id', $user->id)->firstOrFail();
-    
-            $fieldsToUpdate = ['school_name', 'school_phone', 'school_address'];
-            foreach ($fieldsToUpdate as $field) {
-                $student->$field = $request->input("user_$field", $student->$field);
-            }
-            $student->save();
-    
-            Alert::success('Berhasil', 'Merubah Data Asal Sekolah');
-        } catch (\Exception $e) {
-            Alert::error('Gagal', 'Ada Kesalahan Internal.');
-        }
-    
-        return redirect()->back();
-    }    
 }

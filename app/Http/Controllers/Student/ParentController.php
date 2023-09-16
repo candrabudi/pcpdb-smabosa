@@ -81,10 +81,9 @@ class ParentController extends Controller
                     StudentParent::updateOrCreate(['user_id' => $user_id, 'type_parent' => ucfirst($type_parent)], $parentData);
                 }
             }
-            // return $check_input;
             if($check_input[0] == false){
                 if($check_input[1] == false){
-                    return redirect()->back()->with('success', 'Tidak ada data yang dirubah');
+                    return redirect()->back()->with('warning', 'Tidak ada data yang dirubah');
                 }
             }else{
                 return redirect()->back()->with('success', 'Berhasil Merubah data Orang Tua');
@@ -116,7 +115,20 @@ class ParentController extends Controller
             'wali_whatsapp_phone' => 'required',
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $customMessages = [
+            'required' => 'The :attribute field is required.',
+            'max' => 'The :Maaf maksimal adalah :max Karakter.',
+            'wali_birth_date.required' => 'Tolong Masukan Tanggal Lahir.',
+            'wali_birth_place.required' => 'Tolong Masukan Tempat Lahir.',
+            'wali_education.required' => 'Tolong Masukan Pendidikan Wali.',
+            'wali_religion.required' => 'Tolong Masukan Pendidikan Wali.',
+            'wali_profession.required' => 'Tolong Masukan Pekerjaan Wali.',
+            'wali_income.required' => 'Tolong Masukan Pendapatan Wali.',
+            'wali_whatsapp_phone.required' => 'Tolong Masukan Nomor Whatsapp Wali.',
+        ];
+        
+
+        $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
             return redirect()->back()

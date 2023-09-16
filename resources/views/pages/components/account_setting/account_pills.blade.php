@@ -18,16 +18,27 @@
         <a class="nav-link {{$page == 'document' ? 'active' : ''}}" href="{{route('page_document_data')}}"><i class="ti-xs ti ti-link me-1"></i> Dokumen Peserta Didik</a>
     </li>
 </ul>
-@if(count($errors) > 0)
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <h5 class="alert-heading mb-2">Maaf Ada Kesalahan Silahkan Check Kembali!</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">{{$error}}</div>
+    @endforeach
 @endif
 
 @if(session('success'))
 <div class="alert alert-success alert-dismissible" role="alert">
     <p class="mb-2">{{ session('success') }}</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if(session('warning'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <p class="mb-2">{{ session('warning') }}</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <p class="mb-2">{{ session('error') }}</p>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
