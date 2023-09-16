@@ -12,7 +12,7 @@
                 @csrf
                 @foreach (['seven', 'eight', 'nine'] as $classType)
                 <div class="card mb-4">
-                    <h5 class="card-header">Data Absensi Kelas {{ ucfirst($classType) }}</h5>
+                    <h5 class="card-header">Data Absensi Kelas {{ ($classType == "seven" ? 7 : ($classType == "eight" ? 8 : 9)) }}</h5>
                     <hr class="my-0" />
                     <div class="card-body">
                         <div class="row">
