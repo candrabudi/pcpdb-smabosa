@@ -99,7 +99,6 @@ class AuthController extends Controller
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email', 
                 'password' => 'required', 
-                // 'nisn' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -119,14 +118,6 @@ class AuthController extends Controller
                         'error' => 'Maaf akun yang kamu masukan tidak ada di data.'
                     ]);
             }
-
-            // if($check_user->nisn != $request->nisn){
-            //     return redirect()->back()
-            //         ->withInput()
-            //         ->withErrors([
-            //             'error' => 'Maaf NISN yang kamu masukan salah.'
-            //         ]);
-            // }
 
             $credentials = [
                 'email' => $request->email,
@@ -153,8 +144,8 @@ class AuthController extends Controller
 
     private function createAutoCode()
     {
-        $ticket_default_now = "F001";
-        $check_number = "F";
+        $ticket_default_now = "N001";
+        $check_number = "N";
         $check_school_year = SchoolYear::where('status', 'active')
             ->first();
         $check_nomor_student = Student::where('school_year_id', $check_school_year->id)
@@ -165,7 +156,7 @@ class AuthController extends Controller
             $three_last_character = substr($check_nomor_student->registration_number, -3);
             $plus_nomor_student = $three_last_character + 1;
             $add_zero_number = str_pad($plus_nomor_student,3,"0", STR_PAD_LEFT);
-            $nomor_student = "F".$add_zero_number;
+            $nomor_student = "N".$add_zero_number;
         }else{
             $nomor_student = $ticket_default_now;
         }
