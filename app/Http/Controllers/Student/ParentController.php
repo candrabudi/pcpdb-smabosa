@@ -32,7 +32,7 @@ class ParentController extends Controller
         try {
 
             $parentTypes = ['mother', 'father'];
-
+            $check_input = [];
             foreach ($parentTypes as $type) {
                 $fieldPrefix = "{$type}_";
                 $type_parent = $type == "father" ? "Ayah" : "Ibu";
@@ -46,7 +46,7 @@ class ParentController extends Controller
                     "{$type}_income",
                     "{$type}_whatsapp_phone",
                 ]))->filter()->isNotEmpty();
-
+                array_push($check_input, $hasData);
                 if ($hasData) {
                     $rules = [
                         "{$type}_parent_name" => 'required|string|max:191',
@@ -81,8 +81,14 @@ class ParentController extends Controller
                     StudentParent::updateOrCreate(['user_id' => $user_id, 'type_parent' => ucfirst($type_parent)], $parentData);
                 }
             }
-
-            return redirect()->back()->with('success', 'Berhasil Merubah data Orang Tua');
+            // return $check_input;
+            if($check_input[0] == false){
+                if($check_input[1] == false){
+                    return redirect()->back()->with('success', 'Tidak ada data yang dirubah');
+                }
+            }else{
+                return redirect()->back()->with('success', 'Berhasil Merubah data Orang Tua');
+            }
         } catch (\Exception $e) {
             return $e->getMessage();
             return redirect()->back()->with('error', 'Maaf ada kesalahan internal.');
