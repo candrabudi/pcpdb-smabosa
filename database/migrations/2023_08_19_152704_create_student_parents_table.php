@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('student_parents', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->enum('type_parent', ['Ayah', 'Ibu']);
+            $table->enum('type_parent', ['Ayah', 'Ibu', 'Wali']);
             $table->string('parent_name');
             $table->string('birth_place');
             $table->date('birth_date');

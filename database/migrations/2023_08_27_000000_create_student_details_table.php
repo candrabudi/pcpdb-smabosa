@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->text('parent_address');
-            $table->string('phone_house', 15);
+            $table->string('phone_house', 15)->nullable();
             $table->timestamps();
         });
     }

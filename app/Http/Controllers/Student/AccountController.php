@@ -109,7 +109,7 @@ class AccountController extends Controller
             ->where('type_parent', 'Ibu')
             ->where('user_id', $user_id)
             ->first();
-        if($student_father && $student_mother){
+        if($student_father || $student_mother){
             $page = "parent";
             $student_father = StudentParent::where('type_parent', 'Ayah')
                 ->where('user_id', $user_id)

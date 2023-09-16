@@ -21,88 +21,72 @@ class ParentController extends Controller
         return $this->storeStudentParent($request, 'mother');
     }
 
-    public function storeStudentParent(Request $request, $parentType)
+    public function storeStudentParent(Request $request)
     {
-        $check_parent = StudentParent::whereIn('type_parent', ['Wali'])
-            ->where('user_id', Auth::user()->id)
-            ->select('id')
-            ->first();
-        if($check_parent){
-            Alert::error('Yah!', 'Maaf anda sudah menambahkan wali.');
-            return redirect()->back();
-        }
-        $rules = [
-            'mother_parent_name' => 'required|string|max:191',
-            'mother_birth_place' => 'required|string|max:191',
-            'mother_birth_date' => 'required',
-            'mother_education' => 'required',
-            'mother_religion' => 'required',
-            'mother_profession' => 'required',
-            'mother_income' => 'required',
-            'mother_whatsapp_phone' => 'required',
+        $user_id = Auth::user()->id;
 
-            'father_parent_name' => 'required|string|max:191',
-            'father_birth_place' => 'required|string|max:191',
-            'father_birth_date' => 'required',
-            'father_education' => 'required',
-            'father_religion' => 'required',
-            'father_profession' => 'required',
-            'father_income' => 'required',
-            'father_whatsapp_phone' => 'required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            Alert::error('Yah', 'Mohon check kembali inputan kamu.');
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator->errors());
+        if (StudentParent::where('type_parent', 'Wali')->where('user_id', $user_id)->exists()) {
+            return redirect()->back()->with('error', 'Maaf anda sudah menambahkan wali.');
         }
 
         try {
-            $user_id = Auth::user()->id;
 
-            $parentDataMother = [
-                'parent_name' => $request->{'mother_parent_name'},
-                'birth_place' => $request->{'mother_birth_place'},
-                'birth_date' => $request->{'mother_birth_date'},
-                'education' => $request->{'mother_education'},
-                'religion' => $request->{'mother_religion'},
-                'profession' => $request->{'mother_profession'},
-                'income' => $request->{'mother_income'},
-                'whatsapp_phone' => $request->{'mother_whatsapp_phone'},
-                'type_parent' => 'Ibu'
-            ];
+            $parentTypes = ['mother', 'father'];
 
-            StudentParent::updateOrCreate(
-                ['user_id' => $user_id, 'type_parent' => 'Ibu'],
-                $parentDataMother
-            );
+            foreach ($parentTypes as $type) {
+                $fieldPrefix = "{$type}_";
+                $type_parent = $type == "father" ? "Ayah" : "Ibu";
+                $hasData = collect($request->only([
+                    "{$type}_parent_name",
+                    "{$type}_birth_place",
+                    "{$type}_birth_date",
+                    "{$type}_education",
+                    "{$type}_religion",
+                    "{$type}_profession",
+                    "{$type}_income",
+                    "{$type}_whatsapp_phone",
+                ]))->filter()->isNotEmpty();
 
-            $parentDataFather = [
-                'parent_name' => $request->{'father_parent_name'},
-                'birth_place' => $request->{'father_birth_place'},
-                'birth_date' => $request->{'father_birth_date'},
-                'education' => $request->{'father_education'},
-                'religion' => $request->{'father_religion'},
-                'profession' => $request->{'father_profession'},
-                'income' => $request->{'father_income'},
-                'whatsapp_phone' => $request->{'father_whatsapp_phone'},
-                'type_parent' => 'Ayah'
-            ];
+                if ($hasData) {
+                    $rules = [
+                        "{$type}_parent_name" => 'required|string|max:191',
+                        "{$type}_birth_place" => 'required|string|max:191',
+                        "{$type}_birth_date" => 'required',
+                        "{$type}_education" => 'required',
+                        "{$type}_religion" => 'required',
+                        "{$type}_profession" => 'required',
+                        "{$type}_income" => 'required',
+                        "{$type}_whatsapp_phone" => 'required',
+                    ];
 
-            StudentParent::updateOrCreate(
-                ['user_id' => $user_id, 'type_parent' => 'Ayah'],
-                $parentDataFather
-            );
+                    $validator = Validator::make($request->all(), $rules);
 
-            Alert::success('Yay!', 'Berhasil Merubah data Orang Tua');
+                    if ($validator->fails()) {
+                        return redirect()->back()->withInput()->withErrors($validator->errors());
+                    }
+
+                    $parentData = collect($request->only([
+                        "{$type}_parent_name",
+                        "{$type}_birth_place",
+                        "{$type}_birth_date",
+                        "{$type}_education",
+                        "{$type}_religion",
+                        "{$type}_profession",
+                        "{$type}_income",
+                        "{$type}_whatsapp_phone",
+                    ]))->mapWithKeys(function ($value, $key) use ($fieldPrefix) {
+                        return [str_replace($fieldPrefix, '', $key) => $value];
+                    })->put('type_parent', ucfirst($type_parent))->toArray();
+                   
+                    StudentParent::updateOrCreate(['user_id' => $user_id, 'type_parent' => ucfirst($type_parent)], $parentData);
+                }
+            }
+
+            return redirect()->back()->with('success', 'Berhasil Merubah data Orang Tua');
         } catch (\Exception $e) {
-            Alert::error('Yah!', 'Maaf ada kesalahan internal.' . $e->getMessage());
+            return $e->getMessage();
+            return redirect()->back()->with('error', 'Maaf ada kesalahan internal.');
         }
-
-        return redirect()->back();
     }
 
     public function storeStudentWali(Request $request)

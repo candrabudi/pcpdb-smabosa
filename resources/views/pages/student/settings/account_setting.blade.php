@@ -56,7 +56,7 @@
                                 <label class="form-label" for="user_phone_house">Nomor Telp Rumah</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
-                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? old('user_phone_house')}}" required />
+                                    <input type="number" id="user_phone_house" name="user_phone_house" class="form-control" value="{{$student_detail->phone_house ?? old('user_phone_house')}}" />
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">

@@ -30,7 +30,6 @@ class AuthController extends Controller
                 'user_whatsapp_phone' => 'required|numeric', 
                 'user_address' => 'required',
                 'user_school_name' => 'required', 
-                'user_school_phone' => 'required|numeric',
                 'user_school_address' => 'required',
             ];
     

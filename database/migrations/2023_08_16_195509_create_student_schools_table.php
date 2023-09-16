@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('school_name');
-            $table->string('school_phone');
+            $table->string('school_phone')->nullable();
             $table->string('school_address');
             $table->timestamps();
         });

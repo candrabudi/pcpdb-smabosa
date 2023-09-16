@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sd_certificate');
             $table->string('smp_certificate');
             $table->string('birth_certificate');
+            $table->string('student_achievement')->nullable();
             $table->string('family_card');
             $table->string('pas_photo');
             $table->string('signature');
