@@ -14,6 +14,10 @@ class AuthController extends Controller
     {
         return view('admin.auth.login');
     }
+    public function viewReset()
+    {
+        return view('admin.auth.reset');
+    }
     public function processLogin(Request $request)
     {
         try{

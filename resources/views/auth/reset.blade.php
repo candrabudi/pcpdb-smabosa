@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login Peserta Didik | SMABOSA</title>
+    <title>Lupa Password Peserta Didik | SMABOSA</title>
 
     <meta name="description" content="" />
 
@@ -48,26 +48,25 @@
 
             <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
                 <div class="w-px-400 mx-auto">
-                    <h3 class="mb-1 fw-bold">Selamat Datang Peserta PCPDB SMA BOPKRI 1 Yogyakarta! 👋</h3>
-                    <p class="mb-4">Masuk Untuk Check Data Diri dan Update Terbaru</p>
-                    @error('nisn')
-                        <div class="alert alert-danger" role="alert">{{$message}}</div>
-                    @enderror
-                    @error('email')
-                        <div class="alert alert-danger" role="alert">{{$message}}</div>
-                    @enderror
-                    @error('password')
-                        <div class="alert alert-danger" role="alert">{{$message}}</div>
-                    @enderror
-                    @error('error')
-                        <div class="alert alert-danger" role="alert">{{$message}}</div>
-                    @enderror
-                    <form id="formAuthentication" class="mb-3" action="{{route('student.login')}}" method="POST">
+                    <h3 class="mb-1 fw-bold">Hallo, Lupa Password ?👋</h3>
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <p class="mb-2">{{ session('success') }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <p class="mb-2">{{ session('error') }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    <form class="mb-3" action="{{route('student.auth.process.reset')}}" method="POST">
                         @csrf
-                        <!-- <div class="mb-3">
+                        <div class="mb-3">
                             <label for="nisn" class="form-label">Nisn</label>
-                            <input type="text" class="form-control login-nisn" id="nisn" name="nisn" placeholder="Masukan NISN kamu" autofocus maxlength="15"/>
-                        </div> -->
+                            <input type="text" class="form-control login-nisn" id="nisn" name="nisn" placeholder="Masukan NISN kamu" autofocus maxlength="15" />
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Masukan Email kamu" autofocus />
@@ -75,16 +74,14 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
-                                <a href="{{route('student.auth.reset')}}" class="text-danger">Lupa Password ?</a>
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-primary d-grid w-100">Masuk</button>
-                        <a href="{{route('register')}}" class="text-primary mt-3" style="margin-top: 10px; display: block;">Belum punya akun ?</a>
-                        
+                        <button class="btn btn-primary d-grid w-100">Reset Password</button>
+                        <a href="{{route('login')}}" class="text-primary" style="margin-top: 10px; display: block;">Login ?</a>
                     </form>
 
                 </div>

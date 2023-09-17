@@ -34,6 +34,8 @@ Route::group(['prefix' => 'bosa'], function($router){
 Route::group(['prefix' => 'student'], function($router){
     $router->post('/register', [AuthController::class, 'studentRegister'])->name('student.register');
     $router->post('/login', [AuthController::class, 'studentLogin'])->name('student.login');
+    $router->get('/reset', [AuthController::class, 'viewReset'])->name('student.auth.reset');
+    $router->post('/reset', [AuthController::class, 'resetPassword'])->name('student.auth.process.reset');
 });
 
 

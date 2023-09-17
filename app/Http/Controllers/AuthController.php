@@ -165,4 +165,35 @@ class AuthController extends Controller
             'nomor_student' => $nomor_student,
         );
     }
+
+    public function viewReset()
+    {
+        return view('auth.reset');
+    }
+
+    public function resetPassword(Request $request){
+        $user = User::where('email', $request->email)
+            ->where('nisn', $request->nisn)
+            ->join('students as s', 's.user_id', '=', 'users.id')
+            ->first();
+        if(!$user){
+            return redirect()
+                ->back()
+                ->with('error', 'Maaf tidak ada akun tersebut');
+        }
+        if(!$request->password){
+            return redirect()
+                ->back()
+                ->with('error', 'Mohon masukan password');
+        }
+        User::where('email', $request->email)
+            ->where('nisn', $request->nisn)
+            ->join('students as s', 's.user_id', '=', 'users.id')
+            ->update([
+                'password' => bcrypt($request->password)
+            ]);
+        return redirect()
+            ->back()
+            ->with('success', 'Berhasil Mengganti Password');
+    }
 }
