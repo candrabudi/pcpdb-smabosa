@@ -58,6 +58,7 @@
                                 <th>Nama Lengkap</th>
                                 <th>Nomor Whatsapp</th>
                                 <th>Status</th>
+                                <th>File</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -96,7 +97,26 @@
                     data: 'whatsapp_phone'
                 },
                 {
-                    data: 'status'
+                    data: 'status',
+                    render: function(status, type, row){
+                        if(status == "diterima"){
+                            return '<span class="badge bg-label-success">Diterima</span>'
+                        }else if(status == "ditolak"){
+                            return '<span class="badge bg-label-danger">Ditolak</span>'
+                        }else{
+                            return '<span class="badge bg-label-warning">Daftar</span>'
+                        }
+                    }
+                },
+                {
+                    data: 'file_path',
+                    render: function(file_path, type, row){
+                        if(row.is_file == true){
+                            return "<a href="+ file_path +" class='btn btn-primary btn-sm'>Download</a>"
+                        }else{
+                            return '<span class="badge bg-label-dark">Tidak ada file</span>'
+                        }
+                    } 
                 },
                 {
                     data: 'id',

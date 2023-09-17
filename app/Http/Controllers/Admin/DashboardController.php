@@ -56,6 +56,8 @@ class DashboardController extends Controller
                 'registration_number' => $new['registration_number'],
                 'whatsapp_phone' => $new['whatsapp_phone'],
                 'status' => $new['status'],
+                'is_file' => $new['file_path'] ? true : false,
+                'file_path' => asset('storage/'.$new['file_path'])
             ]; 
         }, $students);
         
