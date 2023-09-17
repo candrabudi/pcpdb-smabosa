@@ -340,9 +340,9 @@ class DashboardController extends Controller
             'student_school' => $student_school ? true : false,
             'student_father' => $student_father ? true : false,
             'student_mother' => $student_mother ? true : false,
-            'student_parents' => count($student_parents) > 1 ? true : false,
-            'student_scores' => count($student_scores) >= 2 ? true : false, 
-            'student_presences' => count($student_presences) >=  2 ? true : false,
+            'student_parents' => count($student_parents) > 0 ? true : false,
+            'student_scores' => count($student_scores) > 1 ? true : false, 
+            'student_presences' => count($student_presences) >  1 ? true : false,
             'student_document' => $student_document ?  true : false,
             'student_detail' => $student_detail ?  true : false,
         );
