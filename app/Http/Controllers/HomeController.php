@@ -111,14 +111,14 @@ class HomeController extends Controller
     {
         $data_validation = $this->checkDataStudent();
 
-        // if(!$data_validation['student'] || !$data_validation['student_school']
-        // || !$data_validation['student_parents'] || !$data_validation['student_father']
-        // || !$data_validation['student_mother'] || !$data_validation['student_presences']
-        // || !$data_validation['student_scores'] || !$data_validation['student_document']
-        // || !$data_validation['student_detail']){
-        //     Alert::error('Yah!', 'Maaf gagal download, silahkan lengkapi data diri kamu.');
-        //     return redirect()->route('dashboard');
-        // }
+        if(!$data_validation['student'] || !$data_validation['student_school']
+        || !$data_validation['student_parents'] || !$data_validation['student_presences']
+        || !$data_validation['student_scores'] || !$data_validation['student_document']
+        || !$data_validation['student_detail']){
+            return redirect()
+                ->route('dashboard')
+                ->with('error', 'Maaf gagal download, silahkan lengkapi data diri kamu.');
+        }
         $user = Auth::user();
         $siswa = Student::where('user_id', $user->id)->first();
         $data = array(

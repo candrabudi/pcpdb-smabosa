@@ -36,14 +36,13 @@
         }
 
         .header .head-text {
-            width: 50%;
+            width: 60%;
             float: left;
         }
 
-        .header .head-text .text-1 h1 {
+        .header .head-text .text-1 h1, h2 {
             font-size: 16px;
             font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
         }
 
         .header .head-text .text-2 h1 {
@@ -53,10 +52,13 @@
         }
 
         .header .number-head {
-            width: 34%;
+            border: 2px solid #000;
+            width: 20%;
+            text-align: center;
             float: left;
             font-size: 12px;
-            height: 110px;
+            /* height: 110px; */
+            margin-top: 30px;
             box-sizing: border-box;
         }
 
@@ -267,39 +269,22 @@
 
 <body>
     <header class="header">
-        <div class="logo border">
+        <div class="logo">
             <img src="https://yt3.ggpht.com/ytc/AMLnZu9hzIz9yT5ReA7X4MBAL1RYxhXrhO1t84_JijHZxg=s900-c-k-c0x00ffffff-no-rj" alt="">
         </div>
-        <div class="head-text border">
+        <div class="head-text">
             <div class="text-1">
-                <h1 class="mt-3" style="text-align: center;">SMA BOPKRI 1 YOGYAKARTA</h1>
-            </div>
-            <hr>
-            <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
+                <p class="mt-2" style="font-weight: 300; font-family: Arial, Helvetica, sans-serif">SMA BOPKRI 1 YOGYAKARTA</p>
+                <h2>FORMULIR PENDAFTARAN PCPDB</h2>
+                <h2>TAHUN PELAJARAN 2024 – 2025</h2>
             </div>
         </div>
-        <div class="number-head border">
-            <table width="100%">
-                <tr>
-                    <th>NO. DOKUMEN</th>
-                    <td>: FM. SMABOSA/SIS-</td>
-                </tr>
-                <tr>
-                    <th>NO. REVISI</th>
-                    <td>: 00</td>
-                </tr>
-                <tr>
-                    <th>TGL. TERBIT</th>
-                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
-                </tr>
-                <tr>
-                    <th>HALAMAN</th>
-                    <td>: 1 dari 3</td>
-                </tr>
-            </table>
+        <div class="number-head">
+            <p>FM.SMABOSA/SIS-01</p>
+            <p style="display: block; margin-top: -10px">Halaman : 1 dari 3</p>
         </div>
     </header>
+    <hr style="height: 2px; margin-top: -10px; background #000">
 
     <section class="header-register">
         <div class="box-1">
@@ -512,39 +497,22 @@
     <div class="page-break"></div>
 
     <header class="header">
-        <div class="logo border">
+        <div class="logo">
             <img src="https://yt3.ggpht.com/ytc/AMLnZu9hzIz9yT5ReA7X4MBAL1RYxhXrhO1t84_JijHZxg=s900-c-k-c0x00ffffff-no-rj" alt="">
         </div>
-        <div class="head-text border">
+        <div class="head-text">
             <div class="text-1">
-                <h1 class="mt-3" style="text-align: center;">SMA BOPKRI 1 YOGYAKARTA</h1>
-            </div>
-            <hr>
-            <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
+                <p class="mt-2" style="font-weight: 300; font-family: Arial, Helvetica, sans-serif">SMA BOPKRI 1 YOGYAKARTA</p>
+                <h2>FORMULIR PENDAFTARAN PCPDB</h2>
+                <h2>TAHUN PELAJARAN 2024 – 2025</h2>
             </div>
         </div>
-        <div class="number-head border">
-            <table width="100%">
-                <tr>
-                    <th>NO. DOKUMEN</th>
-                    <td>: FM. SMABOSA/SIS-</td>
-                </tr>
-                <tr>
-                    <th>NO. REVISI</th>
-                    <td>: 00</td>
-                </tr>
-                <tr>
-                    <th>TGL. TERBIT</th>
-                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
-                </tr>
-                <tr>
-                    <th>HALAMAN</th>
-                    <td>: 2 dari 3</td>
-                </tr>
-            </table>
+        <div class="number-head">
+            <p>FM.SMABOSA/SIS-01</p>
+            <p style="display: block; margin-top: -10px">Halaman : 2 dari 3</p>
         </div>
     </header>
+    <hr style="height: 2px; margin-top: -10px; background #000">
 
     <section class="biodata">
         <h1>C. DATA ORANG TUA / WALI CALON PESERTA DIDIK</h1>
@@ -556,7 +524,7 @@
                     <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->parent_name}}</h2>
+                    <h2 style="font-size: 12px;">: {{$$wali ? $wali->parent_name : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -564,7 +532,7 @@
                     <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->birth_place}}, {{tanggal_indonesia($wali->birth_date)}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali ? $wali->birth_place : ''}}, {{$wali ? tanggal_indonesia($wali->birth_date) : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -572,7 +540,7 @@
                     <h2 style="font-size: 12px;">c. Agama</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->religion}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali ? $wali->religion : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -580,7 +548,7 @@
                     <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->education}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali ? $wali->education : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -588,7 +556,7 @@
                     <h2 style="font-size: 12px;">e. Pekerjaan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->profession}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali ? $wali->profession : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -596,7 +564,7 @@
                     <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$wali->income}}</h2>
+                    <h2 style="font-size: 12px;">: {{$wali ? $wali->income : ''}}</h2>
                 </div>
             </div>
         @else
@@ -606,7 +574,7 @@
                     <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->parent_name}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah ? $ayah->parent_name : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -614,7 +582,7 @@
                     <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->birth_place}}, {{tanggal_indonesia($ayah->birth_date)}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah ? $ayah->birth_place : ''}}, {{$ayah ? tanggal_indonesia($ayah->birth_date) : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -622,7 +590,7 @@
                     <h2 style="font-size: 12px;">c. Agama</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->religion}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah ? $ayah->religion : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -630,7 +598,7 @@
                     <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->education}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah->education ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -638,7 +606,7 @@
                     <h2 style="font-size: 12px;">e. Pekerjaan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->profession}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah->profession ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -646,7 +614,7 @@
                     <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ayah->income}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ayah->income ?? ''}}</h2>
                 </div>
             </div>
 
@@ -656,7 +624,7 @@
                     <h2 style="font-size: 12px;">a. Nama Lengkap</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ibu->parent_name}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ibu->parent_name ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -664,7 +632,7 @@
                     <h2 style="font-size: 12px;">b. Tempat /Tgl. Lahir</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">{{$ibu->birth_place}}, {{tanggal_indonesia($ibu->birth_date)}}</h2>
+                    <h2 style="font-size: 12px;">{{$ibu->birth_place ?? ''}}, {{$ibu ? tanggal_indonesia($ibu->birth_date) : ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -672,7 +640,7 @@
                     <h2 style="font-size: 12px;">c. Agama</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ibu->religion}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ibu->religion ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -680,7 +648,7 @@
                     <h2 style="font-size: 12px;">d. Pendidikan *)</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ibu->education}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ibu->education ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -688,7 +656,7 @@
                     <h2 style="font-size: 12px;">e. Pekerjaan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ibu->profession}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ibu->profession ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -696,7 +664,7 @@
                     <h2 style="font-size: 12px;">f. Penghasilan / bulan</h2>
                 </div>
                 <div class="right">
-                    <h2 style="font-size: 12px;">: {{$ibu->income}}</h2>
+                    <h2 style="font-size: 12px;">: {{$ibu->income ?? ''}}</h2>
                 </div>
             </div>
             <div class="box-biodata" style="margin-left: 20px;margin-top: -10px;top: -30px;">
@@ -756,39 +724,22 @@
 
     <div class="page-break"></div>
     <header class="header">
-        <div class="logo border">
+        <div class="logo">
             <img src="https://yt3.ggpht.com/ytc/AMLnZu9hzIz9yT5ReA7X4MBAL1RYxhXrhO1t84_JijHZxg=s900-c-k-c0x00ffffff-no-rj" alt="">
         </div>
-        <div class="head-text border">
+        <div class="head-text">
             <div class="text-1">
-                <h1 class="mt-3" style="text-align: center;">SMA BOPKRI 1 YOGYAKARTA</h1>
-            </div>
-            <hr>
-            <div class="text-2">
-                <h1 style="font-size: 14px; text-align: center;">FORMULIR PENDAFTARAN PCPDB TAHUN PELAJARAN {{$tahun_sekolah->name}}</h1>
+                <p class="mt-2" style="font-weight: 300; font-family: Arial, Helvetica, sans-serif">SMA BOPKRI 1 YOGYAKARTA</p>
+                <h2>FORMULIR PENDAFTARAN PCPDB</h2>
+                <h2>TAHUN PELAJARAN 2024 – 2025</h2>
             </div>
         </div>
-        <div class="number-head border">
-            <table width="100%">
-                <tr>
-                    <th>NO. DOKUMEN</th>
-                    <td>: FM. SMABOSA/SIS-</td>
-                </tr>
-                <tr>
-                    <th>NO. REVISI</th>
-                    <td>: 00</td>
-                </tr>
-                <tr>
-                    <th>TGL. TERBIT</th>
-                    <td>: {{tanggal_indonesia(\Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}</td>
-                </tr>
-                <tr>
-                    <th>HALAMAN</th>
-                    <td>: 2 dari 3</td>
-                </tr>
-            </table>
+        <div class="number-head">
+            <p>FM.SMABOSA/SIS-01</p>
+            <p style="display: block; margin-top: -10px">Halaman : 3 dari 3</p>
         </div>
     </header>
+    <hr style="height: 2px; margin-top: -10px; background #000">
     <footer style="margin-top: 200px;">
         <div class="signature">
             <div class="left">

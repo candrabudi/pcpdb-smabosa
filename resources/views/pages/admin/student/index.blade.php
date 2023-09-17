@@ -6,6 +6,12 @@ Detail Peserta Didik
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Peserta Didik /</span> Profile
     </h4>
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <p class="mb-2">{{ session('error') }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     @include('pages.components.dashboard.header')
     <div class="row">
         <div class="col-md-12">
@@ -16,6 +22,7 @@ Detail Peserta Didik
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->birth_certificate ? asset('storage/' . $student_document->birth_certificate) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Akta Kelahiran</a>
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->family_card ? asset('storage/' . $student_document->family_card) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Kartu Keluarga</a>
                 <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ $student_document && $student_document->signature ? asset('storage/' . $student_document->signature) : '' }}" download><i class="ti-xs ti ti-file me-1"></i> Tanda Tangan</a>
+                <a class="btn btn-primary btn-sm" style="margin-right: 10px;" href="{{ route('admin.formulir', $student_document->user_id) }}"><i class="ti-xs ti ti-file me-1"></i> Download Formulir</a>
             </ul>
             oad><i class="ti-xs ti ti-file me-1"></i> Tanda Tangan</a>
             </ul>

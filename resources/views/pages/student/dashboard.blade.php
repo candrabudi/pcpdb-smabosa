@@ -3,35 +3,43 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
+        @if(session('error'))
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <span class="alert-icon text-danger me-2">
+                <i class="ti ti-x ti-xs"></i>
+            </span>
+            {{session('error')}}
+        </div>
+        @endif
         @if(Auth::user()->student->status == "diterima")
-            <div class="alert alert-success d-flex align-items-center" role="alert">
-                <span class="alert-icon text-success me-2">
-                    <i class="ti ti-check ti-xs"></i>
-                </span>
-                Selamat Kamu Diterima di SMA BOPKRI 1 YOGYAKARTA
-            </div>
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <span class="alert-icon text-success me-2">
+                <i class="ti ti-check ti-xs"></i>
+            </span>
+            Selamat Kamu Diterima di SMA BOPKRI 1 YOGYAKARTA
+        </div>
         @endif
 
         @if(Auth::user()->student->status == "ditolak")
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <span class="alert-icon text-danger me-2">
-                    <i class="ti ti-ban ti-xs"></i>
-                </span>
-                Maaf, Sayangnya Kamu Tidak Diterima di SMA BOPKRI 1 YOGYAKARTA
-            </div>
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <span class="alert-icon text-danger me-2">
+                <i class="ti ti-ban ti-xs"></i>
+            </span>
+            Maaf, Sayangnya Kamu Tidak Diterima di SMA BOPKRI 1 YOGYAKARTA
+        </div>
         @endif
 
         @if(Auth::user()->student->status == "daftar")
-            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                <span class="alert-icon text-danger me-2">
-                    <i class="ti ti-bell ti-xs"></i>
-                </span>
-                Kamu Berhasil Mendaftar, Yuk Ikuti Update Mengenai Penerimaan Peserta Didik Baru
-            </div>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <span class="alert-icon text-danger me-2">
+                <i class="ti ti-bell ti-xs"></i>
+            </span>
+            Kamu Berhasil Mendaftar, Yuk Ikuti Update Mengenai Penerimaan Peserta Didik Baru
+        </div>
         @endif
     </div>
     <div class="row">
-        <div class="col-xl-4 mb-4 col-lg-5 col-12">
+        <div class="col-xl-6 mb-6 col-lg-6 col-12">
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-7">
@@ -45,6 +53,11 @@
                                 <a href="{{route('student_formulir')}}" class="btn btn-info btn-sm">
                                     Download Formulir
                                 </a>
+                                @if(Auth::user()->student->status == "diterima" || Auth::user()->student->status == "ditolak")
+                                <a href="{{asset('storage/'.Auth::user()->student->file_path)}}" class="btn btn-primary btn-sm">
+                                    Download Lembar Kesepakatan
+                                </a>
+                                @endif
                             </div>
                         </div>
                     </div>

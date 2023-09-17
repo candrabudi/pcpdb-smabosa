@@ -75,6 +75,7 @@ Route::group(['prefix' => 'bosa/admin'], function($router) {
     $router->post('/broadcast/update/{id}', [DashboardController::class, 'updateBroadcast'])->name('admin.broadcast.update');
     $router->post('/broadcast/delete/{id}', [DashboardController::class, 'deleteBroadcast'])->name('admin.broadcast.delete');
     $router->group(['prefix' => 'siswa'], function($router){
+        $router->get('/siswa/formulir/{id}', [DashboardController::class, 'downloadFormulir'])->name('admin.formulir');
         $router->get('/datatable', [DashboardController::class, 'datatable'])->name('admin.student.datatable');
         $router->get('/detail/{id}', [DashboardController::class, 'detailStudent'])->name('admin.student.detail');
         $router->get('/edit/{id}', [DashboardController::class, 'editStudent'])->name('admin.student.edit');
