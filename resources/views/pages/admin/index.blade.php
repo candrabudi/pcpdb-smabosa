@@ -112,7 +112,7 @@
                     data: 'file_path',
                     render: function(file_path, type, row){
                         if(row.is_file == true){
-                            return "<a href="+ file_path +" class='btn btn-primary btn-sm'>Download</a>"
+                            return "<a href="+ file_path +" class='btn btn-primary btn-sm' download>Download</a>"
                         }else{
                             return '<span class="badge bg-label-dark">Tidak ada file</span>'
                         }

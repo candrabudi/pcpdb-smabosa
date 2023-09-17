@@ -125,7 +125,7 @@ class DashboardController extends Controller
             ->first();
         if ($request->hasFile('file')) {
             $uploadedFile = $request->file('file');
-            $customFileName = $user_student->full_name.'_status_'.$request->status.'.' .$uploadedFile->getClientOriginalExtension();
+            $customFileName =str_replace(' ', '_', strtolower($user_student->full_name)).'_status_'.$request->status.'.' .$uploadedFile->getClientOriginalExtension();
             $documentPaths = $uploadedFile->storeAs('file_status', $customFileName, 'public');
 
             Student::where('id', $id)
@@ -340,9 +340,9 @@ class DashboardController extends Controller
             'student_school' => $student_school ? true : false,
             'student_father' => $student_father ? true : false,
             'student_mother' => $student_mother ? true : false,
-            'student_parents' => count($student_parents) == 2 ? true : false,
-            'student_scores' => count($student_scores) == 3 ? true : false, 
-            'student_presences' => count($student_presences) ==  3 ? true : false,
+            'student_parents' => count($student_parents) > 1 ? true : false,
+            'student_scores' => count($student_scores) >= 2 ? true : false, 
+            'student_presences' => count($student_presences) >=  2 ? true : false,
             'student_document' => $student_document ?  true : false,
             'student_detail' => $student_detail ?  true : false,
         );
