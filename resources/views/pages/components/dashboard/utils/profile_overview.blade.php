@@ -6,7 +6,7 @@
             <li class="d-flex align-items-center mb-3">
                 <i class="ti ti-certificate-2"></i><span class="fw-bold mx-2">
                 {{
-                    ($ss->type_class == "seven") ? "Sakit Kelas 7" : 
+                    ($ss->type_class == "seven") ? "Kelas 7" : 
                         (($ss->type_class == "eight") ? "Kelas 8" : 
                             (($ss->type_class == "nine") ? "Kelas 9" : "" ))
                 }}    

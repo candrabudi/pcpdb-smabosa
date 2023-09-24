@@ -52,7 +52,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>No Regis</th>
+                                <th>No On</th>
+                                <th>No Off</th>
                                 <th>NISN</th>
                                 <th>Email</th>
                                 <th>Nama Lengkap</th>
@@ -83,6 +84,9 @@
                 },
                 {
                     data: 'registration_number'
+                },
+                {
+                    data: 'registration_number_offline'
                 },
                 {
                     data: 'nisn'

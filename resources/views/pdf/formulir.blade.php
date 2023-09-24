@@ -293,7 +293,7 @@
         </div>
         <div class="box-2">
             @if($siswa_dokumen->pas_photo)
-            <h1><img src="{{public_path('storage/'.$siswa_dokumen->pas_photo)}}" style="width: 100px;"></h1>
+            <h1><img src="{{public_path('storage/'.$siswa_dokumen->pas_photo)}}" style="width: 100px;max-height: 130px;"></h1>
             @else
             <h1><img src="" style="width: 100px;"></h1>
             @endif

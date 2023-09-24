@@ -18,6 +18,11 @@
                             <div class="mb-3 col-md-6">
                                 <label for="{{ $document }}" class="form-label">{{ documentLabel($document) }}</label>
                                 <input class="form-control" type="file" accept="{{ documentAccept($document) }}" id="{{ $document }}" name="{{ $document }}" />
+                                @if($student_document->$document)
+                                <label class="mt-2"><span class="text-danger">Sudah Upload </span>{{$student_document->$document}}</label>
+                                @else
+                                <label for="" class="text-danger mt-2">Belum Upload</label>
+                                @endif
                             </div>
                             @endforeach
                         </div>

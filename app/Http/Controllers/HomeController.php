@@ -140,7 +140,7 @@ class HomeController extends Controller
             'tahun_sekolah' => SchoolYear::where('id', $siswa->school_year_id)->first(),
         );
         $pdf = PDF::loadView('pdf.formulir', $data);
-        // return $pdf->stream('preview.pdf');
+        return $pdf->stream('preview.pdf');
         return $pdf->download(str_replace(' ', '_', strtolower($user->full_name)).'.pdf');
     }
 }

@@ -55,6 +55,7 @@ class DashboardController extends Controller
                 'full_name' => $new['full_name'],
                 'nisn' => $new['nisn'],
                 'registration_number' => $new['registration_number'],
+                'registration_number_offline' => $new['registration_number_offline'],
                 'whatsapp_phone' => $new['whatsapp_phone'],
                 'status' => $new['status'],
                 'is_file' => $new['file_path'] ? true : false,
