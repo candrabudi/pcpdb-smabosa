@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('sd_certificate');
-            $table->string('smp_certificate');
+            $table->string('rapor_smp');
             $table->string('birth_certificate');
             $table->string('student_achievement')->nullable();
             $table->string('family_card');

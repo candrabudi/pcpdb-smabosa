@@ -17,7 +17,7 @@ class DocumentController extends Controller
             $user = Auth::user();
             $user_name = str_replace(' ', '_', strtolower($user->full_name));
 
-            $documentFields = ['sd_certificate', 'smp_certificate', 'birth_certificate', 'family_card', 'pas_photo', 'signature'];
+            $documentFields = ['sd_certificate', 'rapor_smp', 'smp_certificate','birth_certificate', 'family_card', 'pas_photo', 'signature'];
             $documentPaths = [];
 
             foreach ($documentFields as $field) {
@@ -41,6 +41,7 @@ class DocumentController extends Controller
                 $document = new StudentDocument([
                     'user_id' => $user->id,
                     'sd_certificate' => $documentPaths['sd_certificate'] ?? '',
+                    'rapor_smp' => $documentPaths['rapor_smp'] ?? '',
                     'smp_certificate' => $documentPaths['smp_certificate'] ?? '',
                     'birth_certificate' => $documentPaths['birth_certificate'] ?? '',
                     'family_card' => $documentPaths['family_card'] ?? '',

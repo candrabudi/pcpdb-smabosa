@@ -14,12 +14,12 @@
                     <hr class="my-0" />
                     <div class="card-body">
                         <div class="row">
-                            @foreach(['sd_certificate', 'smp_certificate', 'birth_certificate', 'family_card', 'signature', 'student_achievement'] as $document)
+                            @foreach(['sd_certificate', 'rapor_smp', 'birth_certificate', 'family_card', 'student_achievement'] as $document)
                             <div class="mb-3 col-md-6">
                                 <label for="{{ $document }}" class="form-label">{{ documentLabel($document) }}</label>
                                 <input class="form-control" type="file" accept="{{ documentAccept($document) }}" id="{{ $document }}" name="{{ $document }}" />
                                 @if($student_document->$document)
-                                <label class="mt-2"><span class="text-danger">Sudah Upload </span>{{$student_document->$document}}</label>
+                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->$document}}</label>
                                 @else
                                 <label for="" class="text-danger mt-2">Belum Upload</label>
                                 @endif
@@ -36,6 +36,28 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <form id="formValidationExamples" method="POST" action="{{ route('setting_document') }}" enctype="multipart/form-data">
+                    @csrf
+                    <h5 class="card-header"><b>Ijazah SMP</b> Scan rapor lengkap dengan identitas peserta didik.</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <input class="form-control" type="file" accept="smp_certificate" id="smp_certificate" name="smp_certificate" />
+                                @if($student_document->smp_certificate)
+                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->smp_certificate}}</label>
+                                @else
+                                <label for="" class="text-danger mt-2">Belum Upload</label>
+                                @endif
+                            </div>
+                        </div>
+                        <button type="submit" id="submit-button" class="btn btn-primary me-2">Unggah Ijazah</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -63,6 +85,11 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <input class="form-control" type="file" accept="pas_photo" id="pas_photo" name="pas_photo" />
+                                @if($student_document->pas_photo)
+                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->pas_photo}}</label>
+                                @else
+                                <label for="" class="text-danger mt-2">Belum Upload</label>
+                                @endif
                             </div>
                         </div>
                         <button type="submit" id="submit-button" class="btn btn-primary me-2">Unggah Foto</button>
@@ -79,12 +106,11 @@ function documentLabel($document)
 {
     $labels = [
         'sd_certificate' => 'Upload Ijazah SD (halaman depan dan belakang), Format: Image/Pdf* (max 2mb)',
-        'smp_certificate' => 'Softcopy Raport SMP (dari halaman depan), Format: Image/Pdf* (max 2mb)',
+        'rapor_smp' => 'Softcopy Raport SMP (dari halaman depan), Format: Image/Pdf* (max 2mb)',
         'birth_certificate' => 'Upload Akta Kelahiran, Format: Image/Pdf* (max 2mb)',
         'student_achievement' => 'Upload Prestasi, Format: Image/Pdf (Opsional) (max 2mb)',
         'family_card' => 'Upload Kartu Keluarga, Format: Image/Pdf* (max 2mb)',
         'pas_photo' => 'Pas Foto, Format: Image* (max 2mb)',
-        'signature' => 'Tanda Tangan, Format: Image/Pdf* (max 2mb)',
     ];
     return $labels[$document] ?? '';
 }

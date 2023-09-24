@@ -12,7 +12,7 @@ class StudentDocument extends Model
     protected $fillable = [
         'user_id',
         'sd_certificate',
-        'smp_certificate', 
+        'rapor_smp', 
         'birth_certificate',
         'family_card', 
         'pas_photo', 
