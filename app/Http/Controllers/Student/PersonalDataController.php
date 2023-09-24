@@ -47,8 +47,8 @@ class PersonalDataController extends Controller
 
             $student_detail = StudentDetail::firstOrNew(['user_id' => $user->id]);
             $detailFields = ['phone_house', 'parent_address'];
-            if($student_detail->parent_address === false){
-                if($request->parent_address == null){
+            if(!$student_detail->parent_address){
+                if($request->user_parent_address == null){
                     DB::rollback();
                     return redirect()
                         ->back()
@@ -72,6 +72,7 @@ class PersonalDataController extends Controller
                 ->back()
                 ->with('success', 'Berhasil merubah informasi peserta didik');
         } catch (\Exception $e) {
+            return $e->getMessage();
             DB::rollback();
             return redirect()
                 ->back()

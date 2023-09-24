@@ -19,6 +19,7 @@ use Auth;
 use Validator;
 use Storage;
 use DB;
+use PDF;
 class DashboardController extends Controller
 {
     public function index()
@@ -306,33 +307,33 @@ class DashboardController extends Controller
         }
     }
 
-    private function checkDataStudent()
+    private function checkDataStudent($id)
     {
-        $user = Auth::user();
+
         $student = Student::select('id')
-            ->where('user_id', $user->id)
+            ->where('user_id', $id)
             ->first();
         $student_school = StudentSchool::select('id')
-            ->where('user_id', $user->id)
+            ->where('user_id', $id)
             ->whereNotNull(['school_name', 'school_address', 'school_phone'])
             ->first();
         $student_parents = StudentParent::select('id')
-            ->where('user_id', $user->id)
+            ->where('user_id', $id)
             ->get();
-        $student_father = StudentParent::where('user_id', $user->id)
+        $student_father = StudentParent::where('user_id', $id)
             ->where('type_parent', 'Ayah')
             ->first();
-        $student_mother = StudentParent::where('user_id', $user->id)
+        $student_mother = StudentParent::where('user_id', $id)
             ->where('type_parent', 'Ibu')
             ->first();
-        $student_scores = StudentScore::where('user_id', $user->id)
+        $student_scores = StudentScore::where('user_id', $id)
             ->get();
-        $student_presences = StudentPresence::where('user_id', $user->id)
+        $student_presences = StudentPresence::where('user_id', $id)
             ->get();
-        $student_document = StudentDocument::where('user_id', $user->id)
+        $student_document = StudentDocument::where('user_id', $id)
             ->first();
         $student_detail = StudentDetail::select('id')
-            ->where('user_id', $user->id)
+            ->where('user_id', $id)
             ->first();
 
         $data_validation = array(
@@ -341,8 +342,8 @@ class DashboardController extends Controller
             'student_father' => $student_father ? true : false,
             'student_mother' => $student_mother ? true : false,
             'student_parents' => count($student_parents) > 0 ? true : false,
-            'student_scores' => count($student_scores) > 1 ? true : false, 
-            'student_presences' => count($student_presences) >  1 ? true : false,
+            'student_scores' => count($student_scores) > 0 ? true : false, 
+            'student_presences' => count($student_presences) >  0 ? true : false,
             'student_document' => $student_document ?  true : false,
             'student_detail' => $student_detail ?  true : false,
         );
@@ -352,7 +353,7 @@ class DashboardController extends Controller
 
     public function downloadFormulir($id)
     {
-        $data_validation = $this->checkDataStudent();
+        $data_validation = $this->checkDataStudent($id);
 
         if(!$data_validation['student'] || !$data_validation['student_school']
         || !$data_validation['student_parents'] || !$data_validation['student_presences']
