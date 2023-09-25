@@ -79,6 +79,7 @@ class DashboardController extends Controller
         $student_school = StudentSchool::where('user_id', $user->id)
             ->first();
         $student_parents = StudentParent::where('user_id', $user->id)
+            ->orderby('type_parent', 'ASC')
             ->get();
         $student_scores = StudentScore::where('user_id', $user->id)
             ->get();
