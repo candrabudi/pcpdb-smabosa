@@ -87,7 +87,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-12">
-                                <input class="form-control" type="file" accept="pas_photo" accept="image/png, image/jpg, image/jpeg" id="pas_photo" name="pas_photo" />
+                                <input class="form-control" type="file" accept="image/png, image/jpg, image/jpeg" id="pas_photo" name="pas_photo" />
                                 @if(isset($student_document->pas_photo))
                                     <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->pas_photo}}</label>
                                 @else
