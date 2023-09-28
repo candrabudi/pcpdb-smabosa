@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Infor Dokumen Peserta Didik')
+
+@section('title', 'Info Dokumen Peserta Didik')
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> Dokumen Peserta Didik</h4>
@@ -7,6 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             @include('pages.components.account_setting.account_pills')
+
             <div class="card mb-4">
                 <form id="formValidationExamples" method="POST" action="{{ route('setting_document') }}" enctype="multipart/form-data">
                     @csrf
@@ -15,15 +18,15 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach(['sd_certificate', 'rapor_smp', 'birth_certificate', 'family_card', 'student_achievement'] as $document)
-                            <div class="mb-3 col-md-6">
-                                <label for="{{ $document }}" class="form-label">{{ documentLabel($document) }}</label>
-                                <input class="form-control" type="file" accept="{{ documentAccept($document) }}" id="{{ $document }}" name="{{ $document }}" />
-                                @if($student_document->$document)
-                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->$document}}</label>
-                                @else
-                                <label for="" class="text-danger mt-2">Belum Upload</label>
-                                @endif
-                            </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="{{ $document }}" class="form-label">{{ documentLabel($document) }}</label>
+                                    <input class="form-control" type="file" accept="{{ documentAccept($document) }}" id="{{ $document }}" name="{{ $document }}" />
+                                    @if($student_document)
+                                        <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->$document}}</label>
+                                    @else
+                                        <label for="" class="text-danger mt-2">Belum Upload</label>
+                                    @endif
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -47,11 +50,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-12">
-                                <input class="form-control" type="file" accept="smp_certificate" id="smp_certificate" name="smp_certificate" />
-                                @if($student_document->smp_certificate)
-                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->smp_certificate}}</label>
+                                <input class="form-control" type="file" accept="image/*,.pdf" id="smp_certificate" name="smp_certificate" />
+                                @if(isset($student_document->smp_certificate))
+                                    <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->smp_certificate}}</label>
                                 @else
-                                <label for="" class="text-danger mt-2">Belum Upload</label>
+                                    <label for="" class="text-danger mt-2">Belum Upload</label>
                                 @endif
                             </div>
                         </div>
@@ -84,11 +87,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-12">
-                                <input class="form-control" type="file" accept="pas_photo" id="pas_photo" name="pas_photo" />
-                                @if($student_document->pas_photo)
-                                <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->pas_photo}}</label>
+                                <input class="form-control" type="file" accept="pas_photo" accept="image/png, image/jpg, image/jpeg" id="pas_photo" name="pas_photo" />
+                                @if(isset($student_document->pas_photo))
+                                    <label class="mt-2"><span class="text-success">Sudah Upload </span>{{$student_document->pas_photo}}</label>
                                 @else
-                                <label for="" class="text-danger mt-2">Belum Upload</label>
+                                    <label for="" class="text-danger mt-2">Belum Upload</label>
                                 @endif
                             </div>
                         </div>
@@ -102,8 +105,7 @@
 @endsection
 
 @php
-function documentLabel($document)
-{
+function documentLabel($document){
     $labels = [
         'sd_certificate' => 'Upload Ijazah SD (halaman depan dan belakang), Format: Image/Pdf* (max 2mb)',
         'rapor_smp' => 'Softcopy Raport SMP (dari halaman depan), Format: Image/Pdf* (max 2mb)',

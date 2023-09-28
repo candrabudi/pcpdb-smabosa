@@ -40,7 +40,9 @@ class PresenceController extends Controller
                 $permissionField = "{$classType}_permission_one";
                 $alpaField = "{$classType}_alpa_one";
 
-                if ($request->input($sickField) || $request->input($permissionField) || $request->input($alpaField)) {
+                if ($request->input($sickField) !== null && $request->input($sickField) >= 0 || 
+                $request->input($permissionField) !== null && $request->input($permissionField) >= 0 || 
+                $request->input($alpaField) !== null && $request->input($alpaField) >= 0) {
                     $rules = [
                         $sickField => 'required',
                         $permissionField => 'required',
