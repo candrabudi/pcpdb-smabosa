@@ -28,6 +28,7 @@
                 <option value="Protestan">Protestan</option>
                 <option value="Budha">Budha</option>
                 <option value="Hindu">Hindu</option>
+                <option value="Konghucu">Konghucu</option>
             </select>
         </div>
         <div class="col-sm-6">

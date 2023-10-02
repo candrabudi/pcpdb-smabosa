@@ -41,6 +41,7 @@
                     <option value="Protestan" {{optional($parent)->religion == 'Protestan' ? 'selected' : ''}}>Protestan</option>
                     <option value="Budha" {{optional($parent)->religion == 'Budha' ? 'selected' : ''}}>Budha</option>
                     <option value="Hindu" {{optional($parent)->religion == 'Hindu' ? 'selected' : ''}}>Hindu</option>
+                    <option value="Konghucu" {{optional($parent)->religion == 'Konghucu' ? 'selected' : ''}}>Konghucu</option>
                 </select>
             </div>
             <div class="mb-3 col-md-6">
@@ -49,7 +50,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="{{ $parentType }}_income" class="form-label">Pendapatan</label>
-                <input class="form-control" type="number" id="{{ $parentType }}_income" name="{{ $parentType }}_income" value="{{$parent->income ??  old($parentType.'_income')}}" autofocus />
+                <input class="form-control" type="number" id="{{ $parentType }}_income income" onkeydown="return (event.keyCode !== 69 && event.keyCode !== 189)"  name="{{ $parentType }}_income" value="{{$parent->income ??  old($parentType.'_income')}}" autofocus />
             </div>
             <div class="mb-3 col-md-6">
                 <label class="form-label" for="{{ $parentType }}_whatsapp_phone">Nomor Whatsapp</label>
