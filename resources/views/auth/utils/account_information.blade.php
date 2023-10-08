@@ -5,8 +5,8 @@
     </div>
     <div class="row g-3">
         <div class="col-sm-12">
-            <label class="form-label" for="register_number_offline">Nomor Pendaftaran (Jika Sudah Daftar Offline)</label>
-            <input type="text" name="register_number_offline" id="register_number_offline" value="{{ old('register_number_offline') }}" class="form-control" placeholder="Masukan Nomor Pendaftaran Jika Sudah Punya" />
+            <label class="form-label" for="registration_number_offline">Nomor Pendaftaran (Jika Sudah Daftar Offline)</label>
+            <input type="text" name="registration_number_offline" id="registration_number_offline" value="{{ old('registration_number_offline') }}" class="form-control" placeholder="Masukan Nomor Pendaftaran Jika Sudah Punya" />
         </div>
         <div class="col-sm-6">
             <label class="form-label" for="full_name">Nama Lengkap</label>
