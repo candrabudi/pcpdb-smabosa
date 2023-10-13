@@ -317,7 +317,6 @@ class DashboardController extends Controller
             ->first();
         $student_school = StudentSchool::select('id')
             ->where('user_id', $id)
-            ->whereNotNull(['school_name', 'school_address', 'school_phone'])
             ->first();
         $student_parents = StudentParent::select('id')
             ->where('user_id', $id)
